@@ -71,12 +71,5 @@ Route::get('/wishlist', function () {
     return view('client.wishlist');
 })->name('wishlist');
 
-Route::get('/dashboard', function () {
-    return view('admin.index');
-})->name('dashboard');
-
-Route::get('/admin-login', function () {
-    return view('admin.admin-login');
-})->name('admin-login');
 
 
