@@ -70,3 +70,11 @@ Route::get('/wishlist', function () {
     return view('client.wishlist');
 })->name('wishlist');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

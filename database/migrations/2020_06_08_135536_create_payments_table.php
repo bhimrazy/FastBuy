@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->double('amount');
             $table->string('status')->default('pending');
             $table->string('transaction_status')->default('pending');
-            $table->sring('ref_number');
+            $table->string('ref_number');
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('customer_id');
             $table->timestamps();
