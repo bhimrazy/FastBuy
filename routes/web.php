@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     return view('client.index');
 })->name('home');
@@ -69,4 +70,6 @@ Route::get('/faq', function () {
 Route::get('/wishlist', function () {
     return view('client.wishlist');
 })->name('wishlist');
+
+
 
