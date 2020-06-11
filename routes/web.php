@@ -79,7 +79,9 @@ Route::get('/admin-login', function () {
     return view('admin.admin-login');
 })->name('admin-login');
 
-
+Route::resource('tags', 'TagController');
+Route::resource('category', 'CategoryController');
+Route::resource('products', 'ProductController');
 
 Auth::routes();
 
