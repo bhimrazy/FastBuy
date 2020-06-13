@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\ProductRequest;
 use App\Maincategory;
 use App\Media;
@@ -31,7 +32,7 @@ class ProductController extends Controller
     {
         return view('admin.products.create')->with([
             'tags'=> Tag::all(),
-            'maincategories'=>Maincategory::with('productcategories')->get(),
+            'categories'=>Category::all(),
         ]);
     }
 

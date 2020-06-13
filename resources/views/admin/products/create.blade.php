@@ -12,6 +12,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item">Dashboard</li>
                         <li class="breadcrumb-item active">Add Product</li>
                     </ol>
                 </div>
@@ -61,11 +62,8 @@
                                 <label for="inputCategory">Categories</label>
                                 <select name="category_id" class="form-control custom-select">
                                     <option selected disabled>Select one</option>
-                                    @foreach($maincategories as $maincategory)
-                                        <option><p>{{$maincategory->title}}</p></option>
-                                        @foreach($maincategories->productcategories as $category)
-                                            <span><option value="{{$category->id}}">{{$category->title}}</option></span>
-                                        @endforeach
+                                    @foreach($categories as $category)
+                                        <span><option value="{{$category->id}}">{{$category->title}}</option></span>
                                     @endforeach
 
                                 </select>

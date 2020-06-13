@@ -13,6 +13,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item">Dashboard</li>
                             <li class="breadcrumb-item active">Products</li>
                         </ol>
                     </div>
@@ -42,7 +43,7 @@
                             <th style="width: 1%">
                                S.N.
                             </th>
-                            <th style="width: 20%">
+                            <th style="width: 10%">
                                 Product Name
                             </th>
                             <th style="width: 30%">
@@ -50,6 +51,9 @@
                             </th>
                             <th>
                                 Price
+                            </th>
+                            <th>
+                                Tags
                             </th>
                             <th style="width: 8%" class="text-center">
                                 Status
@@ -93,6 +97,11 @@
                                     Rs.{{$product->price}}
                                 </td>
                                 <td class="product-state">
+                                    @foreach($product->tags as $tag)
+                                        <span class="badge badge-primary">{{$tag->title}}</span><br>
+                                    @endforeach
+                                </td>
+                                <td class="product-state">
                                     <span class="badge badge-success">In Stock</span>
                                 </td>
                                 <td class="product-actions text-left">
@@ -123,6 +132,11 @@
                     </table>
                 </div>
                 <!-- /.card-body -->
+                <div class="card-footer clearfix">
+                    <div class="pagination pagination-sm m-0 float-right">
+                        {{$products->links()}}
+                    </div>
+                </div>
             </div>
             <!-- /.card -->
 
