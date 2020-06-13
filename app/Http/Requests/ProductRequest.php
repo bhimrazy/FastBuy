@@ -27,9 +27,9 @@ class ProductRequest extends FormRequest
             'title'=>'required|min:3|string',
             'description'=>'required|min:3|string',
              'price'=>'required|min:3',
-            'category'=>'required',
+            'category_id'=>'required',
             'tags'=>'required',
-            'productimage'=>'required',
+            'productimage'=>'required|image|mimes:jpeg,jpg,png|max:1024',
         ];
     }
     public function messages()

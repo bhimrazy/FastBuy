@@ -80,6 +80,7 @@ Route::get('/admin-login', function () {
 })->name('admin-login');
 
 Route::resource('tags', 'TagController');
+Route::resource('maincategory', 'MaincategoryController');
 Route::resource('category', 'CategoryController');
 Route::resource('products', 'ProductController');
 

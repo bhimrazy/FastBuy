@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Http\Requests\ProductRequest;
+use App\Maincategory;
+use App\Media;
 use App\Product;
 use App\Tag;
+use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.products.index');
+        return view('admin.products.index')->with('products',Product::with('media')->paginate(10));
     }
 
     /**
@@ -29,7 +31,7 @@ class ProductController extends Controller
     {
         return view('admin.products.create')->with([
             'tags'=> Tag::all(),
-            'categories'=>Category::all()
+            'maincategories'=>Maincategory::with('productcategories')->get(),
         ]);
     }
 
@@ -41,14 +43,29 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-    dd([
-        $request->title,
-        $request->description,
-        $request->category,
-        $request->tags,
-        $request->price,
-        $request->productimage
-    ]);
+        $newProduct=Product::create([
+            'title'=> $request->title,
+            'description'=>$request->description,
+            'category_id'=>$request->category_id,
+            'price'=>$request->price,
+        ]);
+         $newProduct->tags()->attach($request->tags);
+         $newProduct->save();
+        if($request->hasfile('productimage'))
+        {
+            $file = $request->file('productimage');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename =time().'.'.$extension;
+            $file->storeAs('uploads/products/', $filename,'public');
+            $image=Image::make(public_path("storage/uploads/products/{$filename}"))->fit(600,695);
+            $image->save();
+            $media=Media::create([
+                'type'=>'image',
+                'url'=>'storage/uploads/products/'.$filename,
+                'product_id'=>$newProduct->id,
+            ]);
+        }
+        return redirect()->route('products.index')->with('success','Product Created Successfully');
     }
 
     /**

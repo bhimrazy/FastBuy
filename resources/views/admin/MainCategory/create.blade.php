@@ -13,7 +13,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Category</li>
+                            <li class="breadcrumb-item active">Main Category</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -31,11 +31,11 @@
                         <!-- jquery validation -->
                         <div class="card card-secondary">
                             <div class="card-header">
-                                <h3 class="card-title">Add a new Category</h3>
+                                <h3 class="card-title">Add a new Main Category</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{route('category.store')}}" role="form" id="quickForm" method="post" >
+                            <form action="{{route('maincategory.store')}}" role="form" id="quickForm" method="post" >
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -45,18 +45,6 @@
                                         <small class="text-danger">{{$message}}</small>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputCategory">Main Categories</label>
-                                    <select name="maincategory_id" class="form-control custom-select">
-                                        <option selected disabled>Select one</option>
-                                        @foreach($maincategories as $category)
-                                            <option value="{{$category->id}}">{{$category->title}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('maincategory_id')
-                                    <small class="text-danger">{{$message}}</small>
-                                    @enderror
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">

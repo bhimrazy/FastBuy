@@ -59,11 +59,15 @@
 
                             <div class="form-group">
                                 <label for="inputCategory">Categories</label>
-                                <select name="category" class="form-control custom-select">
+                                <select name="category_id" class="form-control custom-select">
                                     <option selected disabled>Select one</option>
-                                    @foreach($categories as $category)
-                                        <option id="{{$category->id}}">{{$category->title}}</option>
+                                    @foreach($maincategories as $maincategory)
+                                        <option><p>{{$maincategory->title}}</p></option>
+                                        @foreach($maincategories->productcategories as $category)
+                                            <span><option value="{{$category->id}}">{{$category->title}}</option></span>
+                                        @endforeach
                                     @endforeach
+
                                 </select>
                                 @error('category')
                                 <small class="text-danger">{{$message}}</small>
@@ -100,24 +104,12 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <div class="custom-file">
-                                    <input type="file" name="productimage[]" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                    <small>Max size 1MB.</small>
-                                    @error('productimage')
-                                    <small class="text-danger">{{$message}}</small>
-                                    @enderror
+                                 <input type="file" name="productimage" id="fileToUpload">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="custom-file">
-                                    <input type="file" name="productimage[]" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                    <input type="file" name="productimage[]" id="fileToUpload">
-                                    <small>Max size 1MB.</small>
-                                    @error('productimage')
-                                    <small class="text-danger">{{$message}}</small>
-                                    @enderror
-                                </div>
+                                <small>Max size 1MB.</small>
+                                @error('productimage')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
                             </div>
                         </div>
                         <!-- /.card-body -->

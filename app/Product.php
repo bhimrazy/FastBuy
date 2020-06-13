@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable=[
-        'title','description','price','discount','likes','user_id','category_id',
+        'title','description','price','discount','likes','user_id','category_id','type','stock','slug',
     ];
     public function owner(){
         return $this->belongsTo(User::class);

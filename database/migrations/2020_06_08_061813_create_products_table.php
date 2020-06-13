@@ -18,10 +18,13 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->double('price');
+            $table->string('slug');
+            $table->boolean('stock')->default(true);
+            $table->string('type')->nullable();
             $table->double('discount')->default('0');
             $table->unsignedInteger('likes')->default('0');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });
     }

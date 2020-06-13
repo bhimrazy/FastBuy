@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class MainCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,7 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required|min:3|string|unique:categories',
-            'maincategory_id'=>'required|exists:maincategories,id'
-        ];
-    }
-    public function messages()
-    {
-        return [
-            'title'=>'Title is required and min of 3 characters'
+            'title'=>'required|min:3|string|unique:maincategories'
         ];
     }
 }

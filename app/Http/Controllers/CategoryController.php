@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Requests\CategoryRequest;
+use App\Maincategory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -25,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        return view('admin.category.create')->with('maincategories',Maincategory::all());
     }
 
     /**
@@ -38,6 +39,8 @@ class CategoryController extends Controller
     {
         Category::create([
             'title'=> ucwords(strtolower($request->title)),
+            'maincategory_id'=>$request->maincategory_id,
+            'slug'=>slugify($request->title),
         ]);
         return redirect()->route('category.index')->with('success','Category Successfully Created');
     }
