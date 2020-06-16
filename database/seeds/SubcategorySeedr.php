@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class MainCategorySeedr extends Seeder
+class SubcategorySeedr extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class MainCategorySeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\Maincategory::class,3)->create();
+        factory(\App\Subcategory::class,3)->create();
     }
 }

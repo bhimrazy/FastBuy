@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Http\Requests\ProductRequest;
-use App\Maincategory;
 use App\Media;
 use App\Product;
+use App\Subcategory;
 use App\Tag;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
@@ -32,7 +31,7 @@ class ProductController extends Controller
     {
         return view('admin.products.create')->with([
             'tags'=> Tag::all(),
-            'categories'=>Category::all(),
+            'subcategories'=>Subcategory::all(),
         ]);
     }
 
@@ -47,14 +46,15 @@ class ProductController extends Controller
         $newProduct=Product::create([
             'title'=> $request->title,
             'description'=>$request->description,
-            'category_id'=>$request->category_id,
+            'subcategory_id'=>$request->subcategory_id,
             'price'=>$request->price,
+            'slug'=>slugify($request->title),
         ]);
          $newProduct->tags()->attach($request->tags);
          $newProduct->save();
-        if($request->hasfile('productimage'))
+        if($request->hasfile('image'))
         {
-            $file = $request->file('productimage');
+            $file = $request->file('image');
             $extension = $file->getClientOriginalExtension(); // getting image extension
             $filename =time().'.'.$extension;
             $file->storeAs('uploads/products/', $filename,'public');

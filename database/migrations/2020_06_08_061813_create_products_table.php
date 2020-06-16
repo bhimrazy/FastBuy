@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('type')->nullable();
             $table->double('discount')->default('0');
             $table->unsignedInteger('likes')->default('0');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('subcategory_id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });

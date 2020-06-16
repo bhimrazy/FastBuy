@@ -14,7 +14,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Category</li>
+                            <li class="breadcrumb-item active">Main Category</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -31,7 +31,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">All Categories</h3>
-                                <a href="{{route('category.create')}}" class="btn-sm btn-success float-right">Create a new Category</a>
+                                <a href="{{route('category.create')}}" class="btn-sm btn-success float-right">Add</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body card-body table-responsive p-0">

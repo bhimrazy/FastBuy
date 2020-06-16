@@ -59,29 +59,6 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            MainCategories
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview" style="display: none;">
-                        <li class="nav-item">
-                            <a href="{{route('maincategory.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>List MainCategories</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('maincategory.create')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Add Main Category</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
                             Categories
                             <i class="right fas fa-angle-left"></i>
                         </p>
@@ -97,6 +74,29 @@
                             <a href="{{route('category.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add Category</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Sub Categories
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <a href="{{route('subcategory.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Sub Categories</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('subcategory.create')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add Sub Category</p>
                             </a>
                         </li>
                     </ul>

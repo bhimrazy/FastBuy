@@ -205,39 +205,37 @@
                                     <div class="hm-minicart-trigger">
                                         <span class="item-icon"></span>
                                         <span class="item-text">My Cart
-                                                    <span class="cart-item-count">2</span>
+                                                    <span class="cart-item-count">
+                                                        @if(session()->has('cart'))
+                                                            @php($cart = session('cart'))
+                                                                {{$cart->cartitems->count()}}
+                                                        @else
+                                                        0
+                                                        @endif
+                                                    </span>
                                                 </span>
                                         <span class="item-total">$120.00</span>
                                     </div>
                                     <span></span>
-                                    <div class="minicart">
+                                    @if(session()->has('cart'))
+
+                                        <div class="minicart">
                                         <ul class="minicart-product-list">
-                                            <li>
-                                                <a href="{{route('product-details')}}" class="minicart-product-image">
-                                                    <img src="{{asset('assets/images/minicart/1.jpg')}}" alt="FB's Thumbnail">
-                                                    <span class="product-quantity">1x</span>
-                                                </a>
-                                                <div class="minicart-product-details">
-                                                    <h6><a href="{{route('product-details')}}">Printed Dress</a></h6>
-                                                    <span>$23.39</span>
-                                                </div>
-                                                <button class="close" title="Remove">
-                                                    <i class="fa fa-close"></i>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <a href="" class="minicart-product-image">
-                                                    <img src="{{asset('assets/images/minicart/2.jpg')}}" alt="FB's Thumbnail">
-                                                    <span class="product-quantity">1x</span>
-                                                </a>
-                                                <div class="minicart-product-details">
-                                                    <h6><a href="{{route('product-details')}}">Printed Chiffon Dress</a></h6>
-                                                    <span>$16.40</span>
-                                                </div>
-                                                <button class="close" title="Remove">
-                                                    <i class="fa fa-close"></i>
-                                                </button>
-                                            </li>
+                                            @foreach($cart->cartitems as $cartitem)
+                                                <li>
+                                                    <a href="{{route('product-details')}}" class="minicart-product-image">
+                                                        <img src="{{asset($cartitem->product->media->first()->url)}}" alt="FB's Thumbnail">
+                                                        <span class="product-quantity">{{$cartitem->quantity}}x</span>
+                                                    </a>
+                                                    <div class="minicart-product-details">
+                                                        <h6>{{$cartitem->product->title}}</h6>
+                                                        <span>${{$cartitem->price}}</span>
+                                                    </div>
+                                                    <button class="close" title="Remove">
+                                                        <i class="fa fa-close"></i>
+                                                    </button>
+                                                </li>
+                                            @endforeach
                                         </ul>
                                         <div class="price-content">
                                             <p class="minicart-total">SUBTOTAL<span>$39.79</span></p>
@@ -251,6 +249,7 @@
                                             </a>
                                         </div>
                                     </div>
+                                    @endif
                                 </li>
                                 <!-- Header Mini Cart Area End Here -->
                             </ul>

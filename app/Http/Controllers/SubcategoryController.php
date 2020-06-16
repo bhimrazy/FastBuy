@@ -2,21 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TagRequest;
-use App\Tag;
+use App\Category;
+use App\Http\Requests\SubcategoryRequest;
+use App\Subcategory;
 use Illuminate\Http\Request;
 
-class TagController extends Controller
+class SubcategoryController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-      return view('admin.tags.index')->with('tags',Tag::Paginate(5));
+        return view('admin.subcategory.index')->with('subcategories',Subcategory::Paginate(5));
     }
 
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        return view('admin.tags.create');
+        return view('admin.subcategory.create')->with('categories',Category::all());
     }
 
     /**
@@ -25,13 +35,14 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TagRequest $request)
-    {   $title=$request->title;
-        Tag::create([
-            'title'=> ucwords(strtolower($title)),
-            'slug'=>slugify($title),
+    public function store(SubcategoryRequest $request)
+    {
+        Subcategory::create([
+            'title'=> ucwords(strtolower($request->title)),
+            'category_id'=>$request->category_id,
+            'slug'=>slugify($request->title),
         ]);
-        return redirect()->route('tags.index')->with('success','Tag Successfully Created');
+        return redirect()->route('subcategory.index')->with('success','Category Successfully Created');
     }
 
     /**
@@ -53,9 +64,7 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        $tag = Tag::find($id);
-
-        return view('admin.tags.edit')->with('tag',$tag);
+        return view('admin.subcategory.edit');
     }
 
     /**
@@ -67,16 +76,7 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'tag'=>'required'
-
-        ]);
-        $tag= Tag::find($id);
-
-        $tag->tag = $request->tag;
-        $tag->save();
-        Session::flash('success','Tag Updated Successfully');
-        return redirect()->route('tags');
+        //
     }
 
     /**
@@ -87,8 +87,6 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        Tag::destroy($id);
-        Session::flash('success','Tag deleted Successfully');
-        return redirect()->back();
+        //
     }
 }

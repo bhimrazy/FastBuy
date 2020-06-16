@@ -26,16 +26,17 @@ class ProductRequest extends FormRequest
         return [
             'title'=>'required|min:3|string',
             'description'=>'required|min:3|string',
-             'price'=>'required|min:3',
-            'category_id'=>'required',
+            'price'=>'required|min:3',
+            'subcategory_id'=>'required',
             'tags'=>'required',
-            'productimage'=>'required|image|mimes:jpeg,jpg,png|max:1024',
+            'image'=>'required|image|mimes:jpeg,jpg,png|max:1024',
         ];
     }
     public function messages()
     {
         return [
-            'title'=>'Title is required and min of 3 characters'
+            'title'=>'Title is required and min of 3 characters',
+            'subcategory_id.required'=>'Category field is required',
         ];
     }
 }

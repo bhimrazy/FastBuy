@@ -14,7 +14,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Main Category</li>
+                            <li class="breadcrumb-item active">Category</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -30,8 +30,8 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">All Main Categories</h3>
-                                <a href="{{route('category.create')}}" class="btn-sm btn-success float-right">Add</a>
+                                <h3 class="card-title">All Sub Categories</h3>
+                                <a href="{{route('subcategory.create')}}" class="btn-sm btn-success float-right">Create a new Category</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body card-body table-responsive p-0">
@@ -46,8 +46,8 @@
                                     </thead>
                                     <tbody>
 
-                                   @if('categories')
-                                       @foreach($maincategories as $key => $category)
+                                   @if('subcategories')
+                                       @foreach($subcategories as $key => $category)
                                            <tr>
                                                <td>{{$key+1}}</td>
                                                <td>{{$category->title}}</td>
@@ -78,7 +78,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
                                 <div class="pagination pagination-sm m-0 float-right">
-                                    {{$maincategories->links()}}
+                                    {{$subcategories->links()}}
                                 </div>
                             </div>
                         </div>

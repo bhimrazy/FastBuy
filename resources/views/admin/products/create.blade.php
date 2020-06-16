@@ -60,14 +60,14 @@
 
                             <div class="form-group">
                                 <label for="inputCategory">Categories</label>
-                                <select name="category_id" class="form-control custom-select">
+                                <select name="subcategory_id" class="form-control custom-select">
                                     <option selected disabled>Select one</option>
-                                    @foreach($categories as $category)
+                                    @foreach($subcategories as $category)
                                         <span><option value="{{$category->id}}">{{$category->title}}</option></span>
                                     @endforeach
 
                                 </select>
-                                @error('category')
+                                @error('subcategory_id')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
@@ -102,10 +102,10 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <div class="custom-file">
-                                 <input type="file" name="productimage" id="fileToUpload">
+                                 <input type="file" name="image" id="fileToUpload">
                                 </div>
                                 <small>Max size 1MB.</small>
-                                @error('productimage')
+                                @error('image')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>

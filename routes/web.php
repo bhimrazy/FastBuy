@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('client.index');
+    return view('client.index')->with('products',\App\Product::with('media')->get());
 })->name('home');
 
 Route::get('/blog', function () {
@@ -48,11 +48,6 @@ Route::get('/contact-us', function () {
 Route::get('/about-us', function () {
     return view('client.about-us');
 })->name('about-us');
-
-Route::get('/cart', function () {
-    return view('client.cart');
-})->name('cart');
-
 Route::get('/login-register', function () {
     return view('client.login-register');
 })->name('login-register');
@@ -80,9 +75,15 @@ Route::get('/admin-login', function () {
 })->name('admin-login');
 
 Route::resource('tags', 'TagController');
-Route::resource('maincategory', 'MaincategoryController');
 Route::resource('category', 'CategoryController');
+Route::resource('subcategory', 'SubcategoryController');
 Route::resource('products', 'ProductController');
+Route::resource('carts', 'CartController');
+Route::get('/{product}',[
+    'uses' => 'HomeController@show',
+    'as' => 'product.show'
+]);
+
 
 Auth::routes();
 

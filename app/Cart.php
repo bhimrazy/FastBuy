@@ -12,7 +12,7 @@ class Cart extends Model
     public function owner(){
         return $this->belongsTo(User::class);
     }
-    public function items(){
+    public function cartitems(){
         return $this->hasMany(CartItem::class);
     }
 }
