@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             CategorySeedr::class,
             SubcategorySeedr::class,
             TagsSeedr::class,
+            BrandSeedr::class,
             ProductSeedr::class,
         ]);
 

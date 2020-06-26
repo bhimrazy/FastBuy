@@ -12,58 +12,24 @@ class CartController extends Controller
 {
     public function index(){
 
-        if (session()->has('cart')) {
-            $cart = session('cart');
-            $cartitems=CartItem::where('cart_id',$cart->id)->get();
-            return view('client.cart')->with('cartitems', $cartitems);
+        if (!session()->has('cart')) {
+            return view('client.cart');
         }
-        return view('client.cart');
+        $oldCart=session()->has('cart')?session('cart'):null;
+        $cart=new Cart($oldCart);
+        return view('client.cart')->with(['cartitems'=>$cart->items,'totalPrice'=>$cart->totalPrice]);
     }
     public function store(CartRequest $request){
-        //session()->flush();
-        $product = Product::findOrFail($request->product_id);
-        //$cartitems = []
-        if (session()->has('cart') ) {
-            $cart = session('cart');
-            $duplicate=CartItem::where(['product_id'=>$request->product_id,'cart_id'=>$cart->id])->get();
-            if($duplicate->isEmpty()){
-                CartItem::create([
-                    'quantity'=>$request->quantity,
-                    'price'=>$product->price,
-                    'line_total'=>$request->quantity*$product->price,
-                    'product_id'=>$product->id,
-                    'cart_id'=>$cart->id,
-                ]);
-            }
-            else{
-                return redirect()->back();
-            }
-
-        }
-        else{
-            $cart = Cart::create([
-                'user_id'=>'1000',
-            ]);
-            $cartitem=CartItem::create([
-                'quantity'=>$request->quantity,
-                'price'=>$product->price,
-                'line_total'=>$request->quantity*$product->price,
-                'product_id'=>$product->id,
-                'cart_id'=>$cart->id,
-            ]);
-            session(['cart' => $cart]);
-           // array_push()
-        }
+        $product = Product::find($request->product_id);
+        $oldCart=session()->has('cart')?session('cart'):null;
+        $cart=new Cart($oldCart);
+        $cart->add($product,$product->id,$request->quantity);
+        session()->put('cart',$cart);
         return redirect()->route('carts.index');
     }
-    public function show($id)
+       public function destroy(CartItem $cart)
     {
-
-        return redirect()->back();
-    }
-    public function destroy($id)
-    {   //dd($id);
-        CartItem::findOrFail($id)->delete();
-        return redirect()->back();
+        $cart->delete();
+        return redirect()->back()->with('success','You successfully removed the product.');
     }
 }

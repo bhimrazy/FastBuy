@@ -59,9 +59,9 @@ class User extends Authenticatable
     public function shippingAddress(){
         return $this->hasMany(Address::class,'id','shipping_address');
     }
-    public function cart(){
-        return $this->hasMany(Cart::class);
-    }
+//    public function cart(){
+//        return $this->hasMany(Cart::class);
+//    }
     public function transactions(){
         return $this->hasMany(Transaction::class);
     }

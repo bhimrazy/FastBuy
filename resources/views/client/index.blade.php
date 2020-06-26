@@ -17,7 +17,7 @@
                                         <h3>Up To 50% Off</h3>
                                         <h5>All Selected Items</h5>
                                         <div class="default-btn slide-btn">
-                                            <a class="fb-links fb-links-round" href="{{route('shop-left-sidebar')}}">Shop Now</a>
+                                            <a class="fb-links fb-links-round" href="{{route('shop.index')}}">Shop Now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -30,7 +30,7 @@
                                         <h3>Bakery Mixers</h3>
                                         <h5>Each Valued At $749.35</h5>
                                         <div class="default-btn slide-btn">
-                                            <a class="fb-links fb-links-round" href="{{route('shop-left-sidebar')}}">Shop Now</a>
+                                            <a class="fb-links fb-links-round" href="{{route('shop.index')}}">Shop Now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -685,17 +685,17 @@
                             <div class="btn-group">
                                 <button class="subcategories-trigger"><i class="fa fa-bars"></i></button>
                                 <ul class="subcategories-list">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Cookware Brands</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Cookware Sets</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Individual Cookware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Enamel Cookware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Cookware Brands</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Cookware Sets</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Individual Cookware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Enamel Cookware</a></li>
                                 </ul>
                                 <!-- Begin FB's List Product Menu Area -->
                                 <ul class="list-product_menu">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Cookware Brands</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Cookware Sets</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Individual Cookware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Enamel Cookware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Cookware Brands</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Cookware Sets</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Individual Cookware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Enamel Cookware</a></li>
                                 </ul>
                                 <!-- FB's List Product Menu Area End Here -->
                             </div>
@@ -1049,17 +1049,17 @@
                             <div class="btn-group">
                                 <button class="subcategories-trigger"><i class="fa fa-bars"></i></button>
                                 <ul class="subcategories-list">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Armchairs</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Bunk Bed</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Mattress</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Sideboard</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Armchairs</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Bunk Bed</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Mattress</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Sideboard</a></li>
                                 </ul>
                                 <!-- Begin FB's List Product Menu Area -->
                                 <ul class="list-product_menu">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Armchairs</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Bunk Bed</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Mattress</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Sideboard</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Armchairs</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Bunk Bed</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Mattress</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Sideboard</a></li>
                                 </ul>
                                 <!-- FB's List Product Menu Area End Here -->
                             </div>
@@ -1410,17 +1410,17 @@
                             <div class="btn-group">
                                 <button class="subcategories-trigger"><i class="fa fa-bars"></i></button>
                                 <ul class="subcategories-list">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Bootees Bags</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Jackets</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Shelf</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Shoes</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Bootees Bags</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Jackets</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Shelf</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Shoes</a></li>
                                 </ul>
                                 <!-- Begin FB's List Product Menu Area -->
                                 <ul class="list-product_menu">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Bootees Bags</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Jackets</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Shelf</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Shoes</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Bootees Bags</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Jackets</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Shelf</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Shoes</a></li>
                                 </ul>
                                 <!-- FB's List Product Menu Area End Here -->
                             </div>
@@ -1773,17 +1773,17 @@
                             <div class="btn-group">
                                 <button class="subcategories-trigger"><i class="fa fa-bars"></i></button>
                                 <ul class="subcategories-list">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Tour Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Hatch Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Direction Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Crescent Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Tour Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Hatch Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Direction Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Crescent Drinkware</a></li>
                                 </ul>
                                 <!-- Begin FB's List Product Menu Area -->
                                 <ul class="list-product_menu">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Tour Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Hatch Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Direction Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Crescent Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Tour Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Hatch Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Direction Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Crescent Drinkware</a></li>
                                 </ul>
                                 <!-- FB's List Product Menu Area End Here -->
                             </div>

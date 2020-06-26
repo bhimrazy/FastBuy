@@ -8,13 +8,15 @@
                     <div class="breadcrumb-content">
                         <ul>
                             <li><a href="{{route('home')}}">Home</a></li>
-                            <li class="active">Login Register</li>
+                            <li class="active">My Account</li>
                         </ul>
                     </div>
                 </div>
             </div>
+            @include('client.includes.alert')
         </div>
     </div>
+
     <!-- FB's Breadcrumb Area End Here -->
     <!-- Begin FB's Page Content Area -->
     <main class="page-content">
@@ -45,8 +47,15 @@
                                    aria-selected="false">Account Details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-logout-tab" href="{{route('login-register')}}"
-                                   role="tab" aria-selected="false">Logout</a>
+                                <a class="nav-link" id="account-logout-tab" href="{{ route('logout') }}" role="tab" aria-selected="false"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -55,12 +64,9 @@
                             <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                                  aria-labelledby="account-dashboard-tab">
                                 <div class="myaccount-dashboard">
-                                    <p>Hello <b>HasTech</b> (not HasTech? <a href="{{route('login-register')}}">Sign
-                                            out</a>)</p>
-                                    <p>From your account dashboard you can view your recent orders, manage your
-                                        shipping and
-                                        billing addresses and <a href="javascript:void(0)">edit your password
-                                            and account details</a>.</p>
+                                    <p>Welcome!!!<b>   {{Auth::user()->firstname}}</b>  {{Auth::user()->lastname}}</p>
+                                    <p>{{Auth::user()->email}}</p>
+                                    <p>Dashboard.</p>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="account-orders" role="tabpanel"
@@ -75,28 +81,57 @@
                                                 <th>DATE</th>
                                                 <th>STATUS</th>
                                                 <th>TOTAL</th>
-                                                <th></th>
+                                                <th>VIEW</th>
                                             </tr>
-                                            <tr>
-                                                <td><a class="account-order-id"
-                                                       href="javascript:void(0)">#5364</a></td>
-                                                <td>Mar 27, 2019</td>
-                                                <td>On Hold</td>
-                                                <td>£162.00 for 2 items</td>
-                                                <td><a href="javascript:void(0)"
-                                                       class="fb-btn fb-btn_dark fb-btn_sm"><span>View</span></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="account-order-id"
-                                                       href="javascript:void(0)">#5356</a></td>
-                                                <td>Mar 27, 2019</td>
-                                                <td>On Hold</td>
-                                                <td>£162.00 for 2 items</td>
-                                                <td><a href="javascript:void(0)"
-                                                       class="fb-btn fb-btn_dark fb-btn_sm"><span>View</span></a>
-                                                </td>
-                                            </tr>
+                                            @if(count($orders)>0)
+                                                @foreach($orders as $order)
+                                                    <tr>
+                                                        <td><a class="account-order-id"
+                                                               href=")">#FC{{$order->id}}HK</a></td>
+                                                        <td>{{$order->created_at->Format('M d, Y')}}</td>
+                                                        <td><p class="badge-primary rounded">{{$order->status}}</p></td>
+                                                        <td>${{$order->total}} for {{$order->cart->totalQty}} items</td>
+                                                        <td><button class="fb-btn fb-btn_dark fb-btn_sm" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}"><span>View</span></button>
+                                                        </td>
+                                                    </tr>
+                                                    <div class="modal fade bd-example-modal-lg" id="exampleModalCenter{{$order->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Ordered Items</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <ul class="list-group">
+                                                                        <li class="list-group-item bg-primary text-white">
+                                                                            <div class="row">
+                                                                                <div class="col-3">Thumbnail</div>
+                                                                                <div class="col-3">Title</div>
+                                                                                <div class="col-3">Qty</div>
+                                                                                <div class="col-3">Price</div>
+                                                                            </div>
+                                                                        </li>
+                                                                        @foreach($order->cart->items as $key=> $cartitem)
+                                                                            <li class="list-group-item">
+                                                                                <div class="row">
+                                                                                    <div class="col-3"><img width="90" height="100" src="{{asset($cartitem['item']->media->first()->url)}}" alt="{{$cartitem['item']->title}}"></div>
+                                                                                    <div class="col-3">{{$cartitem['item']->title}}</div>
+                                                                                    <div class="col-3">{{$cartitem['qty']}}</div>
+                                                                                    <div class="col-3">${{$cartitem['price']}}</div>
+                                                                                </div>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                               <tr><td colspan="5">No Any Order Placed.</td></tr>
+                                            @endif
                                             </tbody>
                                         </table>
                                     </div>

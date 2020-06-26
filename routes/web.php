@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
 Route::get('/', function () {
     return view('client.index')->with('products',\App\Product::with('media')->get());
 })->name('home');
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
 
 Route::get('/blog', function () {
     return view('client.blog');
@@ -25,18 +29,17 @@ Route::get('/blog-details', function () {
     return view('client.blog-details');
 })->name('blog-details');
 
-Route::get('/shop', function () {
-    return view('client.shop-left-sidebar');
-})->name('shop-left-sidebar');
+Route::get('/my-account', [
+    'uses' => 'CustomerController@getProfile',
+    'as'=>'my-account'
+]);
 
-Route::get('/my-account', function () {
-    return view('client.my-account');
-})->name('my-account');
-
-Route::get('/checkout', function () {
-    return view('client.checkout');
-})->name('checkout');
-
+Route::get('/checkout', [
+    'uses' => 'CheckoutController@getCheckout'
+])->name('checkout');
+Route::post('/checkout', [
+    'uses' => 'CheckoutController@postCheckout'
+])->name('checkout.process');
 Route::get('/product-details', function () {
     return view('client.product-details');
 })->name('product-details');
@@ -78,15 +81,12 @@ Route::resource('tags', 'TagController');
 Route::resource('category', 'CategoryController');
 Route::resource('subcategory', 'SubcategoryController');
 Route::resource('products', 'ProductController');
-Route::resource('carts', 'CartController');
+Route::resource('shop', 'ShopController');
+
+Route::resource('carts', 'CartController')->only([
+    'index','store', 'destroy'
+]);;
 Route::get('/{product}',[
     'uses' => 'HomeController@show',
     'as' => 'product.show'
 ]);
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-

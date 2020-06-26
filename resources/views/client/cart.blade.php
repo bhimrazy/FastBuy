@@ -13,6 +13,7 @@
                     </div>
                 </div>
             </div>
+            @include('client.includes.alert')
         </div>
     </div>
     <!-- FB's Breadcrumb Area End Here -->
@@ -21,9 +22,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="#">
-                        <div class="table-content table-responsive">
-                            @if($cartitems ??'')
+                    @if(session()->has('cart'))
+                        <form action="#">
+                            <div class="table-content table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -36,61 +37,62 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($cartitems as $cartitem)
+                                    @foreach($cartitems as $cartitem)
                                         <tr>
-                                            <td class="fb-product-thumbnail"><img width="90" height="100" src="{{asset($cartitem->product->media->first()->url)}}" alt="{{$cartitem->product->title}}"></td>
-                                            <td class="fb-product-name">{{$cartitem->product->title}}</td>
-                                            <td class="fb-product-price"><span class="amount">${{$cartitem->price}}</span></td>
+                                            <td class="fb-product-thumbnail"><img width="90" height="100" src="{{asset($cartitem['item']->media->first()->url)}}" alt="{{$cartitem['item']->title}}"></td>
+                                            <td class="fb-product-name">{{$cartitem['item']->title}}</td>
+                                            <td class="fb-product-price"><span class="amount">${{$cartitem['item']->price}}</span></td>
                                             <td class="quantity">
                                                 <label>Quantity</label>
                                                 <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" value="{{$cartitem->quantity}}" type="text">
+                                                    <input class="cart-plus-minus-box" value="{{$cartitem['qty']}}" type="text">
                                                     <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                     <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                 </div>
                                             </td>
-                                            <td class="product-subtotal"><span class="amount">${{$cartitem->line_total}}</span></td>
+                                            <td class="product-subtotal"><span class="amount">${{$cartitem['price']}}</span></td>
                                             <td class="fb-product-remove">
-                                                <form action="{{route('carts.destroy',$cartitem->id)}}" method="post">
+                                                <form action="{{route('carts.destroy',['cart'=>$cartitem['item']->id])}}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button class="btn btn-danger" type="submit"><span><i
                                                                 class="fas fa-trash-alt"></i></span> Delete <i class="fa fa-times"></i></button>
-                                                </form></td>
+                                                </form>
+                                            </td>
                                         </tr>
-                                        @endforeach
+                                    @endforeach
                                     </tbody>
                                 </table>
-                            @else
-                                <p>YOUR CART IS EMPTY</p>
-                            @endif
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="coupon-all">
-                                    <div class="coupon">
-                                        <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
-                                        <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
-                                    </div>
-                                    <div class="coupon2">
-                                        <input class="button" name="update_cart" value="Update cart" type="submit">
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="coupon-all">
+                                        {{--                                    <div class="coupon">--}}
+                                        {{--                                        <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">--}}
+                                        {{--                                        <input class="button" name="apply_coupon" value="Apply coupon" type="submit">--}}
+                                        {{--                                    </div>--}}
+                                        <div class="coupon2">
+                                            <input class="button" name="update_cart" value="Update cart" type="submit">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5 ml-auto">
-                                <div class="cart-page-total">
-                                    <h2>Cart totals</h2>
-                                    <ul>
-                                        <li>Subtotal <span>$130.00</span></li>
-                                        <li>Total <span>$130.00</span></li>
-                                    </ul>
-                                    <a href="#">Proceed to checkout</a>
+                            <div class="row">
+                                <div class="col-md-5 ml-auto">
+                                    <div class="cart-page-total">
+                                        <h2>Cart totals</h2>
+                                        <ul>
+                                            <li>Subtotal <span>${{$totalPrice}}</span></li>
+                                            <li>Total <span>${{$totalPrice}}</span></li>
+                                        </ul>
+                                        <a href="/checkout">Proceed to checkout</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    @else
+                        <p>YOUR CART IS EMPTY</p>
+                    @endif
                 </div>
             </div>
         </div>

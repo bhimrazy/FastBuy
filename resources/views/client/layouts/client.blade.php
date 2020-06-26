@@ -30,7 +30,6 @@
     <script src="{{asset('assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
 </head>
 <body>
-
 <!-- Begin Body Wraper Area -->
 <div class="body-wrapper">
     <!-- Begin Header Area -->
@@ -80,9 +79,23 @@
                         <div class="col-lg-7 col-md-6">
                             <div class="header-top-right">
                                 <ul class="user-block list-inline">
-                                    <li><a href="{{route('my-account')}}">My Account</a></li>
+                                    @if(Auth::check())
+                                    <li><a href="{{route('my-account')}}">Howdy {{ucfirst(Auth::user()->firstname)}}</a></li>
                                     <li><a href="{{route('checkout')}}">Checkout</a></li>
-                                    <li><a href="{{route('login-register')}}">Sign In</a></li>
+                                    <li><a href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                    @else
+                                    <li><a href="{{route('register')}}">Register</a></li>
+                                    <li><a href="{{route('login')}}">Sign In</a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -205,50 +218,44 @@
                                     <div class="hm-minicart-trigger">
                                         <span class="item-icon"></span>
                                         <span class="item-text">My Cart
-                                                    <span class="cart-item-count">
-                                                        @if(session()->has('cart'))
-                                                            @php($cart = session('cart'))
-                                                                {{$cart->cartitems->count()}}
-                                                        @else
-                                                        0
-                                                        @endif
-                                                    </span>
+                                                    <span class="cart-item-count">{{session()->has('cart')?session('cart')->totalQty:0}}</span>
                                                 </span>
-                                        <span class="item-total">$120.00</span>
+                                        <span class="item-total">${{session()->has('cart')?session('cart')->totalPrice:0}}</span>
                                     </div>
                                     <span></span>
                                     @if(session()->has('cart'))
-
                                         <div class="minicart">
-                                        <ul class="minicart-product-list">
-                                            @foreach($cart->cartitems as $cartitem)
-                                                <li>
-                                                    <a href="{{route('product-details')}}" class="minicart-product-image">
-                                                        <img src="{{asset($cartitem->product->media->first()->url)}}" alt="FB's Thumbnail">
-                                                        <span class="product-quantity">{{$cartitem->quantity}}x</span>
+                                            <ul class="minicart-product-list">
+                                                @foreach(session()->get('cart')->items as $cartitem)
+                                                    <li>
+                                                    <a href="" class="minicart-product-image">
+                                                        <img src="{{asset($cartitem['item']->media[0]->url)}}" alt="FB's Thumbnail">
+                                                        <span class="product-quantity">1x</span>
                                                     </a>
                                                     <div class="minicart-product-details">
-                                                        <h6>{{$cartitem->product->title}}</h6>
-                                                        <span>${{$cartitem->price}}</span>
+                                                        <h7><a href="">{{Str::limit($cartitem['item']->title,16)}}</a></h7>
+                                                        <span>${{$cartitem['item']->price}}</span>
                                                     </div>
                                                     <button class="close" title="Remove">
                                                         <i class="fa fa-close"></i>
                                                     </button>
                                                 </li>
-                                            @endforeach
-                                        </ul>
-                                        <div class="price-content">
-                                            <p class="minicart-total">SUBTOTAL<span>$39.79</span></p>
-                                            <p class="minicart-total">Shipping<span>$7.00</span></p>
-                                            <p class="minicart-total">Taxes<span>$0.00</span></p>
-                                            <p class="minicart-total">Total<span>$46.79</span></p>
+                                                @endforeach
+                                            </ul>
+                                            <div class="price-content">
+                                                <p class="minicart-total">SUBTOTAL<span>${{session()->get('cart')->totalPrice}}</span></p>
+                                                <p class="minicart-total">Shipping<span>$0.00</span></p>
+                                                <p class="minicart-total">Taxes<span>$0.00</span></p>
+                                                <p class="minicart-total">Total<span>${{session()->get('cart')->totalPrice}}</span></p>
+                                            </div>
+                                            <div class="minicart-button text-center">
+                                                @if(url()->current()!=route('carts.index'))
+                                                    <a href="{{route('carts.index')}}" class="fb-btn">
+                                                        <span>View Cart</span>
+                                                    </a>
+                                                @endif
+                                            </div>
                                         </div>
-                                        <div class="minicart-button text-center">
-                                            <a href="{{route('checkout')}}" class="fb-btn">
-                                                <span>Checkout</span>
-                                            </a>
-                                        </div>
-                                    </div>
                                     @endif
                                 </li>
                                 <!-- Header Mini Cart Area End Here -->
@@ -274,17 +281,17 @@
                             </div>
                             <div id="cate-toggle" class="category-menu-list">
                                 <ul>
-                                    <li class="right-menu"><a href="{{route('shop-left-sidebar')}}"><span><img src="{{asset('assets/images/category-thumb/1.jpg')}}" alt="Category-thumb"></span>Electronics</a>
+                                    <li class="right-menu"><a href="{{route('shop.index')}}"><span><img src="{{asset('assets/images/category-thumb/1.jpg')}}" alt="Category-thumb"></span>Electronics</a>
                                         <ul class="cat-mega-menu">
                                             <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop-left-sidebar')}}">Cameras</a>
+                                                <a href="{{route('shop.index')}}">Cameras</a>
                                                 <ul>
                                                     <li><a href="#">Cords and Cables</a></li>
                                                     <li><a href="#">gps accessories</a></li>
                                                     <li><a href="#">Microphones</a></li>
                                                     <li><a href="#">Wireless Transmitters</a></li>
                                                 </ul>
-                                                <a class="cat-mega-title-2 pt-30 pt-sm-10 pt-xs-10" href="{{route('shop-left-sidebar')}}">GamePad</a>
+                                                <a class="cat-mega-title-2 pt-30 pt-sm-10 pt-xs-10" href="{{route('shop.index')}}">GamePad</a>
                                                 <ul>
                                                     <li><a href="#">cube lifestyle hd</a></li>
                                                     <li><a href="#">gopro hero4</a></li>
@@ -293,14 +300,14 @@
                                                 </ul>
                                             </li>
                                             <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop-left-sidebar')}}">Digital Cameras</a>
+                                                <a href="{{route('shop.index')}}">Digital Cameras</a>
                                                 <ul>
                                                     <li><a href="#">Gold eye</a></li>
                                                     <li><a href="#">Questek</a></li>
                                                     <li><a href="#">Snm</a></li>
                                                     <li><a href="#">Vantech</a></li>
                                                 </ul>
-                                                <a class="cat-mega-title-2 pt-30 pt-sm-10 pt-xs-10" href="{{route('shop-left-sidebar')}}">Virtual Reality</a>
+                                                <a class="cat-mega-title-2 pt-30 pt-sm-10 pt-xs-10" href="{{route('shop.index')}}">Virtual Reality</a>
                                                 <ul>
                                                     <li><a href="#">Samsung</a></li>
                                                     <li><a href="#">Toshiba</a></li>
@@ -310,10 +317,10 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="right-menu"><a href="{{route('shop-left-sidebar')}}"><span><img src="{{asset('assets/images/category-thumb/2.jpg')}}" alt="Category-thumb"></span>Book</a>
+                                    <li class="right-menu"><a href="{{route('shop.index')}}"><span><img src="{{asset('assets/images/category-thumb/2.jpg')}}" alt="Category-thumb"></span>Book</a>
                                         <ul class="cat-mega-menu">
                                             <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop-left-sidebar')}}">Children's Books</a>
+                                                <a href="{{route('shop.index')}}">Children's Books</a>
                                                 <ul>
                                                     <li><a href="#">Early Learning</a></li>
                                                     <li><a href="#">Animals</a></li>
@@ -322,7 +329,7 @@
                                                 </ul>
                                             </li>
                                             <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop-left-sidebar')}}">comic book</a>
+                                                <a href="{{route('shop.index')}}">comic book</a>
                                                 <ul>
                                                     <li><a href="#">Superhero</a></li>
                                                     <li><a href="#">Slice-of-Life</a></li>
@@ -332,17 +339,17 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="right-menu"><a href="{{route('shop-left-sidebar')}}"><span><img src="{{asset('assets/images/category-thumb/3.jpg')}}" alt="Category-thumb"></span>Home & Kitchen</a>
+                                    <li class="right-menu"><a href="{{route('shop.index')}}"><span><img src="{{asset('assets/images/category-thumb/3.jpg')}}" alt="Category-thumb"></span>Home & Kitchen</a>
                                         <ul class="cat-mega-menu cat-mega-menu-2">
                                             <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop-left-sidebar')}}">Large Appliances</a>
+                                                <a href="{{route('shop.index')}}">Large Appliances</a>
                                                 <ul>
                                                     <li><a href="#">Armchairs</a></li>
                                                     <li><a href="#">Bunk Bed</a></li>
                                                     <li><a href="#">Mattress</a></li>
                                                     <li><a href="#">Sideboard</a></li>
                                                 </ul>
-                                                <a class="cat-mega-title-2 pt-30" href="{{route('shop-left-sidebar')}}">Small Appliances</a>
+                                                <a class="cat-mega-title-2 pt-30" href="{{route('shop.index')}}">Small Appliances</a>
                                                 <ul>
                                                     <li><a href="#">Bootees Bags</a></li>
                                                     <li><a href="#">Jackets</a></li>
@@ -351,14 +358,14 @@
                                                 </ul>
                                             </li>
                                             <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop-left-sidebar')}}">Drinkware</a>
+                                                <a href="{{route('shop.index')}}">Drinkware</a>
                                                 <ul>
                                                     <li><a href="#">Tour Drinkware</a></li>
                                                     <li><a href="#">Hatch Drinkware</a></li>
                                                     <li><a href="#">Direction Drinkware</a></li>
                                                     <li><a href="#">Crescent Drinkware</a></li>
                                                 </ul>
-                                                <a class="cat-mega-title-2 pt-30" href="{{route('shop-left-sidebar')}}">Cookware</a>
+                                                <a class="cat-mega-title-2 pt-30" href="{{route('shop.index')}}">Cookware</a>
                                                 <ul>
                                                     <li><a href="#">Cookware Brands</a></li>
                                                     <li><a href="#">Cookware Sets</a></li>
@@ -368,10 +375,10 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="right-menu"><a href="{{route('shop-left-sidebar')}}"><span><img src="{{asset('assets/images/category-thumb/4.jpg')}}" alt="Category-thumb"></span>Phones & Tablets</a>
+                                    <li class="right-menu"><a href="{{route('shop.index')}}"><span><img src="{{asset('assets/images/category-thumb/4.jpg')}}" alt="Category-thumb"></span>Phones & Tablets</a>
                                         <ul class="cat-mega-menu">
                                             <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop-left-sidebar')}}">Tablet</a>
+                                                <a href="{{route('shop.index')}}">Tablet</a>
                                                 <ul>
                                                     <li><a href="#">Chamcham</a></li>
                                                     <li><a href="#">Sanai</a></li>
@@ -380,7 +387,7 @@
                                                 </ul>
                                             </li>
                                             <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop-left-sidebar')}}">Smartphone</a>
+                                                <a href="{{route('shop.index')}}">Smartphone</a>
                                                 <ul>
                                                     <li><a href="#">Xail</a></li>
                                                     <li><a href="#">Sanai</a></li>
@@ -390,10 +397,10 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="right-menu"><a href="{{route('shop-left-sidebar')}}"><span><img src="{{asset('assets/images/category-thumb/5.jpg')}}" alt="Category-thumb"></span>Furnitured</a>
+                                    <li class="right-menu"><a href="{{route('shop.index')}}"><span><img src="{{asset('assets/images/category-thumb/5.jpg')}}" alt="Category-thumb"></span>Furnitured</a>
                                         <ul class="cat-mega-menu">
                                             <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop-left-sidebar')}}">bedroom</a>
+                                                <a href="{{route('shop.index')}}">bedroom</a>
                                                 <ul>
                                                     <li><a href="#">Bed</a></li>
                                                     <li><a href="#">lamp</a></li>
@@ -402,7 +409,7 @@
                                                 </ul>
                                             </li>
                                             <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop-left-sidebar')}}">livingroom</a>
+                                                <a href="{{route('shop.index')}}">livingroom</a>
                                                 <ul>
                                                     <li><a href="#">chair</a></li>
                                                     <li><a href="#">table</a></li>
@@ -437,7 +444,7 @@
                                     <a href="{{route('home')}}">Home</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('shop-left-sidebar')}}">Shop</a>
+                                    <a href="{{route('shop.index')}}">Shop</a>
                                 </li>
                                 <li>
                                     <a href="{{route('blog')}}">Blog</a>
@@ -467,8 +474,8 @@
     </header>
     <!-- Header Area End Here -->
 
-    @yield('body')
-    <!-- Begin FB's Branding Area -->
+@yield('body')
+<!-- Begin FB's Branding Area -->
     <div class="fb-branding-wrap pb-60">
         <div class="container">
             <div class="row">
@@ -715,7 +722,7 @@
                             <ul>
                                 <li><a href="{{route('home')}}">Home</a></li>
                                 <li><a href="{{route('about-us')}}">About</a></li>
-                                <li><a href="{{route('shop-left-sidebar')}}">Shop</a></li>
+                                <li><a href="{{route('shop.index')}}">Shop</a></li>
                                 <li><a href="{{route('contact')}}">Contact</a></li>
                             </ul>
                         </div>
@@ -730,8 +737,7 @@
 </div>
 <!-- Body Wraper Area End Here -->
 
-<!-- JS
-        ============================================ -->
+<!-- JS        ============================================ -->
 <!-- jQuery JS -->
 <script src="{{asset('assets/js/vendor/jquery-1.12.4.min.js')}}"></script>
 <!-- Popper JS -->
@@ -742,6 +748,8 @@
 <script src="{{asset('assets/js/plugins.js')}}"></script>
 <!-- Main JS -->
 <script src="{{asset('assets/js/main.js')}}"></script>
-
+<!-- App JS -->
+<script src="{{asset('js/app.js')}}"></script>
+@yield('scripts')
 </body>
 </html>

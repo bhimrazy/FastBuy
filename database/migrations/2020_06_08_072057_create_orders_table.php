@@ -16,11 +16,12 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->double('total');
+            $table->text('cart');
             $table->double('tax')->default('0');
             $table->string('status')->default('pending');
-            $table->double('delivery');
+            $table->double('delivery')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('cart_id');
+            //$table->unsignedBigInteger('cart_id');
             $table->timestamps();
         });
     }

@@ -6,7 +6,7 @@ use App\Subcategory;
 use Faker\Generator as Faker;
 
 $factory->define(Subcategory::class, function (Faker $faker) {
-    $title = $faker->randomElement(['Water Purifiers','Refrigerators',
+    $title = $faker->unique()->randomElement(['Water Purifiers','Refrigerators',
         'Washing Machine','Air Conditioners','Vacuum Cleaner','Steam Cleaning','Washer & Dryer',
         'Rice Cookers','Fans','Microwave Oven'
     ]);
