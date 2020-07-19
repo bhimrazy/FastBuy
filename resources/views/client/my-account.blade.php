@@ -8,13 +8,15 @@
                     <div class="breadcrumb-content">
                         <ul>
                             <li><a href="{{route('home')}}">Home</a></li>
-                            <li class="active">Login Register</li>
+                            <li class="active">My Account : Dashboard | {{$user->firstname}}</li>
                         </ul>
                     </div>
                 </div>
             </div>
+            @include('client.includes.alert')
         </div>
     </div>
+
     <!-- FB's Breadcrumb Area End Here -->
     <!-- Begin FB's Page Content Area -->
     <main class="page-content">
@@ -27,7 +29,7 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="account-dashboard-tab" data-toggle="tab"
                                    href="#account-dashboard" role="tab" aria-controls="account-dashboard"
-                                   aria-selected="true">Dashboard</a>
+                                   aria-selected="true">Dashboard : {{ucfirst($user->firstname)}}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-orders-tab" data-toggle="tab"
@@ -45,8 +47,15 @@
                                    aria-selected="false">Account Details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-logout-tab" href="{{route('login-register')}}"
-                                   role="tab" aria-selected="false">Logout</a>
+                                <a class="nav-link" id="account-logout-tab" href="{{ route('logout') }}" role="tab" aria-selected="false"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -54,13 +63,39 @@
                         <div class="tab-content myaccount-tab-content" id="account-page-tab-content">
                             <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                                  aria-labelledby="account-dashboard-tab">
-                                <div class="myaccount-dashboard">
-                                    <p>Hello <b>HasTech</b> (not HasTech? <a href="{{route('login-register')}}">Sign
-                                            out</a>)</p>
-                                    <p>From your account dashboard you can view your recent orders, manage your
-                                        shipping and
-                                        billing addresses and <a href="javascript:void(0)">edit your password
-                                            and account details</a>.</p>
+                                <div class="myaccount-dashboard shoptopbar-heading">
+                                   <h3>Dashboard :<b>{{$user->firstname}}</b>  {{$user->lastname}}</h3>
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-12 col-4">
+                                            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                                                <div class="card-header">Orders</div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{count($orders)}}</h5>
+                                                    <p class="card-text">Orders Placed.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12 col-4">
+                                            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                                                <div class="card-header">Orders (Approved)</div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{count($orders->where('status','approved'))}}</h5>
+                                                    <p class="card-text">Orders Approved.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12 col-4">
+                                            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                                                <div class="card-header">Invoice</div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${{$orders->where('status','pending')->map(function ($order){return $order->total;})->sum()}}</h5>
+                                                    <p class="card-text">Total Invoice.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="account-orders" role="tabpanel"
@@ -75,28 +110,57 @@
                                                 <th>DATE</th>
                                                 <th>STATUS</th>
                                                 <th>TOTAL</th>
-                                                <th></th>
+                                                <th>VIEW</th>
                                             </tr>
-                                            <tr>
-                                                <td><a class="account-order-id"
-                                                       href="javascript:void(0)">#5364</a></td>
-                                                <td>Mar 27, 2019</td>
-                                                <td>On Hold</td>
-                                                <td>£162.00 for 2 items</td>
-                                                <td><a href="javascript:void(0)"
-                                                       class="fb-btn fb-btn_dark fb-btn_sm"><span>View</span></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a class="account-order-id"
-                                                       href="javascript:void(0)">#5356</a></td>
-                                                <td>Mar 27, 2019</td>
-                                                <td>On Hold</td>
-                                                <td>£162.00 for 2 items</td>
-                                                <td><a href="javascript:void(0)"
-                                                       class="fb-btn fb-btn_dark fb-btn_sm"><span>View</span></a>
-                                                </td>
-                                            </tr>
+                                            @if(count($orders)>0)
+                                                @foreach($orders as $order)
+                                                    <tr>
+                                                        <td><a class="account-order-id"
+                                                               href=")">#FB{{$order->id}}HK</a></td>
+                                                        <td>{{$order->created_at->Format('M d, Y')}}</td>
+                                                        <td><p class="badge-primary rounded">{{$order->status}}</p></td>
+                                                        <td>${{$order->total}} for {{$order->cart->totalQty}} items</td>
+                                                        <td><button class="fb-btn fb-btn_dark fb-btn_sm" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}"><span>View</span></button>
+                                                        </td>
+                                                    </tr>
+                                                    <div class="modal fade bd-example-modal-lg" id="exampleModalCenter{{$order->id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Ordered Items</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <ul class="list-group">
+                                                                        <li class="list-group-item bg-primary text-white">
+                                                                            <div class="row">
+                                                                                <div class="col-3">Thumbnail</div>
+                                                                                <div class="col-3">Title</div>
+                                                                                <div class="col-3">Qty</div>
+                                                                                <div class="col-3">Price</div>
+                                                                            </div>
+                                                                        </li>
+                                                                        @foreach($order->cart->items as $key=> $cartitem)
+                                                                            <li class="list-group-item">
+                                                                                <div class="row">
+                                                                                    <div class="col-3"><img width="90" height="100" src="{{asset($cartitem['item']->media->first()->url)}}" alt="{{$cartitem['item']->title}}"></div>
+                                                                                    <div class="col-3">{{$cartitem['item']->title}}</div>
+                                                                                    <div class="col-3">{{$cartitem['qty']}}</div>
+                                                                                    <div class="col-3">${{$cartitem['price']}}</div>
+                                                                                </div>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                               <tr><td colspan="5">No Any Order Placed.</td></tr>
+                                            @endif
                                             </tbody>
                                         </table>
                                     </div>
@@ -124,42 +188,40 @@
                             </div>
                             <div class="tab-pane fade" id="account-details" role="tabpanel"
                                  aria-labelledby="account-details-tab">
+                                <h2>Submit the form to update the password.</h2>
                                 <div class="myaccount-details">
-                                    <form action="#" class="fb-form">
+                                    <form method="POST" action="{{ route('my-account.profile.update',['user'=>$user->id]) }}" class="fb-form">
+                                        @csrf
+                                        @method('put')
                                         <div class="fb-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label for="account-details-firstname">First Name*</label>
-                                                <input type="text" id="account-details-firstname">
+                                                <input  type="text" id="account-details-firstname" value="{{$user->firstname??''}}">
                                             </div>
                                             <div class="single-input single-input-half">
                                                 <label for="account-details-lastname">Last Name*</label>
-                                                <input type="text" id="account-details-lastname">
+                                                <input  type="text" id="account-details-lastname" value="{{$user->lastname??''}}">
                                             </div>
                                             <div class="single-input">
                                                 <label for="account-details-email">Email*</label>
-                                                <input type="email" id="account-details-email">
+                                                <input  type="email" id="account-details-email" value="{{$user->email??''}}">
                                             </div>
                                             <div class="single-input">
-                                                <label for="account-details-oldpass">Current Password(leave
-                                                    blank to leave
-                                                    unchanged)</label>
-                                                <input type="password" id="account-details-oldpass">
+                                                <label for="password">{{ __('Password') }}</label>
+                                                <input id="password" type="password" placeholder="Password" class="mb-0 form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                                @error('password')
+                                                    <span class="text-danger">
+                                                    <p>{{ $message }}</p>
+                                                    </span>
+                                                @enderror
                                             </div>
                                             <div class="single-input">
-                                                <label for="account-details-newpass">New Password (leave blank
-                                                    to leave
-                                                    unchanged)</label>
-                                                <input type="password" id="account-details-newpass">
-                                            </div>
-                                            <div class="single-input">
-                                                <label for="account-details-confpass">Confirm New
-                                                    Password</label>
-                                                <input type="password" id="account-details-confpass">
+                                                <label for="password-confirm">{{ __('Confirm Password') }}</label>
+                                                <input id="password-confirm" type="password" placeholder="Confirm Password" class="mb-0 form-control" name="password_confirmation" required autocomplete="new-password">
                                             </div>
                                             <div class="single-input">
                                                 <button class="fb-btn fb-btn_dark"
-                                                        type="submit"><span>SAVE
-                                                                    CHANGES</span></button>
+                                                        type="submit"><span>SAVE CHANGES</span></button>
                                             </div>
                                         </div>
                                     </form>

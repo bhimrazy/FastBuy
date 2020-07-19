@@ -17,7 +17,7 @@
                                         <h3>Up To 50% Off</h3>
                                         <h5>All Selected Items</h5>
                                         <div class="default-btn slide-btn">
-                                            <a class="fb-links fb-links-round" href="{{route('shop-left-sidebar')}}">Shop Now</a>
+                                            <a class="fb-links fb-links-round" href="{{route('shop.index')}}">Shop Now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -30,7 +30,7 @@
                                         <h3>Bakery Mixers</h3>
                                         <h5>Each Valued At $749.35</h5>
                                         <div class="default-btn slide-btn">
-                                            <a class="fb-links fb-links-round" href="{{route('shop-left-sidebar')}}">Shop Now</a>
+                                            <a class="fb-links fb-links-round" href="{{route('shop.index')}}">Shop Now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
@@ -196,7 +196,7 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
@@ -240,7 +240,7 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
@@ -284,7 +284,7 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
@@ -328,7 +328,300 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
+                                                <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Product Content Area End Here -->
+                                </div>
+                                <!-- Sigle Product Area End Here -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FB's Product Wrap Area End Here -->
+                </div>
+            </div>
+        </div>
+        <!-- FB's Product Area End Here -->
+        <div class="fb-product_with_banner pb-60">
+            <div class="container">
+                <div class="fb-section_title">
+                    <h2>Hot DB Product Deals</h2>
+                </div>
+                <div class="row no-gutters">
+                    <!-- Begin FB's Banner Area -->
+                    <div class="col-xl-3 col-lg-4 col-md-5">
+                        <div class="fb-banner fb-img-hover-effect">
+                            <a href="#">
+                                <img src="{{asset('assets/images/banner/1_3.jpg')}}" alt="FB'S Banner">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- FB's Banner Area End Here -->
+                    <!-- Begin FB's Product Wrap Area -->
+                    <div class="col-xl-9 col-lg-8 col-md-7">
+                        <div class="fb-product_wrap bg-white">
+                            <div class="fb-product_active owl-carousel">
+                                <!-- Begin Sigle Product Area -->
+                                @if($products)
+                                @foreach($products as $product)
+                                <div class="single-product">
+                                    <!-- Begin Product Image Area -->
+                                    <div class="product-img">
+                                        <a href="#">
+                                            <img class="primary-img" src="{{asset($product->media->first()->url)}}" alt="FB'S Product">
+                                        </a>
+                                        <div class="sticker"><span>New</span></div>
+                                        <div class="sticker-2"><span>-{{$product->discount}}%</span></div>
+                                        <div class="countersection">
+                                            <div class="fb-countdown"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Product Image Area End Here -->
+                                    <!-- Begin Product Content Area -->
+                                    <div class="product-content">
+                                        <h2 class="product-name">
+                                            <a href="{{route('product.show',['product'=>$product->slug])}}">{{$product->title}}</a>
+                                        </h2>
+                                        <div class="rating-box">
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="price-box">
+                                            <span class="new-price">${{$product->price - ($product->discount /100 * $product->price)}}</span>
+                                            <span class="old-price">${{$product->price}}</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <ul class="product-action-link">
+                                                <li class="shopping-cart_link"><a href="#" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
+                                                <li class="single-product_link"><a href="{{route('product.show',['product'=>$product->slug])}}" title="Single Product"><i class="ion-link"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Product Content Area End Here -->
+                                </div>
+                                @endforeach
+                                @endif
+                                <!-- Begin Sigle Product Area -->
+                                <div class="single-product">
+                                    <!-- Begin Product Image Area -->
+                                    <div class="product-img">
+                                        <a href="{{route('product-details')}}">
+                                            <img class="primary-img" src="{{asset('assets/images/product/1.jpg')}}" alt="FB'S Prduct">
+                                        </a>
+                                        <div class="sticker"><span>New</span></div>
+                                        <div class="sticker-2"><span>-10%</span></div>
+                                        <div class="countersection">
+                                            <div class="fb-countdown"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Product Image Area End Here -->
+                                    <!-- Begin Product Content Area -->
+                                    <div class="product-content">
+                                        <h2 class="product-name">
+                                            <a href="single-product">Printed Dress</a>
+                                        </h2>
+                                        <div class="rating-box">
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box">
+                                            <span class="new-price">$46.91</span>
+                                            <span class="old-price">$50.99</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <ul class="product-action-link">
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
+                                                <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Product Content Area End Here -->
+                                </div>
+                                <!-- Sigle Product Area End Here -->
+                                <!-- Begin Sigle Product Area -->
+                                <div class="single-product">
+                                    <!-- Begin Product Image Area -->
+                                    <div class="product-img">
+                                        <a href="{{route('product-details')}}">
+                                            <img class="primary-img" src="{{asset('assets/images/product/2_1.jpg')}}" alt="FB'S Prduct">
+                                            <img class="secondary-img" src="{{asset('assets/images/product/2_2.jpg')}}" alt="FB'S Prduct">
+                                        </a>
+                                        <div class="sticker"><span>New</span></div>
+                                        <div class="sticker-2"><span>-10%</span></div>
+                                        <div class="countersection">
+                                            <div class="fb-countdown"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Product Image Area End Here -->
+                                    <!-- Begin Product Content Area -->
+                                    <div class="product-content">
+                                        <h2 class="product-name">
+                                            <a href="single-product">Printed Dress</a>
+                                        </h2>
+                                        <div class="rating-box">
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box">
+                                            <span class="new-price">$46.91</span>
+                                            <span class="old-price">$50.99</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <ul class="product-action-link">
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
+                                                <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Product Content Area End Here -->
+                                </div>
+                                <!-- Sigle Product Area End Here -->
+                                <!-- Begin Sigle Product Area -->
+                                <div class="single-product">
+                                    <!-- Begin Product Image Area -->
+                                    <div class="product-img">
+                                        <a href="{{route('product-details')}}">
+                                            <img class="primary-img" src="{{asset('assets/images/product/3_1.jpg')}}" alt="FB'S Prduct">
+                                            <img class="secondary-img" src="{{asset('assets/images/product/3_2.jpg')}}" alt="FB'S Prduct">
+                                        </a>
+                                        <div class="sticker"><span>New</span></div>
+                                        <div class="sticker-2"><span>-10%</span></div>
+                                        <div class="countersection">
+                                            <div class="fb-countdown"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Product Image Area End Here -->
+                                    <!-- Begin Product Content Area -->
+                                    <div class="product-content">
+                                        <h2 class="product-name">
+                                            <a href="single-product">Printed Dress</a>
+                                        </h2>
+                                        <div class="rating-box">
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box">
+                                            <span class="new-price">$46.91</span>
+                                            <span class="old-price">$50.99</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <ul class="product-action-link">
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
+                                                <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Product Content Area End Here -->
+                                </div>
+                                <!-- Sigle Product Area End Here -->
+                                <!-- Begin Sigle Product Area -->
+                                <div class="single-product">
+                                    <!-- Begin Product Image Area -->
+                                    <div class="product-img">
+                                        <a href="{{route('product-details')}}">
+                                            <img class="primary-img" src="{{asset('assets/images/product/4_1.jpg')}}" alt="FB'S Prduct">
+                                            <img class="secondary-img" src="{{asset('assets/images/product/4_2.jpg')}}" alt="FB'S Prduct">
+                                        </a>
+                                        <div class="sticker"><span>New</span></div>
+                                        <div class="sticker-2"><span>-10%</span></div>
+                                        <div class="countersection">
+                                            <div class="fb-countdown"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Product Image Area End Here -->
+                                    <!-- Begin Product Content Area -->
+                                    <div class="product-content">
+                                        <h2 class="product-name">
+                                            <a href="single-product">Printed Dress</a>
+                                        </h2>
+                                        <div class="rating-box">
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box">
+                                            <span class="new-price">$46.91</span>
+                                            <span class="old-price">$50.99</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <ul class="product-action-link">
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
+                                                <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Product Content Area End Here -->
+                                </div>
+                                <!-- Sigle Product Area End Here -->
+                                <!-- Begin Sigle Product Area -->
+                                <div class="single-product">
+                                    <!-- Begin Product Image Area -->
+                                    <div class="product-img">
+                                        <a href="{{route('product-details')}}">
+                                            <img class="primary-img" src="{{asset('assets/images/product/5_1.jpg')}}" alt="FB'S Prduct">
+                                            <img class="secondary-img" src="{{asset('assets/images/product/5_2.jpg')}}" alt="FB'S Prduct">
+                                        </a>
+                                        <div class="sticker"><span>New</span></div>
+                                        <div class="sticker-2"><span>-10%</span></div>
+                                        <div class="countersection">
+                                            <div class="fb-countdown"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Product Image Area End Here -->
+                                    <!-- Begin Product Content Area -->
+                                    <div class="product-content">
+                                        <h2 class="product-name">
+                                            <a href="single-product">Printed Dress</a>
+                                        </h2>
+                                        <div class="rating-box">
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box">
+                                            <span class="new-price">$46.91</span>
+                                            <span class="old-price">$50.99</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <ul class="product-action-link">
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
@@ -392,17 +685,17 @@
                             <div class="btn-group">
                                 <button class="subcategories-trigger"><i class="fa fa-bars"></i></button>
                                 <ul class="subcategories-list">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Cookware Brands</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Cookware Sets</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Individual Cookware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Enamel Cookware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Cookware Brands</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Cookware Sets</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Individual Cookware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Enamel Cookware</a></li>
                                 </ul>
                                 <!-- Begin FB's List Product Menu Area -->
                                 <ul class="list-product_menu">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Cookware Brands</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Cookware Sets</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Individual Cookware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Enamel Cookware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Cookware Brands</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Cookware Sets</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Individual Cookware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Enamel Cookware</a></li>
                                 </ul>
                                 <!-- FB's List Product Menu Area End Here -->
                             </div>
@@ -440,7 +733,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -479,7 +772,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -520,7 +813,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -558,7 +851,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -599,7 +892,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -637,7 +930,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -678,7 +971,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -716,7 +1009,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -756,17 +1049,17 @@
                             <div class="btn-group">
                                 <button class="subcategories-trigger"><i class="fa fa-bars"></i></button>
                                 <ul class="subcategories-list">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Armchairs</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Bunk Bed</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Mattress</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Sideboard</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Armchairs</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Bunk Bed</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Mattress</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Sideboard</a></li>
                                 </ul>
                                 <!-- Begin FB's List Product Menu Area -->
                                 <ul class="list-product_menu">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Armchairs</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Bunk Bed</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Mattress</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Sideboard</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Armchairs</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Bunk Bed</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Mattress</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Sideboard</a></li>
                                 </ul>
                                 <!-- FB's List Product Menu Area End Here -->
                             </div>
@@ -803,7 +1096,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -841,7 +1134,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -882,7 +1175,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -920,7 +1213,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -960,7 +1253,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -998,7 +1291,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1039,7 +1332,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1077,7 +1370,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1117,17 +1410,17 @@
                             <div class="btn-group">
                                 <button class="subcategories-trigger"><i class="fa fa-bars"></i></button>
                                 <ul class="subcategories-list">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Bootees Bags</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Jackets</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Shelf</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Shoes</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Bootees Bags</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Jackets</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Shelf</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Shoes</a></li>
                                 </ul>
                                 <!-- Begin FB's List Product Menu Area -->
                                 <ul class="list-product_menu">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Bootees Bags</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Jackets</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Shelf</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Shoes</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Bootees Bags</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Jackets</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Shelf</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Shoes</a></li>
                                 </ul>
                                 <!-- FB's List Product Menu Area End Here -->
                             </div>
@@ -1164,7 +1457,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1203,7 +1496,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1244,7 +1537,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1282,7 +1575,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1322,7 +1615,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1361,7 +1654,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1402,7 +1695,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1440,7 +1733,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1480,17 +1773,17 @@
                             <div class="btn-group">
                                 <button class="subcategories-trigger"><i class="fa fa-bars"></i></button>
                                 <ul class="subcategories-list">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Tour Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Hatch Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Direction Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Crescent Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Tour Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Hatch Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Direction Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Crescent Drinkware</a></li>
                                 </ul>
                                 <!-- Begin FB's List Product Menu Area -->
                                 <ul class="list-product_menu">
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Tour Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Hatch Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Direction Drinkware</a></li>
-                                    <li><a href="{{route('shop-left-sidebar')}}" target="_blank">Crescent Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Tour Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Hatch Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Direction Drinkware</a></li>
+                                    <li><a href="{{route('shop.index')}}" target="_blank">Crescent Drinkware</a></li>
                                 </ul>
                                 <!-- FB's List Product Menu Area End Here -->
                             </div>
@@ -1527,7 +1820,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1566,7 +1859,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1607,7 +1900,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1645,7 +1938,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1685,7 +1978,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1724,7 +2017,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1765,7 +2058,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1803,7 +2096,7 @@
                                                 </div>
                                                 <div class="product-action list-product_action">
                                                     <ul class="product-action-link">
-                                                        <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                         <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                         <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                     </ul>
@@ -1869,7 +2162,7 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
@@ -1907,7 +2200,7 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
@@ -1946,7 +2239,7 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
@@ -1984,7 +2277,7 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
@@ -2039,7 +2332,7 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
@@ -2078,7 +2371,7 @@
                                         </div>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                 <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>

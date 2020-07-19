@@ -21,6 +21,135 @@
         <!-- Product Details Area -->
         <div class="product-details-area">
             <div class="container">
+                @if($product ?? '' )
+                    <form role="form" action="{{route('carts.store')}}" method="POST">
+                        @csrf
+                        <input name="product_id" value="{{$product->id}}" hidden>
+                       <div class="pdetails bg-white">
+                           <div class="row">
+                               <div class="col-lg-5">
+                                   <div class="pdetails-images">
+                                       <div class="pdetails-largeimages pdetails-imagezoom">
+                                           <div class="pdetails-singleimage" data-src="{{asset($product->media->first()->url)}}">
+                                               <img src="{{asset($product->media->first()->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
+                                               <div class="sticker">New</div>
+                                           </div>
+                                           @foreach($product->media as $key => $image)
+                                               @if($key>0)
+                                                   <div class="pdetails-singleimage" data-src="{{asset($image->url)}}">
+                                                       <img src="{{asset($image->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
+                                                   </div>
+                                               @endif
+                                           @endforeach
+                                       </div>
+
+                                       <div class="pdetails-thumbs">
+                                           @foreach($product->media as $image)
+                                               <div class="pdetails-singlethumb" data-src="{{asset($image->url)}}">
+                                                   <img src="{{asset($image->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
+                                               </div>
+                                           @endforeach
+
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-lg-7">
+                                   <div class="product-details-view-content mt-20">
+                                       <div class="product-info">
+                                           <h2>{{$product->title}}</h2>
+                                           <span class="product-details-ref">Reference: demo_11</span>
+                                           <div class="rating-box pt-10">
+                                               <ul class="rating-with-review-item">
+                                                   <li class="review-item"><a href="#">Write Review</a></li>
+                                               </ul>
+                                           </div>
+                                           <div class="price-box pb-10">
+                                               <span class="new-price">${{$product->price}}</span>
+                                           </div>
+                                           <div class="product-desc">
+                                               <p>
+                                                   <span>{{$product->description}}</span>
+                                               </p>
+                                           </div>
+                                           <div class="single-add-to-cart">
+                                               <form action="#" class="cart-quantity mt-0">
+                                                   <div class="quantity">
+                                                       <label>Quantity</label>
+                                                       <div class="cart-plus-minus">
+                                                           <input class="cart-plus-minus-box" name="quantity" value="1" type="text">
+                                                           <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                           <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                       </div>
+                                                   </div>
+                                                   <button type="submit" class="fb-btn add-to-cart">Add to cart</button>
+                                               </form>
+                                           </div>
+                                           <span class="product-availability pt-25">In stock</span>
+                                           <div class="footer-widget-social-link footer-widget-social-link-2">
+                                               <span>Share</span>
+                                               <ul class="social-link">
+                                                   <li class="facebook">
+                                                       <a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank" title="Facebook">
+                                                           <i class="fa fa-facebook"></i>
+                                                       </a>
+                                                   </li>
+                                                   <li class="twitter">
+                                                       <a href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter">
+                                                           <i class="fa fa-twitter"></i>
+                                                       </a>
+                                                   </li>
+                                                   <li class="youtube">
+                                                       <a href="https://www.youtube.com/" data-toggle="tooltip" target="_blank" title="Youtube">
+                                                           <i class="fa fa-youtube"></i>
+                                                       </a>
+                                                   </li>
+                                                   <li class="google-plus">
+                                                       <a href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank" title="Google Plus">
+                                                           <i class="fa fa-google-plus"></i>
+                                                       </a>
+                                                   </li>
+                                                   <li class="instagram">
+                                                       <a href="https://www.instagram.com/" data-toggle="tooltip" target="_blank" title="Instagram">
+                                                           <i class="fa fa-instagram"></i>
+                                                       </a>
+                                                   </li>
+                                               </ul>
+                                           </div>
+                                           <div class="block-reassurance">
+                                               <ul>
+                                                   <li>
+                                                       <div class="reassurance-item">
+                                                           <div class="reassurance-icon">
+                                                               <i class="fa fa-check-square-o"></i>
+                                                           </div>
+                                                           <p>Security policy (edit with Customer reassurance module)</p>
+                                                       </div>
+                                                   </li>
+                                                   <li>
+                                                       <div class="reassurance-item">
+                                                           <div class="reassurance-icon">
+                                                               <i class="fa fa-truck"></i>
+                                                           </div>
+                                                           <p>Delivery policy (edit with Customer reassurance module)</p>
+                                                       </div>
+                                                   </li>
+                                                   <li>
+                                                       <div class="reassurance-item">
+                                                           <div class="reassurance-icon">
+                                                               <i class="fa fa-exchange"></i>
+                                                           </div>
+                                                           <p> Return policy (edit with Customer reassurance module)</p>
+                                                       </div>
+                                                   </li>
+                                               </ul>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </form>
+                @else
                 <div class="pdetails bg-white">
                     <div class="row">
                         <div class="col-lg-5">
@@ -110,7 +239,7 @@
                                                     <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                 </div>
                                             </div>
-                                            <a href="{{route('cart')}}" class="fb-btn add-to-cart">Add to cart</a>
+                                            <a href="{{route('carts.index')}}" class="fb-btn add-to-cart">Add to cart</a>
                                         </form>
                                     </div>
                                     <span class="product-availability pt-25">In stock</span>
@@ -177,6 +306,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
         <!-- Product Details Area End Here -->
@@ -354,7 +484,7 @@
                                             </div>
                                             <div class="product-action">
                                                 <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                     <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                     <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                 </ul>
@@ -393,7 +523,7 @@
                                             </div>
                                             <div class="product-action">
                                                 <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                     <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                     <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                 </ul>
@@ -431,7 +561,7 @@
                                             </div>
                                             <div class="product-action">
                                                 <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                     <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                     <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                 </ul>
@@ -469,7 +599,7 @@
                                             </div>
                                             <div class="product-action">
                                                 <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                     <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                     <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                 </ul>
@@ -510,7 +640,7 @@
                                             </div>
                                             <div class="product-action">
                                                 <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                     <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                     <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                 </ul>
@@ -550,7 +680,7 @@
                                             </div>
                                             <div class="product-action">
                                                 <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                     <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                     <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                 </ul>
@@ -590,7 +720,7 @@
                                             </div>
                                             <div class="product-action">
                                                 <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('cart')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                     <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
                                                     <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
                                                 </ul>

@@ -33,7 +33,7 @@
                         <div class="about-content">
                             <h2>WELCOME TO <span>FastBuy</span> WORLD</h2>
                             <p>We Provide Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae nisi fuga facilis, consequuntur, maiores eveniet voluptatum, omnis possimus temporibus aspernatur nobis animi in exercitationem vitae nulla! Adipisci ullam illum quisquam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, nulla veniam? Magni aliquid asperiores magnam. Veniam ex tenetur.</p>
-                            <a href="{{route('shop-left-sidebar')}}" class="fb-btn">
+                            <a href="{{route('shop.index')}}" class="fb-btn">
                                 <span>SHOP NOW</span>
                             </a>
                         </div>
@@ -112,7 +112,7 @@
                                         </a>
                                     </li>
                                     <li class="twitter">
-                                        <a href="#/">
+                                        <a href="#">
                                             <i class="fa fa-twitter"></i>
                                         </a>
                                     </li>

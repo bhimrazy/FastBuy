@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     protected $fillable=[
-        'title',
+        'title','slug',
     ];
     public function products(){
         return $this->belongsToMany(Product::class);
