@@ -10,7 +10,7 @@ class Order extends Model
         'total','tax','status','delivery','user_id','cart',
     ];
     public function customer(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id','id');
     }
     public function payment(){
         return $this->hasOne(Payment::class);

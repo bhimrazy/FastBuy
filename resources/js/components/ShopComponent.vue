@@ -3,7 +3,7 @@
         <div class="col-lg-9 order-1 order-lg-2">
             <!-- Begin FB's Banner Area -->
             <div class="shoptopbar-heading">
-                <h2>Electronics</h2>
+                <h2>Filter Products</h2>
             </div>
             <!-- Li's Banner Area End Here -->
             <!-- shop-top-bar start -->
@@ -18,25 +18,9 @@
                         <!-- shop-item-filter-list end -->
                     </div>
                     <div class="toolbar-amount">
-                        <span>There are 13 products.</span>
+                        <span>There are {{this.products.length}} products.</span>
                     </div>
                 </div>
-                <!-- product-select-box start -->
-                <div class="product-select-box">
-                    <div class="product-short">
-                        <p>Sort By:</p>
-                        <select class="nice-select">
-                            <option value="trending">Relevance</option>
-                            <option value="sales">Name (A - Z)</option>
-                            <option value="sales">Name (Z - A)</option>
-                            <option value="rating">Price (Low &gt; High)</option>
-                            <option value="date">Rating (Lowest)</option>
-                            <option value="price-asc">Model (A - Z)</option>
-                            <option value="price-asc">Model (Z - A)</option>
-                        </select>
-                    </div>
-                </div>
-                <!-- product-select-box end -->
             </div>
             <!-- shop-top-bar end -->
             <!-- shop-products-wrapper start -->
@@ -45,23 +29,23 @@
                     <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
                         <div class="fb-product_wrap shop-product-area">
                             <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6" v-for="product in this.filteredProducts">
+                                <div class="col-lg-4 col-md-4 col-sm-6" v-for="product in this.filteredProducts.slice(0,10)">
                                     <!-- Begin Sigle Product Area -->
                                     <div class="single-product">
                                         <!-- Begin Product Image Area -->
                                         <div class="product-img">
-                                            <a v-bind:href="appUrl+'/'+product.slug">
-                                                <img class="primary-img" :src="product.media[0].url" alt="FB'S Prduct">
-                                                <img class="secondary-img" :src="product.media[1].url" alt="FB'S Prduct">
+                                            <a v-bind:href="asset('/'+product.slug)">
+                                                <img class="primary-img" :src="asset(product.media[0].url)" alt="FB'S Prduct">
+                                                <img class="secondary-img" :src="asset(product.media[1].url)" alt="FB'S Prduct">
                                             </a>
                                             <div class="sticker"><span>New</span></div>
-                                            <div class="sticker-2"><span>-10%</span></div>
+                                            <div class="sticker-2"><span>-{{product.discount}}%</span></div>
                                         </div>
                                         <!-- Product Image Area End Here -->
                                         <!-- Begin Product Content Area -->
                                         <div class="product-content">
                                             <h2 class="product-name">
-                                                <a v-bind:href="appUrl+'/'+product.slug">{{product.title}}</a>
+                                                <a v-bind:href="asset('/'+product.slug)">{{product.title}}</a>
                                             </h2>
                                             <div class="rating-box">
                                                 <ul class="rating">
@@ -78,9 +62,9 @@
                                             </div>
                                             <div class="product-action">
                                                 <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                    <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                    <li class="single-product_link"><a href="" title="Single Product"><i class="ion-link"></i></a></li>
+                                                    <li class="shopping-cart_link"><a v-bind:href="asset('/'+product.slug)" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                    <li class="quick-view-btn"><a v-bind:href="asset('/'+product.slug)" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
+                                                    <li class="single-product_link"><a v-bind:href="asset('/'+product.slug)" title="Single Product"><i class="ion-link"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -94,18 +78,18 @@
                     </div>
                     <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
                         <div class="fb-product_wrap shop-product-area">
-                            <div class="row">
+                            <div class="row" v-for="product in this.filteredProducts.slice(0,10)">
                                 <div class="col-lg-4 col-md-4 col-sm-6">
                                     <!-- Begin Sigle Product Area -->
                                     <div class="single-product">
                                         <!-- Begin Product Image Area -->
                                         <div class="product-img">
-                                            <a href="">
-                                                <img class="primary-img" src="assets/images/product/5_1.jpg" alt="FB'S Prduct">
-                                                <img class="secondary-img" src="assets/images/product/5_2.jpg" alt="FB'S Prduct">
+                                            <a v-bind:href="asset('/'+product.slug)">
+                                                <img class="primary-img" :src="asset(product.media[0].url)" alt="FB'S Prduct">
+                                                <img class="secondary-img" :src="asset(product.media[1].url)" alt="FB'S Prduct">
                                             </a>
                                             <div class="sticker"><span>New</span></div>
-                                            <div class="sticker-2"><span>-10%</span></div>
+                                            <div class="sticker-2"><span>-{{product.discount}}%</span></div>
                                         </div>
                                         <!-- Product Image Area End Here -->
                                     </div>
@@ -115,7 +99,7 @@
                                     <!-- Begin Product Content Area -->
                                     <div class="product-content product-content-list_view">
                                         <h2 class="product-name">
-                                            <a href="">Faded Short Sleeves T-shirt</a>
+                                            <a v-bind:href="asset('/'+product.slug)">{{product.title}}</a>
                                         </h2>
                                         <div class="rating-box">
                                             <ul class="rating">
@@ -127,289 +111,15 @@
                                             </ul>
                                         </div>
                                         <div class="price-box">
-                                            <span class="new-price">$15.19</span>
-                                            <span class="old-price">$16.51</span>
+                                            <span class="new-price">${{product.price-product.discount*0.01*product.price}}</span>
+                                            <span class="old-price">${{product.price}}</span>
                                         </div>
-                                        <p>Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!</p>
+                                        <p>{{product.description}}</p>
                                         <div class="product-action">
                                             <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                <li class="single-product_link"><a href="" title="Single Product"><i class="ion-link"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Product Content Area End Here -->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="">
-                                                <img class="primary-img" src="assets/images/product/10.jpg" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-6">
-                                    <!-- Begin Product Content Area -->
-                                    <div class="product-content product-content-list_view">
-                                        <h2 class="product-name">
-                                            <a href="">Printed Summer Dress</a>
-                                        </h2>
-                                        <div class="rating-box">
-                                            <ul class="rating">
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="new-price">$30.50</span>
-                                        </div>
-                                        <p>Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
-                                        <div class="product-action">
-                                            <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                <li class="single-product_link"><a href="" title="Single Product"><i class="ion-link"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Product Content Area End Here -->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="">
-                                                <img class="primary-img" src="assets/images/product/8_1.jpg" alt="FB'S Prduct">
-                                                <img class="secondary-img" src="assets/images/product/8_2.jpg" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-6">
-                                    <!-- Begin Product Content Area -->
-                                    <div class="product-content product-content-list_view">
-                                        <h2 class="product-name">
-                                            <a href="">Faded Short Sleeves T-shirt</a>
-                                        </h2>
-                                        <div class="rating-box">
-                                            <ul class="rating">
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="new-price">$30.50</span>
-                                        </div>
-                                        <p>Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
-                                        <div class="product-action">
-                                            <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                <li class="single-product_link"><a href="" title="Single Product"><i class="ion-link"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Product Content Area End Here -->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="">
-                                                <img class="primary-img" src="assets/images/product/9.jpg" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-6">
-                                    <!-- Begin Product Content Area -->
-                                    <div class="product-content product-content-list_view">
-                                        <h2 class="product-name">
-                                            <a href="">Printed Summer Dress</a>
-                                        </h2>
-                                        <div class="rating-box">
-                                            <ul class="rating">
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="new-price">$26.99</span>
-                                        </div>
-                                        <p>Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
-                                        <div class="product-action">
-                                            <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                <li class="single-product_link"><a href="" title="Single Product"><i class="ion-link"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Product Content Area End Here -->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="">
-                                                <img class="primary-img" src="assets/images/product/1.jpg" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                            <div class="sticker-2"><span>-10%</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-6">
-                                    <!-- Begin Product Content Area -->
-                                    <div class="product-content product-content-list_view">
-                                        <h2 class="product-name">
-                                            <a href="">Faded Short Sleeves T-shirt</a>
-                                        </h2>
-                                        <div class="rating-box">
-                                            <ul class="rating">
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="new-price">$23.39</span>
-                                            <span class="old-price">$25.99</span>
-                                        </div>
-                                        <p>100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom.</p>
-                                        <div class="product-action">
-                                            <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                <li class="single-product_link"><a href="" title="Single Product"><i class="ion-link"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Product Content Area End Here -->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="">
-                                                <img class="primary-img" src="assets/images/product/11.jpg" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-6">
-                                    <!-- Begin Product Content Area -->
-                                    <div class="product-content product-content-list_view">
-                                        <h2 class="product-name">
-                                            <a href="">Faded Short Sleeves T-shirt</a>
-                                        </h2>
-                                        <div class="rating-box">
-                                            <ul class="rating">
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="new-price">$50.99</span>
-                                        </div>
-                                        <p>Printed evening dress with straight sleeves with black thin waist belt and ruffled linings.</p>
-                                        <div class="product-action">
-                                            <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                <li class="single-product_link"><a href="" title="Single Product"><i class="ion-link"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Product Content Area End Here -->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="">
-                                                <img class="primary-img" src="assets/images/product/7_2.jpg" alt="FB'S Prduct">
-                                                <img class="secondary-img" src="assets/images/product/7_1.jpg" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-6">
-                                    <!-- Begin Product Content Area -->
-                                    <div class="product-content product-content-list_view">
-                                        <h2 class="product-name">
-                                            <a href="">Printed Summer Dress</a>
-                                        </h2>
-                                        <div class="rating-box">
-                                            <ul class="rating">
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                                <li class="no-star"><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="new-price">$30.50</span>
-                                        </div>
-                                        <p>Long printed dress with thin adjustable straps. V-neckline and wiring under the bust with ruffles at the bottom of the dress.</p>
-                                        <div class="product-action">
-                                            <ul class="product-action-link">
-                                                <li class="shopping-cart_link"><a href="" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                <li class="single-product_link"><a href="" title="Single Product"><i class="ion-link"></i></a></li>
+                                                <li class="shopping-cart_link"><a v-bind:href="asset('/'+product.slug)" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="quick-view-btn"><a v-bind:href="asset('/'+product.slug)" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
+                                                <li class="single-product_link"><a v-bind:href="asset('/'+product.slug)" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -443,45 +153,14 @@
         </div>
         <div class="col-lg-3 order-2 order-lg-1">
             <div class="sidebar-title">
-                <h2>Electronics</h2>
+                <h2>Home and Kitchen Appliances</h2>
             </div>
             <!--Begin Sidebar Categores Box Area -->
             <div class="sidebar-categores-box mt-sm-30 mt-xs-30">
                 <!-- Begin Category Sub Menu Area -->
                 <div class="category-sub-menu">
-                    <ul>
-                        <li class="has-sub"><a href="# ">Cameras</a>
-                            <ul>
-                                <li><a href="#">Cords and Cables</a></li>
-                                <li><a href="#">gps accessories</a></li>
-                                <li><a href="#">Microphones</a></li>
-                                <li><a href="#">Wireless Transmitters</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-sub"><a href="#">GamePad</a>
-                            <ul>
-                                <li><a href="#">cube lifestyle hd</a></li>
-                                <li><a href="#">gopro hero4</a></li>
-                                <li><a href="#">handycam cx405</a></li>
-                                <li><a href="#">vixia hf r600</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-sub"><a href="#">Digital Cameras</a>
-                            <ul>
-                                <li><a href="#">Gold eye</a></li>
-                                <li><a href="#">Questek</a></li>
-                                <li><a href="#">Snm</a></li>
-                                <li><a href="#">Vantech</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-sub"><a href="#">Virtual Reality</a>
-                            <ul>
-                                <li><a href="#">Samsung</a></li>
-                                <li><a href="#">Toshiba</a></li>
-                                <li><a href="#">Transcend</a></li>
-                                <li><a href="#">Sandisk</a></li>
-                            </ul>
-                        </li>
+                    <ul v-for="(category, index) in categories.slice(0,5)">
+                        <li>{{category.title}}</li>
                     </ul>
                 </div>
                 <!-- Category Sub Menu Area End Here -->
@@ -544,18 +223,21 @@
 
 <script>
     export default {
-        props: ['categories','products','brands'],
+        props: ['categories','products','brands','base_url'],
         data: function () {
             return {
-                appUrl: 'http://127.0.0.1:8000',
+                appUrl:this.base_url,
                 selected: {
-                    prices: '',
                     categories:[],
                     brands:[],
-                }
+                },
+                pageNumber: 0
             }
         },
         methods: {
+                asset(url){
+                 return this.appUrl+url
+                },
                 clearAll(){
                     this.selected.categories= [];
                     this.selected.brands= [];

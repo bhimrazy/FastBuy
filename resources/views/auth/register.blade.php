@@ -67,8 +67,13 @@
                                     <label for="password-confirm">{{ __('Confirm Password') }}</label>
                                     <input id="password-confirm" type="password" placeholder="Confirm Password" class="mb-0 form-control" name="password_confirmation" required autocomplete="new-password">
                                 </div>
-                                <div class="col-12">
+                                <div class="col-md-6 mb-20">
                                     <button class="register-button mt-0"> {{ __('Register') }}</button>
+                                </div>
+                                <div class="col-md-6 mb-20 text-md-right">
+                                    <a href="{{ route('login') }}">
+                                        {{ __('Already Have an account?') }}
+                                    </a>
                                 </div>
                             </div>
                         </div>

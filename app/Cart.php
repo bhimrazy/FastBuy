@@ -32,4 +32,24 @@ class Cart
         $this->totalQty=count($this->items);
         $this->totalPrice+=$storedItem['price'];
     }
+    public function reduceByOne($id){
+        $this->items[$id]['qty']--;
+        $this->items[$id]['price'] = $this->items[$id]['item']->price * $this->items[$id]['qty'];
+        $this->totalPrice -= $this->items[$id]['item']->price;
+        if($this->items[$id]['qty'] <= 0) {
+            unset($this->items[$id]);
+        }
+    }
+    public function increaseByOne($id){
+        if($this->items[$id]['qty'] > 0) {
+            $this->items[$id]['qty']++;
+            $this->items[$id]['price'] = $this->items[$id]['item']->price * $this->items[$id]['qty'];
+            $this->totalPrice += $this->items[$id]['item']->price;
+        }
+    }
+    public function destroy($id){
+        $this->totalPrice -= $this->items[$id]['price'];
+        unset($this->items[$id]);
+        $this->totalQty=count($this->items);
+    }
 }

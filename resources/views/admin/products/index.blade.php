@@ -81,7 +81,7 @@
                                     </a>
                                     <br/>
                                     <small>
-                                        Created 01.01.2019
+                                        Created at {{$product->created_at->format('d-m-Y')}}
                                     </small>
                                 </td>
                                 <td>

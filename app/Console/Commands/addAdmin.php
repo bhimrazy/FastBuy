@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Permission;
+use App\Role;
 use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +15,7 @@ class addAdmin extends Command
      *
      * @var string
      */
-    protected $signature = 'create:admin';
+    protected $signature = 'create:superAdmin';
 
     /**
      * The console command description.
@@ -43,17 +45,27 @@ class addAdmin extends Command
         if ($admin===null){
             $firstname=$this->ask('Enter The firstname');
             $lastname=$this->ask('Enter The lastname');
-            $email=$this->ask('Enter the email');
+            $email=$this->ask('Enter The email for admin');
             $password=$this->secret('Enter The Password');
-            if ($this->confirm('Do you wish to continue?')) {
-                $user=User::create([
-                    'firstname'=>$firstname,
-                    'lastname'=>$lastname,
-                    'email'=>$email,
-                    'password'=>Hash::make($password),
-                    'type'=>'admin'
-                ]);
-                return $this->info('Admin added with name:' . $user->firstname);
+            $confirm_password=$this->secret('Enter The Confirmation Password');
+            if($password == $confirm_password){
+                if ($this->confirm('Do you wish to continue?')) {
+                    $user=User::create([
+                        'firstname'=>$firstname,
+                        'lastname'=>$lastname,
+                        'email'=>$email,
+                        'password'=>Hash::make($password),
+                        'type'=>'admin'
+                    ]);
+                    $role=Role::create(['title'=>'SuperAdmin']);
+                    $role->permissions()->sync(Permission::all());
+                    $user->roles()->sync($role);
+                    return $this->info('Admin added with name:' . $user->firstname . '. Now login and Verify Email');
+
+                }
+            }
+            else{
+                $this->warn('Password Confirmation Mismatch');
             }
         }
         else{

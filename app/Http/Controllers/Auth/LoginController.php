@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -21,25 +22,29 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     //protected $redirectTo = RouteServiceProvider::HOME;
-     protected $redirectTo;
+     protected function authenticated(Request $request, $user)
+     {
+         if(session()->has('oldUrl')){
+             $url=session()->get('oldUrl');
+             return redirect()->route($url);
+         }
+         elseif($user->isAdmin()){
+             auth()->logout();
+             return redirect()->route('admin-login');
+         }
+         else{
+             return redirect()->route('my-account');
+         }
+     }
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct()
-    {   if(session()->has('oldUrl')){
-        $this->redirectTo=session()->get('oldUrl');
-         }
-         else{
-             $this->redirectTo=route('my-account');
-         }
+    {
         $this->middleware('guest')->except('logout');
     }
 }

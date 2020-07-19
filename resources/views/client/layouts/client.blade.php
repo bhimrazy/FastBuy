@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Fastbuy - Home and Kitchen Appliances | Mega Shop</title>
+    <title>FastBuy - Home and Kitchen Appliances | Mega Shop</title>
     <meta name="robots" content="noindex, follow"/>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -123,92 +123,18 @@
                         <!-- Begin Header Middle Right Area -->
                         <div class="header-middle-right">
                             <!-- Begin Header Middle Searchbox Area -->
-                            <form action="#" class="hm-searchbox">
-                                <select class="nice-select select-search-category">
-                                    <option value="0">All categories</option>
-                                    <option value="12">Electronics</option>
-                                    <option value="23">Cameras</option>
-                                    <option value="27">Cords and Cables</option>
-                                    <option value="28">gps accessories</option>
-                                    <option value="29">Microphones</option>
-                                    <option value="30">Wireless Transmitters</option>
-                                    <option value="24">GamePad</option>
-                                    <option value="31">cube lifestyle hd</option>
-                                    <option value="32">gopro hero4</option>
-                                    <option value="33">handycam cx405</option>
-                                    <option value="34">vixia hf r600</option>
-                                    <option value="25">Digital Cameras</option>
-                                    <option value="35">Gold eye</option>
-                                    <option value="36">Questek</option>
-                                    <option value="37">Snm</option>
-                                    <option value="38">Vantech</option>
-                                    <option value="26">Virtual Reality</option>
-                                    <option value="39">Samsung</option>
-                                    <option value="40">Toshiba</option>
-                                    <option value="41">Transcend</option>
-                                    <option value="42">Sandisk</option>
-                                    <option value="13">Book</option>
-                                    <option value="43">Children's Books</option>
-                                    <option value="45">Early Learning</option>
-                                    <option value="46">Animals</option>
-                                    <option value="47">Action</option>
-                                    <option value="48">Education</option>
-                                    <option value="44">comic book</option>
-                                    <option value="49">Superhero</option>
-                                    <option value="50">Slice-of-Life</option>
-                                    <option value="51">Humor</option>
-                                    <option value="52">Science-Fiction</option>
-                                    <option value="14">Kitchen</option>
-                                    <option value="53">Large Appliances</option>
-                                    <option value="55">Armchairs</option>
-                                    <option value="56">Bunk Bed</option>
-                                    <option value="57">Mattress</option>
-                                    <option value="58">Sideboard</option>
-                                    <option value="54">Small Appliances</option>
-                                    <option value="59">Bootees Bags</option>
-                                    <option value="60">Jackets</option>
-                                    <option value="61">Shelf</option>
-                                    <option value="62">Shoes</option>
-                                    <option value="83">Drinkware</option>
-                                    <option value="85">Tour Drinkware</option>
-                                    <option value="86">Hatch Drinkware</option>
-                                    <option value="87">Direction Drinkware</option>
-                                    <option value="88">Crescent Drinkware</option>
-                                    <option value="84">Cookware</option>
-                                    <option value="89">Cookware Brands</option>
-                                    <option value="90">Cookware Sets</option>
-                                    <option value="91">Individual Cookware</option>
-                                    <option value="92">Enamel Cookware</option>
-                                    <option value="15">Tablets</option>
-                                    <option value="63">Tablet</option>
-                                    <option value="65">Samsung</option>
-                                    <option value="66">LG</option>
-                                    <option value="67">Apple</option>
-                                    <option value="68">Sony</option>
-                                    <option value="64">Smartphone</option>
-                                    <option value="69">Nokia</option>
-                                    <option value="70">Sony</option>
-                                    <option value="71">Apple</option>
-                                    <option value="72">Samsung</option>
-                                    <option value="16">Furnitured</option>
-                                    <option value="73">bedroom</option>
-                                    <option value="75">Bed</option>
-                                    <option value="76">lamp</option>
-                                    <option value="77">Mattress Sets</option>
-                                    <option value="78">Home Office</option>
-                                    <option value="74">livingroom</option>
-                                    <option value="79">chair</option>
-                                    <option value="80">table</option>
-                                    <option value="81">carpet</option>
-                                    <option value="82">Sofa</option>
-                                    <option value="17">Video games</option>
-                                    <option value="18">Sport</option>
-                                    <option value="19">Fruits</option>
-                                    <option value="20">Computer</option>
-                                    <option value="21">Meat</option>
-                                    <option value="22">Accessories</option>
+                            <form action="{{route('products.search')}}" class="hm-searchbox" method="post">
+                                @csrf
+                                <select name="category_id" class="nice-select select-search-category">
+                                    <option selected disabled>All categories</option>
+                                    @foreach($categories as $category)
+                                        <option disabled>&nbsp;{{$category->title}}</option>
+                                        @foreach($category->subcategories as $subcategory)
+                                            <option value="{{$subcategory->id}}">&nbsp;&nbsp;&nbsp;&nbsp;{{$subcategory->title}}</option>
+                                        @endforeach
+                                    @endforeach
                                 </select>
-                                <input type="text" placeholder="Enter your search key ...">
+                                <input name="query" type="text" placeholder="{{$query??'Enter your search key ...'}}">
                                 <button class="fb-search_btn" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                             <!-- Header Middle Searchbox Area End Here -->
@@ -371,50 +297,6 @@
                                                     <li><a href="#">Cookware Sets</a></li>
                                                     <li><a href="#">Individual Cookware</a></li>
                                                     <li><a href="#">Enamel Cookware</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="right-menu"><a href="{{route('shop.index')}}"><span><img src="{{asset('assets/images/category-thumb/4.jpg')}}" alt="Category-thumb"></span>Phones & Tablets</a>
-                                        <ul class="cat-mega-menu">
-                                            <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop.index')}}">Tablet</a>
-                                                <ul>
-                                                    <li><a href="#">Chamcham</a></li>
-                                                    <li><a href="#">Sanai</a></li>
-                                                    <li><a href="#">Meito</a></li>
-                                                    <li><a href="#">Walton</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop.index')}}">Smartphone</a>
-                                                <ul>
-                                                    <li><a href="#">Xail</a></li>
-                                                    <li><a href="#">Sanai</a></li>
-                                                    <li><a href="#">Meito</a></li>
-                                                    <li><a href="#">Chamcham</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="right-menu"><a href="{{route('shop.index')}}"><span><img src="{{asset('assets/images/category-thumb/5.jpg')}}" alt="Category-thumb"></span>Furnitured</a>
-                                        <ul class="cat-mega-menu">
-                                            <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop.index')}}">bedroom</a>
-                                                <ul>
-                                                    <li><a href="#">Bed</a></li>
-                                                    <li><a href="#">lamp</a></li>
-                                                    <li><a href="#">Mattress Sets</a></li>
-                                                    <li><a href="#">Home Office</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="right-menu cat-mega-title">
-                                                <a href="{{route('shop.index')}}">livingroom</a>
-                                                <ul>
-                                                    <li><a href="#">chair</a></li>
-                                                    <li><a href="#">table</a></li>
-                                                    <li><a href="#">carpet</a></li>
-                                                    <li><a href="#">Sofa</a></li>
                                                 </ul>
                                             </li>
                                         </ul>

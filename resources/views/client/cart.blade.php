@@ -45,37 +45,21 @@
                                             <td class="quantity">
                                                 <label>Quantity</label>
                                                 <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" value="{{$cartitem['qty']}}" type="text">
-                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                    <p class="cart-plus-minus-box">{{$cartitem['qty']}}</p>
+                                                    <a href="{{route('carts.reduceByOne',['id'=>$cartitem['item']->id])}}"><i class="fa fa-angle-down"></i></a>
+                                                    <a href="{{route('carts.increaseByOne',['id'=>$cartitem['item']->id])}}"><i class="fa fa-angle-up"></i></a>
                                                     <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                 </div>
                                             </td>
                                             <td class="product-subtotal"><span class="amount">${{$cartitem['price']}}</span></td>
                                             <td class="fb-product-remove">
-                                                <form action="{{route('carts.destroy',['cart'=>$cartitem['item']->id])}}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button class="btn btn-danger" type="submit"><span><i
-                                                                class="fas fa-trash-alt"></i></span> Delete <i class="fa fa-times"></i></button>
-                                                </form>
+                                                <a href="{{route('carts.delete',['id'=>$cartitem['item']->id])}}" class="btn btn-danger"><span><i
+                                                            class="fas fa-trash-alt"></i></span> Delete <i class="fa fa-times"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="coupon-all">
-                                        {{--                                    <div class="coupon">--}}
-                                        {{--                                        <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">--}}
-                                        {{--                                        <input class="button" name="apply_coupon" value="Apply coupon" type="submit">--}}
-                                        {{--                                    </div>--}}
-                                        <div class="coupon2">
-                                            <input class="button" name="update_cart" value="Update cart" type="submit">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-5 ml-auto">

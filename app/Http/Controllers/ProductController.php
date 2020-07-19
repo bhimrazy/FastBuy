@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\ProductRequest;
 use App\Media;
 use App\Product;
@@ -12,26 +13,22 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('admin.products.index')->with('products',Product::with('media')->paginate(10));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
+        $tags=Tag::all();
+        $categories=Category::with('subcategories')->get();
+        $subcategories=Subcategory::with('category')->get();
+        //dd($categories);
         return view('admin.products.create')->with([
-            'tags'=> Tag::all(),
-            'subcategories'=>Subcategory::all(),
+            'tags'=> $tags,
+            'categories'=>$categories,
         ]);
     }
 
@@ -112,6 +109,19 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+    public function search(Request $request)
+    {
+        $query=$request->input('query');
+        if($request->input('category_id')){
+            $products=Product::where('subcategory_id',$request->input('category_id'))
+                 ->where('title','LIKE',"%$query%")
+                ->with('media')->get();
+        }
+        else{
+            $products=Product::where('title','LIKE',"%$query%")->with('media')->get();
+        }
+        return view('client.catalog')->with('products',$products)->with('query',$query);
     }
 
 }

@@ -19,7 +19,7 @@
     <!-- Begin Li's Content Wraper Area -->
     <div class="content-wraper">
         <div id="app" class="container">
-            <shop-component :categories="{{$categories}}" :brands="{{$brands}}" :products="{{$products}}"></shop-component>
+            <shop-component :categories="{{$categories}}" :brands="{{$brands}}" :products="{{$products}}" base_url="{{$baseUrl}}"></shop-component>
         </div>
     </div>
     <!-- Content Wraper Area End Here -->

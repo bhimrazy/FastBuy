@@ -20,6 +20,7 @@ class CartController extends Controller
         return view('client.cart')->with(['cartitems'=>$cart->items,'totalPrice'=>$cart->totalPrice]);
     }
     public function store(CartRequest $request){
+        //session()->flush();
         $product = Product::find($request->product_id);
         $oldCart=session()->has('cart')?session('cart'):null;
         $cart=new Cart($oldCart);
@@ -27,9 +28,30 @@ class CartController extends Controller
         session()->put('cart',$cart);
         return redirect()->route('carts.index');
     }
-       public function destroy(CartItem $cart)
-    {
-        $cart->delete();
-        return redirect()->back()->with('success','You successfully removed the product.');
+    public function reduceByOne($id){
+        $oldCart=session()->has('cart')?session('cart'):null;
+        $cart=new Cart($oldCart);
+        $cart->reduceByOne($id);
+        session()->put('cart',$cart);
+        return redirect()->route('carts.index');
+    }
+    public function increaseByOne($id){
+        $oldCart=session()->has('cart')?session('cart'):null;
+        $cart=new Cart($oldCart);
+        $cart->increaseByOne($id);
+        session()->put('cart',$cart);
+        return redirect()->route('carts.index');
+    }
+    public function delete($id){
+        $oldCart=session()->has('cart')?session('cart'):null;
+        $cart=new Cart($oldCart);
+        $cart->destroy($id);
+        if($cart->items == null){
+            session()->forget('cart');
+        }
+        else {
+            session()->put('cart',$cart);
+        }
+        return redirect()->route('carts.index')->with('success','You successfully removed the product.');
     }
 }

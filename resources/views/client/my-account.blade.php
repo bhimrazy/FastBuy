@@ -8,7 +8,7 @@
                     <div class="breadcrumb-content">
                         <ul>
                             <li><a href="{{route('home')}}">Home</a></li>
-                            <li class="active">My Account</li>
+                            <li class="active">My Account : Dashboard | {{$user->firstname}}</li>
                         </ul>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="account-dashboard-tab" data-toggle="tab"
                                    href="#account-dashboard" role="tab" aria-controls="account-dashboard"
-                                   aria-selected="true">Dashboard</a>
+                                   aria-selected="true">Dashboard : {{ucfirst($user->firstname)}}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-orders-tab" data-toggle="tab"
@@ -63,10 +63,39 @@
                         <div class="tab-content myaccount-tab-content" id="account-page-tab-content">
                             <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                                  aria-labelledby="account-dashboard-tab">
-                                <div class="myaccount-dashboard">
-                                    <p>Welcome!!!<b>   {{Auth::user()->firstname}}</b>  {{Auth::user()->lastname}}</p>
-                                    <p>{{Auth::user()->email}}</p>
-                                    <p>Dashboard.</p>
+                                <div class="myaccount-dashboard shoptopbar-heading">
+                                   <h3>Dashboard :<b>{{$user->firstname}}</b>  {{$user->lastname}}</h3>
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-12 col-4">
+                                            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                                                <div class="card-header">Orders</div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{count($orders)}}</h5>
+                                                    <p class="card-text">Orders Placed.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12 col-4">
+                                            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                                                <div class="card-header">Orders (Approved)</div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{count($orders->where('status','approved'))}}</h5>
+                                                    <p class="card-text">Orders Approved.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12 col-4">
+                                            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                                                <div class="card-header">Invoice</div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${{$orders->where('status','pending')->map(function ($order){return $order->total;})->sum()}}</h5>
+                                                    <p class="card-text">Total Invoice.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="account-orders" role="tabpanel"
@@ -87,7 +116,7 @@
                                                 @foreach($orders as $order)
                                                     <tr>
                                                         <td><a class="account-order-id"
-                                                               href=")">#FC{{$order->id}}HK</a></td>
+                                                               href=")">#FB{{$order->id}}HK</a></td>
                                                         <td>{{$order->created_at->Format('M d, Y')}}</td>
                                                         <td><p class="badge-primary rounded">{{$order->status}}</p></td>
                                                         <td>${{$order->total}} for {{$order->cart->totalQty}} items</td>
@@ -159,42 +188,40 @@
                             </div>
                             <div class="tab-pane fade" id="account-details" role="tabpanel"
                                  aria-labelledby="account-details-tab">
+                                <h2>Submit the form to update the password.</h2>
                                 <div class="myaccount-details">
-                                    <form action="#" class="fb-form">
+                                    <form method="POST" action="{{ route('my-account.profile.update',['user'=>$user->id]) }}" class="fb-form">
+                                        @csrf
+                                        @method('put')
                                         <div class="fb-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label for="account-details-firstname">First Name*</label>
-                                                <input type="text" id="account-details-firstname">
+                                                <input  type="text" id="account-details-firstname" value="{{$user->firstname??''}}">
                                             </div>
                                             <div class="single-input single-input-half">
                                                 <label for="account-details-lastname">Last Name*</label>
-                                                <input type="text" id="account-details-lastname">
+                                                <input  type="text" id="account-details-lastname" value="{{$user->lastname??''}}">
                                             </div>
                                             <div class="single-input">
                                                 <label for="account-details-email">Email*</label>
-                                                <input type="email" id="account-details-email">
+                                                <input  type="email" id="account-details-email" value="{{$user->email??''}}">
                                             </div>
                                             <div class="single-input">
-                                                <label for="account-details-oldpass">Current Password(leave
-                                                    blank to leave
-                                                    unchanged)</label>
-                                                <input type="password" id="account-details-oldpass">
+                                                <label for="password">{{ __('Password') }}</label>
+                                                <input id="password" type="password" placeholder="Password" class="mb-0 form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                                @error('password')
+                                                    <span class="text-danger">
+                                                    <p>{{ $message }}</p>
+                                                    </span>
+                                                @enderror
                                             </div>
                                             <div class="single-input">
-                                                <label for="account-details-newpass">New Password (leave blank
-                                                    to leave
-                                                    unchanged)</label>
-                                                <input type="password" id="account-details-newpass">
-                                            </div>
-                                            <div class="single-input">
-                                                <label for="account-details-confpass">Confirm New
-                                                    Password</label>
-                                                <input type="password" id="account-details-confpass">
+                                                <label for="password-confirm">{{ __('Confirm Password') }}</label>
+                                                <input id="password-confirm" type="password" placeholder="Confirm Password" class="mb-0 form-control" name="password_confirmation" required autocomplete="new-password">
                                             </div>
                                             <div class="single-input">
                                                 <button class="fb-btn fb-btn_dark"
-                                                        type="submit"><span>SAVE
-                                                                    CHANGES</span></button>
+                                                        type="submit"><span>SAVE CHANGES</span></button>
                                             </div>
                                         </div>
                                     </form>

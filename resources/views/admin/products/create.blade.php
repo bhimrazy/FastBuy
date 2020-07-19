@@ -60,12 +60,14 @@
 
                             <div class="form-group">
                                 <label for="inputCategory">Categories</label>
-                                <select name="subcategory_id" class="form-control custom-select">
-                                    <option selected disabled>Select one</option>
-                                    @foreach($subcategories as $category)
-                                        <span><option value="{{$category->id}}">{{$category->title}}</option></span>
+                                <select id="inputCategory" name="subcategory_id" class="form-control custom-select">
+                                    <option selected disabled>Select one subcategory</option>
+                                    @foreach($categories as $category)
+                                        <option class="text-bold text-gray-dark"disabled>{{$category->title}}</option>
+                                        @foreach($category->subcategories as $subcategory)
+                                            <option class="badge text-success" value="{{$subcategory->id}}">{{$subcategory->title}}</option>
+                                        @endforeach
                                     @endforeach
-
                                 </select>
                                 @error('subcategory_id')
                                 <small class="text-danger">{{$message}}</small>

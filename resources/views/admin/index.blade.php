@@ -27,14 +27,11 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                            <span class="info-box-icon bg-info elevation-1"><i class="far fa-bookmark"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">CPU Traffic</span>
-                                <span class="info-box-number">
-                  10
-                  <small>%</small>
-                </span>
+                                <span class="info-box-text">Total Orders</span>
+                                <span class="info-box-number">{{count($orders)}}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -43,11 +40,11 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-briefcase"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Likes</span>
-                                <span class="info-box-number">41,410</span>
+                                <span class="info-box-text">Total Products</span>
+                                <span class="info-box-number">{{count($products)}}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -63,8 +60,8 @@
                             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Sales</span>
-                                <span class="info-box-number">760</span>
+                                <span class="info-box-text">Total Sales</span>
+                                <span class="info-box-number">${{$orders->where('status','approved')->map(function ($order){return $order->total;})->sum()}}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -76,8 +73,8 @@
                             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">New Members</span>
-                                <span class="info-box-number">2,000</span>
+                                <span class="info-box-text">Total Customers</span>
+                                <span class="info-box-number">{{count($users)}}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -572,68 +569,23 @@
                                         <thead>
                                         <tr>
                                             <th>Order ID</th>
-                                            <th>Item</th>
+                                            <th>Total</th>
                                             <th>Status</th>
-                                            <th>Popularity</th>
+                                            <th>Customer Name</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                            <td>Call of Duty IV</td>
-                                            <td><span class="badge badge-success">Shipped</span></td>
+                                        @foreach($orders->take(5) as $order)
+                                            <tr>
+                                            <td><a href="">#FB{{$order->id}}HK</a></td>
+                                            <td>${{$order->total}}</td>
+                                            <td><span class="badge badge-{{($order->status=='pending')?'warning':'info'}}">{{$order->status}}</span></td>
                                             <td>
-                                                <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+                                                <div >{{$order->customer->getFullName()}}</div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                            <td>Samsung Smart TV</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                            <td>
-                                                <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                            <td>iPhone 6 Plus</td>
-                                            <td><span class="badge badge-danger">Delivered</span></td>
-                                            <td>
-                                                <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                            <td>Samsung Smart TV</td>
-                                            <td><span class="badge badge-info">Processing</span></td>
-                                            <td>
-                                                <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                            <td>Samsung Smart TV</td>
-                                            <td><span class="badge badge-warning">Pending</span></td>
-                                            <td>
-                                                <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                            <td>iPhone 6 Plus</td>
-                                            <td><span class="badge badge-danger">Delivered</span></td>
-                                            <td>
-                                                <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                            <td>Call of Duty IV</td>
-                                            <td><span class="badge badge-success">Shipped</span></td>
-                                            <td>
-                                                <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                                            </td>
-                                        </tr>
+
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -641,8 +593,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                                <a href="{{route('admin.orders')}}" class="btn btn-sm btn-secondary float-right">View All Orders</a>
                             </div>
                             <!-- /.card-footer -->
                         </div>
@@ -778,66 +729,27 @@
                             <!-- /.card-header -->
                             <div class="card-body p-0">
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
-                                    <li class="item">
-                                        <div class="product-img">
-                                            <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">Samsung TV
-                                                <span class="badge badge-warning float-right">$1800</span></a>
-                                            <span class="product-description">
-                        Samsung 32" 1080p 60Hz LED Smart HDTV.
-                      </span>
-                                        </div>
-                                    </li>
-                                    <!-- /.item -->
-                                    <li class="item">
-                                        <div class="product-img">
-                                            <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">Bicycle
-                                                <span class="badge badge-info float-right">$700</span></a>
-                                            <span class="product-description">
-                        26" Mongoose Dolomite Men's 7-speed, Navy Blue.
-                      </span>
-                                        </div>
-                                    </li>
-                                    <!-- /.item -->
-                                    <li class="item">
-                                        <div class="product-img">
-                                            <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">
-                                                Xbox One <span class="badge badge-danger float-right">
-                        $350
-                      </span>
-                                            </a>
-                                            <span class="product-description">
-                        Xbox One Console Bundle with Halo Master Chief Collection.
-                      </span>
-                                        </div>
-                                    </li>
-                                    <!-- /.item -->
-                                    <li class="item">
-                                        <div class="product-img">
-                                            <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                                        </div>
-                                        <div class="product-info">
-                                            <a href="javascript:void(0)" class="product-title">PlayStation 4
-                                                <span class="badge badge-success float-right">$399</span></a>
-                                            <span class="product-description">
-                        PlayStation 4 500GB Console (PS4)
-                      </span>
-                                        </div>
-                                    </li>
-                                    <!-- /.item -->
+                                    @foreach($products->take(3) as $product)
+                                        <li class="item">
+                                            <div class="product-img">
+                                                <img src="{{$product->media[0]->url}}" alt="{{$product->title}}" class="img-size-50">
+                                            </div>
+                                            <div class="product-info">
+                                                <a href="" class="product-title">{{$product->title}}
+                                                    <span class="badge badge-warning float-right">${{$product->price}}</span></a>
+                                                <span class="product-description">
+                                                    {{$product->description}}.
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <!-- /.item -->
+                                    @endforeach
+
                                 </ul>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer text-center">
-                                <a href="javascript:void(0)" class="uppercase">View All Products</a>
+                                <a href="{{route('products.index')}}" class="uppercase">View All Products</a>
                             </div>
                             <!-- /.card-footer -->
                         </div>

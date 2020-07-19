@@ -2165,340 +2165,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['categories', 'products', 'brands'],
+  props: ['categories', 'products', 'brands', 'base_url'],
   data: function data() {
     return {
-      appUrl: 'http://127.0.0.1:8000',
+      appUrl: this.base_url,
       selected: {
-        prices: '',
         categories: [],
         brands: []
-      }
+      },
+      pageNumber: 0
     };
   },
   methods: {
+    asset: function asset(url) {
+      return this.appUrl + url;
+    },
     clearAll: function clearAll() {
       this.selected.categories = [];
       this.selected.brands = [];
@@ -38123,7 +37805,17 @@ var render = function() {
     _c("div", { staticClass: "col-lg-9 order-1 order-lg-2" }, [
       _vm._m(0),
       _vm._v(" "),
-      _vm._m(1),
+      _c("div", { staticClass: "shop-top-bar mt-25" }, [
+        _c("div", { staticClass: "shop-bar-inner" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "toolbar-amount" }, [
+            _c("span", [
+              _vm._v("There are " + _vm._s(this.products.length) + " products.")
+            ])
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -38144,7 +37836,9 @@ var render = function() {
                     _c(
                       "div",
                       { staticClass: "row" },
-                      _vm._l(this.filteredProducts, function(product) {
+                      _vm._l(this.filteredProducts.slice(0, 10), function(
+                        product
+                      ) {
                         return _c(
                           "div",
                           { staticClass: "col-lg-4 col-md-4 col-sm-6" },
@@ -38155,14 +37849,14 @@ var render = function() {
                                   "a",
                                   {
                                     attrs: {
-                                      href: _vm.appUrl + "/" + product.slug
+                                      href: _vm.asset("/" + product.slug)
                                     }
                                   },
                                   [
                                     _c("img", {
                                       staticClass: "primary-img",
                                       attrs: {
-                                        src: product.media[0].url,
+                                        src: _vm.asset(product.media[0].url),
                                         alt: "FB'S Prduct"
                                       }
                                     }),
@@ -38170,7 +37864,7 @@ var render = function() {
                                     _c("img", {
                                       staticClass: "secondary-img",
                                       attrs: {
-                                        src: product.media[1].url,
+                                        src: _vm.asset(product.media[1].url),
                                         alt: "FB'S Prduct"
                                       }
                                     })
@@ -38179,7 +37873,11 @@ var render = function() {
                                 _vm._v(" "),
                                 _vm._m(2, true),
                                 _vm._v(" "),
-                                _vm._m(3, true)
+                                _c("div", { staticClass: "sticker-2" }, [
+                                  _c("span", [
+                                    _vm._v("-" + _vm._s(product.discount) + "%")
+                                  ])
+                                ])
                               ]),
                               _vm._v(" "),
                               _c("div", { staticClass: "product-content" }, [
@@ -38188,14 +37886,14 @@ var render = function() {
                                     "a",
                                     {
                                       attrs: {
-                                        href: _vm.appUrl + "/" + product.slug
+                                        href: _vm.asset("/" + product.slug)
                                       }
                                     },
                                     [_vm._v(_vm._s(product.title))]
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _vm._m(4, true),
+                                _vm._m(3, true),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "price-box" }, [
                                   _c("span", { staticClass: "new-price" }, [
@@ -38215,7 +37913,85 @@ var render = function() {
                                   ])
                                 ]),
                                 _vm._v(" "),
-                                _vm._m(5, true)
+                                _c("div", { staticClass: "product-action" }, [
+                                  _c(
+                                    "ul",
+                                    { staticClass: "product-action-link" },
+                                    [
+                                      _c(
+                                        "li",
+                                        { staticClass: "shopping-cart_link" },
+                                        [
+                                          _c(
+                                            "a",
+                                            {
+                                              attrs: {
+                                                href: _vm.asset(
+                                                  "/" + product.slug
+                                                ),
+                                                title: "Shopping Cart"
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "ion-bag"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "li",
+                                        { staticClass: "quick-view-btn" },
+                                        [
+                                          _c(
+                                            "a",
+                                            {
+                                              attrs: {
+                                                href: _vm.asset(
+                                                  "/" + product.slug
+                                                ),
+                                                title: "Quick View",
+                                                "data-toggle": "modal",
+                                                "data-target":
+                                                  "#exampleModalCenter"
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "ion-eye"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "li",
+                                        { staticClass: "single-product_link" },
+                                        [
+                                          _c(
+                                            "a",
+                                            {
+                                              attrs: {
+                                                href: _vm.asset(
+                                                  "/" + product.slug
+                                                ),
+                                                title: "Single Product"
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "ion-link"
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ])
                               ])
                             ])
                           ]
@@ -38228,18 +38004,175 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(6),
+            _c(
+              "div",
+              {
+                staticClass: "tab-pane fade product-list-view",
+                attrs: { id: "list-view", role: "tabpanel" }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "fb-product_wrap shop-product-area" },
+                  _vm._l(this.filteredProducts.slice(0, 10), function(product) {
+                    return _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6" }, [
+                        _c("div", { staticClass: "single-product" }, [
+                          _c("div", { staticClass: "product-img" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: _vm.asset("/" + product.slug) }
+                              },
+                              [
+                                _c("img", {
+                                  staticClass: "primary-img",
+                                  attrs: {
+                                    src: _vm.asset(product.media[0].url),
+                                    alt: "FB'S Prduct"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("img", {
+                                  staticClass: "secondary-img",
+                                  attrs: {
+                                    src: _vm.asset(product.media[1].url),
+                                    alt: "FB'S Prduct"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(4, true),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "sticker-2" }, [
+                              _c("span", [
+                                _vm._v("-" + _vm._s(product.discount) + "%")
+                              ])
+                            ])
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-lg-8 col-md-8 col-sm-6" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "product-content product-content-list_view"
+                          },
+                          [
+                            _c("h2", { staticClass: "product-name" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: _vm.asset("/" + product.slug) }
+                                },
+                                [_vm._v(_vm._s(product.title))]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(5, true),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "price-box" }, [
+                              _c("span", { staticClass: "new-price" }, [
+                                _vm._v(
+                                  "$" +
+                                    _vm._s(
+                                      product.price -
+                                        product.discount * 0.01 * product.price
+                                    )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "old-price" }, [
+                                _vm._v("$" + _vm._s(product.price))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v(_vm._s(product.description))]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "product-action" }, [
+                              _c("ul", { staticClass: "product-action-link" }, [
+                                _c(
+                                  "li",
+                                  { staticClass: "shopping-cart_link" },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: _vm.asset("/" + product.slug),
+                                          title: "Shopping Cart"
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "ion-bag" })]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("li", { staticClass: "quick-view-btn" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        href: _vm.asset("/" + product.slug),
+                                        title: "Quick View",
+                                        "data-toggle": "modal",
+                                        "data-target": "#exampleModalCenter"
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "ion-eye" })]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "li",
+                                  { staticClass: "single-product_link" },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: _vm.asset("/" + product.slug),
+                                          title: "Single Product"
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "ion-link" })]
+                                    )
+                                  ]
+                                )
+                              ])
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            ),
             _vm._v(" "),
-            _vm._m(7)
+            _vm._m(6)
           ])
         ]
       )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "col-lg-3 order-2 order-lg-1" }, [
-      _vm._m(8),
+      _vm._m(7),
       _vm._v(" "),
-      _vm._m(9),
+      _c("div", { staticClass: "sidebar-categores-box mt-sm-30 mt-xs-30" }, [
+        _c(
+          "div",
+          { staticClass: "category-sub-menu" },
+          _vm._l(_vm.categories.slice(0, 5), function(category, index) {
+            return _c("ul", [_c("li", [_vm._v(_vm._s(category.title))])])
+          }),
+          0
+        )
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -38247,7 +38180,7 @@ var render = function() {
           staticClass: "sidebar-categores-box search-filter mt-sm-25 mt-xs-30"
         },
         [
-          _vm._m(10),
+          _vm._m(8),
           _vm._v(" "),
           _c(
             "button",
@@ -38264,7 +38197,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm._m(11),
+      _vm._m(9),
       _vm._v(" "),
       _c(
         "div",
@@ -38348,7 +38281,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm._m(12),
+      _vm._m(10),
       _vm._v(" "),
       _c(
         "div",
@@ -38428,7 +38361,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm._m(13)
+      _vm._m(11)
     ])
   ])
 }
@@ -38438,102 +38371,54 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "shoptopbar-heading" }, [
-      _c("h2", [_vm._v("Electronics")])
+      _c("h2", [_vm._v("Filter Products")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "shop-top-bar mt-25" }, [
-      _c("div", { staticClass: "shop-bar-inner" }, [
-        _c("div", { staticClass: "product-view-mode" }, [
-          _c(
-            "ul",
-            {
-              staticClass: "nav shop-item-filter-list",
-              attrs: { role: "tablist" }
-            },
-            [
-              _c(
-                "li",
-                { staticClass: "active", attrs: { role: "presentation" } },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "active show",
-                      attrs: {
-                        "aria-selected": "true",
-                        "data-toggle": "tab",
-                        role: "tab",
-                        "aria-controls": "grid-view",
-                        href: "#grid-view"
-                      }
-                    },
-                    [_c("i", { staticClass: "fa fa-th" })]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("li", { attrs: { role: "presentation" } }, [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      "data-toggle": "tab",
-                      role: "tab",
-                      "aria-controls": "list-view",
-                      href: "#list-view"
-                    }
-                  },
-                  [_c("i", { staticClass: "fa fa-th-list" })]
-                )
-              ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "toolbar-amount" }, [
-          _c("span", [_vm._v("There are 13 products.")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "product-select-box" }, [
-        _c("div", { staticClass: "product-short" }, [
-          _c("p", [_vm._v("Sort By:")]),
+    return _c("div", { staticClass: "product-view-mode" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "nav shop-item-filter-list",
+          attrs: { role: "tablist" }
+        },
+        [
+          _c("li", { staticClass: "active", attrs: { role: "presentation" } }, [
+            _c(
+              "a",
+              {
+                staticClass: "active show",
+                attrs: {
+                  "aria-selected": "true",
+                  "data-toggle": "tab",
+                  role: "tab",
+                  "aria-controls": "grid-view",
+                  href: "#grid-view"
+                }
+              },
+              [_c("i", { staticClass: "fa fa-th" })]
+            )
+          ]),
           _vm._v(" "),
-          _c("select", { staticClass: "nice-select" }, [
-            _c("option", { attrs: { value: "trending" } }, [
-              _vm._v("Relevance")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "sales" } }, [
-              _vm._v("Name (A - Z)")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "sales" } }, [
-              _vm._v("Name (Z - A)")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "rating" } }, [
-              _vm._v("Price (Low > High)")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "date" } }, [
-              _vm._v("Rating (Lowest)")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "price-asc" } }, [
-              _vm._v("Model (A - Z)")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "price-asc" } }, [
-              _vm._v("Model (Z - A)")
-            ])
+          _c("li", { attrs: { role: "presentation" } }, [
+            _c(
+              "a",
+              {
+                attrs: {
+                  "data-toggle": "tab",
+                  role: "tab",
+                  "aria-controls": "list-view",
+                  href: "#list-view"
+                }
+              },
+              [_c("i", { staticClass: "fa fa-th-list" })]
+            )
           ])
-        ])
-      ])
+        ]
+      )
     ])
   },
   function() {
@@ -38541,14 +38426,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "sticker" }, [_c("span", [_vm._v("New")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sticker-2" }, [
-      _c("span", [_vm._v("-10%")])
-    ])
   },
   function() {
     var _vm = this
@@ -38576,816 +38453,35 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "product-action" }, [
-      _c("ul", { staticClass: "product-action-link" }, [
-        _c("li", { staticClass: "shopping-cart_link" }, [
-          _c("a", { attrs: { href: "", title: "Shopping Cart" } }, [
-            _c("i", { staticClass: "ion-bag" })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "quick-view-btn" }, [
-          _c(
-            "a",
-            {
-              attrs: {
-                href: "#",
-                title: "Quick View",
-                "data-toggle": "modal",
-                "data-target": "#exampleModalCenter"
-              }
-            },
-            [_c("i", { staticClass: "ion-eye" })]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "single-product_link" }, [
-          _c("a", { attrs: { href: "", title: "Single Product" } }, [
-            _c("i", { staticClass: "ion-link" })
-          ])
-        ])
-      ])
-    ])
+    return _c("div", { staticClass: "sticker" }, [_c("span", [_vm._v("New")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "tab-pane fade product-list-view",
-        attrs: { id: "list-view", role: "tabpanel" }
-      },
-      [
-        _c("div", { staticClass: "fb-product_wrap shop-product-area" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6" }, [
-              _c("div", { staticClass: "single-product" }, [
-                _c("div", { staticClass: "product-img" }, [
-                  _c("a", { attrs: { href: "" } }, [
-                    _c("img", {
-                      staticClass: "primary-img",
-                      attrs: {
-                        src: "assets/images/product/5_1.jpg",
-                        alt: "FB'S Prduct"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("img", {
-                      staticClass: "secondary-img",
-                      attrs: {
-                        src: "assets/images/product/5_2.jpg",
-                        alt: "FB'S Prduct"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "sticker" }, [
-                    _c("span", [_vm._v("New")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "sticker-2" }, [
-                    _c("span", [_vm._v("-10%")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-8 col-md-8 col-sm-6" }, [
-              _c(
-                "div",
-                { staticClass: "product-content product-content-list_view" },
-                [
-                  _c("h2", { staticClass: "product-name" }, [
-                    _c("a", { attrs: { href: "" } }, [
-                      _vm._v("Faded Short Sleeves T-shirt")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "rating-box" }, [
-                    _c("ul", { staticClass: "rating" }, [
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price-box" }, [
-                    _c("span", { staticClass: "new-price" }, [
-                      _vm._v("$15.19")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "old-price" }, [_vm._v("$16.51")])
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "Faded short sleeves t-shirt with high neckline. Soft and stretchy material for a comfortable fit. Accessorize with a straw hat and you're ready for summer!"
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "product-action" }, [
-                    _c("ul", { staticClass: "product-action-link" }, [
-                      _c("li", { staticClass: "shopping-cart_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Shopping Cart" } },
-                          [_c("i", { staticClass: "ion-bag" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "quick-view-btn" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "#",
-                              title: "Quick View",
-                              "data-toggle": "modal",
-                              "data-target": "#exampleModalCenter"
-                            }
-                          },
-                          [_c("i", { staticClass: "ion-eye" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "single-product_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Single Product" } },
-                          [_c("i", { staticClass: "ion-link" })]
-                        )
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6" }, [
-              _c("div", { staticClass: "single-product" }, [
-                _c("div", { staticClass: "product-img" }, [
-                  _c("a", { attrs: { href: "" } }, [
-                    _c("img", {
-                      staticClass: "primary-img",
-                      attrs: {
-                        src: "assets/images/product/10.jpg",
-                        alt: "FB'S Prduct"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "sticker" }, [
-                    _c("span", [_vm._v("New")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-8 col-md-8 col-sm-6" }, [
-              _c(
-                "div",
-                { staticClass: "product-content product-content-list_view" },
-                [
-                  _c("h2", { staticClass: "product-name" }, [
-                    _c("a", { attrs: { href: "" } }, [
-                      _vm._v("Printed Summer Dress")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "rating-box" }, [
-                    _c("ul", { staticClass: "rating" }, [
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price-box" }, [
-                    _c("span", { staticClass: "new-price" }, [_vm._v("$30.50")])
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining."
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "product-action" }, [
-                    _c("ul", { staticClass: "product-action-link" }, [
-                      _c("li", { staticClass: "shopping-cart_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Shopping Cart" } },
-                          [_c("i", { staticClass: "ion-bag" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "quick-view-btn" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "#",
-                              title: "Quick View",
-                              "data-toggle": "modal",
-                              "data-target": "#exampleModalCenter"
-                            }
-                          },
-                          [_c("i", { staticClass: "ion-eye" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "single-product_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Single Product" } },
-                          [_c("i", { staticClass: "ion-link" })]
-                        )
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6" }, [
-              _c("div", { staticClass: "single-product" }, [
-                _c("div", { staticClass: "product-img" }, [
-                  _c("a", { attrs: { href: "" } }, [
-                    _c("img", {
-                      staticClass: "primary-img",
-                      attrs: {
-                        src: "assets/images/product/8_1.jpg",
-                        alt: "FB'S Prduct"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("img", {
-                      staticClass: "secondary-img",
-                      attrs: {
-                        src: "assets/images/product/8_2.jpg",
-                        alt: "FB'S Prduct"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "sticker" }, [
-                    _c("span", [_vm._v("New")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-8 col-md-8 col-sm-6" }, [
-              _c(
-                "div",
-                { staticClass: "product-content product-content-list_view" },
-                [
-                  _c("h2", { staticClass: "product-name" }, [
-                    _c("a", { attrs: { href: "" } }, [
-                      _vm._v("Faded Short Sleeves T-shirt")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "rating-box" }, [
-                    _c("ul", { staticClass: "rating" }, [
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price-box" }, [
-                    _c("span", { staticClass: "new-price" }, [_vm._v("$30.50")])
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining."
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "product-action" }, [
-                    _c("ul", { staticClass: "product-action-link" }, [
-                      _c("li", { staticClass: "shopping-cart_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Shopping Cart" } },
-                          [_c("i", { staticClass: "ion-bag" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "quick-view-btn" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "#",
-                              title: "Quick View",
-                              "data-toggle": "modal",
-                              "data-target": "#exampleModalCenter"
-                            }
-                          },
-                          [_c("i", { staticClass: "ion-eye" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "single-product_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Single Product" } },
-                          [_c("i", { staticClass: "ion-link" })]
-                        )
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6" }, [
-              _c("div", { staticClass: "single-product" }, [
-                _c("div", { staticClass: "product-img" }, [
-                  _c("a", { attrs: { href: "" } }, [
-                    _c("img", {
-                      staticClass: "primary-img",
-                      attrs: {
-                        src: "assets/images/product/9.jpg",
-                        alt: "FB'S Prduct"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "sticker" }, [
-                    _c("span", [_vm._v("New")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-8 col-md-8 col-sm-6" }, [
-              _c(
-                "div",
-                { staticClass: "product-content product-content-list_view" },
-                [
-                  _c("h2", { staticClass: "product-name" }, [
-                    _c("a", { attrs: { href: "" } }, [
-                      _vm._v("Printed Summer Dress")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "rating-box" }, [
-                    _c("ul", { staticClass: "rating" }, [
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price-box" }, [
-                    _c("span", { staticClass: "new-price" }, [_vm._v("$26.99")])
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining."
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "product-action" }, [
-                    _c("ul", { staticClass: "product-action-link" }, [
-                      _c("li", { staticClass: "shopping-cart_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Shopping Cart" } },
-                          [_c("i", { staticClass: "ion-bag" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "quick-view-btn" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "#",
-                              title: "Quick View",
-                              "data-toggle": "modal",
-                              "data-target": "#exampleModalCenter"
-                            }
-                          },
-                          [_c("i", { staticClass: "ion-eye" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "single-product_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Single Product" } },
-                          [_c("i", { staticClass: "ion-link" })]
-                        )
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6" }, [
-              _c("div", { staticClass: "single-product" }, [
-                _c("div", { staticClass: "product-img" }, [
-                  _c("a", { attrs: { href: "" } }, [
-                    _c("img", {
-                      staticClass: "primary-img",
-                      attrs: {
-                        src: "assets/images/product/1.jpg",
-                        alt: "FB'S Prduct"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "sticker" }, [
-                    _c("span", [_vm._v("New")])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "sticker-2" }, [
-                    _c("span", [_vm._v("-10%")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-8 col-md-8 col-sm-6" }, [
-              _c(
-                "div",
-                { staticClass: "product-content product-content-list_view" },
-                [
-                  _c("h2", { staticClass: "product-name" }, [
-                    _c("a", { attrs: { href: "" } }, [
-                      _vm._v("Faded Short Sleeves T-shirt")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "rating-box" }, [
-                    _c("ul", { staticClass: "rating" }, [
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price-box" }, [
-                    _c("span", { staticClass: "new-price" }, [
-                      _vm._v("$23.39")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "old-price" }, [_vm._v("$25.99")])
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom."
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "product-action" }, [
-                    _c("ul", { staticClass: "product-action-link" }, [
-                      _c("li", { staticClass: "shopping-cart_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Shopping Cart" } },
-                          [_c("i", { staticClass: "ion-bag" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "quick-view-btn" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "#",
-                              title: "Quick View",
-                              "data-toggle": "modal",
-                              "data-target": "#exampleModalCenter"
-                            }
-                          },
-                          [_c("i", { staticClass: "ion-eye" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "single-product_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Single Product" } },
-                          [_c("i", { staticClass: "ion-link" })]
-                        )
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6" }, [
-              _c("div", { staticClass: "single-product" }, [
-                _c("div", { staticClass: "product-img" }, [
-                  _c("a", { attrs: { href: "" } }, [
-                    _c("img", {
-                      staticClass: "primary-img",
-                      attrs: {
-                        src: "assets/images/product/11.jpg",
-                        alt: "FB'S Prduct"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "sticker" }, [
-                    _c("span", [_vm._v("New")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-8 col-md-8 col-sm-6" }, [
-              _c(
-                "div",
-                { staticClass: "product-content product-content-list_view" },
-                [
-                  _c("h2", { staticClass: "product-name" }, [
-                    _c("a", { attrs: { href: "" } }, [
-                      _vm._v("Faded Short Sleeves T-shirt")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "rating-box" }, [
-                    _c("ul", { staticClass: "rating" }, [
-                      _c("li", [_c("i", { staticClass: "fa fa-star" })]),
-                      _vm._v(" "),
-                      _c("li", [_c("i", { staticClass: "fa fa-star" })]),
-                      _vm._v(" "),
-                      _c("li", [_c("i", { staticClass: "fa fa-star" })]),
-                      _vm._v(" "),
-                      _c("li", [_c("i", { staticClass: "fa fa-star" })]),
-                      _vm._v(" "),
-                      _c("li", [_c("i", { staticClass: "fa fa-star" })])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price-box" }, [
-                    _c("span", { staticClass: "new-price" }, [_vm._v("$50.99")])
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "Printed evening dress with straight sleeves with black thin waist belt and ruffled linings."
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "product-action" }, [
-                    _c("ul", { staticClass: "product-action-link" }, [
-                      _c("li", { staticClass: "shopping-cart_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Shopping Cart" } },
-                          [_c("i", { staticClass: "ion-bag" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "quick-view-btn" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "#",
-                              title: "Quick View",
-                              "data-toggle": "modal",
-                              "data-target": "#exampleModalCenter"
-                            }
-                          },
-                          [_c("i", { staticClass: "ion-eye" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "single-product_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Single Product" } },
-                          [_c("i", { staticClass: "ion-link" })]
-                        )
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-6" }, [
-              _c("div", { staticClass: "single-product" }, [
-                _c("div", { staticClass: "product-img" }, [
-                  _c("a", { attrs: { href: "" } }, [
-                    _c("img", {
-                      staticClass: "primary-img",
-                      attrs: {
-                        src: "assets/images/product/7_2.jpg",
-                        alt: "FB'S Prduct"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("img", {
-                      staticClass: "secondary-img",
-                      attrs: {
-                        src: "assets/images/product/7_1.jpg",
-                        alt: "FB'S Prduct"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "sticker" }, [
-                    _c("span", [_vm._v("New")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-8 col-md-8 col-sm-6" }, [
-              _c(
-                "div",
-                { staticClass: "product-content product-content-list_view" },
-                [
-                  _c("h2", { staticClass: "product-name" }, [
-                    _c("a", { attrs: { href: "" } }, [
-                      _vm._v("Printed Summer Dress")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "rating-box" }, [
-                    _c("ul", { staticClass: "rating" }, [
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "no-star" }, [
-                        _c("i", { staticClass: "fa fa-star" })
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price-box" }, [
-                    _c("span", { staticClass: "new-price" }, [_vm._v("$30.50")])
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "Long printed dress with thin adjustable straps. V-neckline and wiring under the bust with ruffles at the bottom of the dress."
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "product-action" }, [
-                    _c("ul", { staticClass: "product-action-link" }, [
-                      _c("li", { staticClass: "shopping-cart_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Shopping Cart" } },
-                          [_c("i", { staticClass: "ion-bag" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "quick-view-btn" }, [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "#",
-                              title: "Quick View",
-                              "data-toggle": "modal",
-                              "data-target": "#exampleModalCenter"
-                            }
-                          },
-                          [_c("i", { staticClass: "ion-eye" })]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "single-product_link" }, [
-                        _c(
-                          "a",
-                          { attrs: { href: "", title: "Single Product" } },
-                          [_c("i", { staticClass: "ion-link" })]
-                        )
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            ])
-          ])
+    return _c("div", { staticClass: "rating-box" }, [
+      _c("ul", { staticClass: "rating" }, [
+        _c("li", { staticClass: "no-star" }, [
+          _c("i", { staticClass: "fa fa-star" })
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "no-star" }, [
+          _c("i", { staticClass: "fa fa-star" })
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "no-star" }, [
+          _c("i", { staticClass: "fa fa-star" })
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "no-star" }, [
+          _c("i", { staticClass: "fa fa-star" })
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "no-star" }, [
+          _c("i", { staticClass: "fa fa-star" })
         ])
-      ]
-    )
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -39430,114 +38526,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "sidebar-title" }, [
-      _c("h2", [_vm._v("Electronics")])
+      _c("h2", [_vm._v("Home and Kitchen Appliances")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "sidebar-categores-box mt-sm-30 mt-xs-30" },
-      [
-        _c("div", { staticClass: "category-sub-menu" }, [
-          _c("ul", [
-            _c("li", { staticClass: "has-sub" }, [
-              _c("a", { attrs: { href: "# " } }, [_vm._v("Cameras")]),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("Cords and Cables")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("gps accessories")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Microphones")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("Wireless Transmitters")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "has-sub" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("GamePad")]),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("cube lifestyle hd")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("gopro hero4")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("handycam cx405")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("vixia hf r600")])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "has-sub" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Digital Cameras")]),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Gold eye")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Questek")])
-                ]),
-                _vm._v(" "),
-                _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Snm")])]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Vantech")])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "has-sub" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Virtual Reality")]),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Samsung")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Toshiba")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Transcend")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [_vm._v("Sandisk")])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
   },
   function() {
     var _vm = this

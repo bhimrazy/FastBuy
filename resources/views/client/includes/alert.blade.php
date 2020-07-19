@@ -22,4 +22,14 @@
         <h5><i class="icon fa fa-exclamation-triangle"></i> Alert!</h5>
         <strong>Success </strong>{{session()->get('info')}}.
     </div>
+@elseif(session()->has('resent'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        {{ __('A fresh verification link has been sent to your email address.') }}
+    </div>
+@elseif (session()->has('status'))
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        {{ session('status') }}
+    </div>
 @endif

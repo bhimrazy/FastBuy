@@ -383,7 +383,7 @@
                                     <!-- Begin Product Content Area -->
                                     <div class="product-content">
                                         <h2 class="product-name">
-                                            <a href="single-product">{{$product->title}}</a>
+                                            <a href="{{route('product.show',['product'=>$product->slug])}}">{{$product->title}}</a>
                                         </h2>
                                         <div class="rating-box">
                                             <ul class="rating">
