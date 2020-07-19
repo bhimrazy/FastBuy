@@ -127,7 +127,7 @@
                                 @csrf
                                 <select name="category_id" class="nice-select select-search-category">
                                     <option selected disabled>All categories</option>
-                                    @foreach($categories as $category)
+                                    @foreach(\App\Category::with('subcategories')->get() as $category)
                                         <option disabled>&nbsp;{{$category->title}}</option>
                                         @foreach($category->subcategories as $subcategory)
                                             <option value="{{$subcategory->id}}">&nbsp;&nbsp;&nbsp;&nbsp;{{$subcategory->title}}</option>
