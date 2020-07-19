@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     return view('client.index');
 })->name('home');
@@ -69,4 +70,19 @@ Route::get('/faq', function () {
 Route::get('/wishlist', function () {
     return view('client.wishlist');
 })->name('wishlist');
+
+Route::get('/dashboard', function () {
+    return view('admin.index');
+})->name('dashboard');
+
+Route::get('/admin-login', function () {
+    return view('admin.admin-login');
+})->name('admin-login');
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 

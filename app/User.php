@@ -16,7 +16,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstname', 'email', 'password',
+        'lastname','email_token','mobile_token','type',
+        'mobile','verified_email','verified_mobile',
+        'billing_address','shipping_address','avatar',
+
     ];
 
     /**
@@ -36,4 +40,35 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function customerOrders(){
+        return $this->hasMany(Order::class);
+    }
+    public function customerPayments(){
+        return $this->hasMany(Payment::class,'customer_id','id');
+    }
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
+    public function favourites(){
+        return $this->belongsToMany(Product::class);
+    }
+    public function billingAddress(){
+        return $this->hasMany(Address::class,'id','billing_address');
+    }
+    public function shippingAddress(){
+        return $this->hasMany(Address::class,'id','shipping_address');
+    }
+    public function cart(){
+        return $this->hasMany(Cart::class);
+    }
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
+    public function invoices(){
+        return $this->hasMany(Invoice::class);
+    }
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
 }
