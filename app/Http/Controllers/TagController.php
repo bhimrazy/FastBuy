@@ -2,93 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TagRequest;
+use App\Http\Requests\StoreTagRequest;
+use App\Http\Requests\UpdateTagRequest;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 class TagController extends Controller
 {
     public function index()
     {
-      return view('admin.tags.index')->with('tags',Tag::Paginate(5));
-    }
+        abort_if(Gate::denies('product_tag_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $tags = Tag::all();
+
+        return view('admin.tags.index', compact('tags'));
+    }
 
     public function create()
     {
+        abort_if(Gate::denies('product_tag_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('admin.tags.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(TagRequest $request)
-    {   $title=$request->title;
+    public function store(StoreTagRequest $request)
+    {
         Tag::create([
-            'title'=> ucwords(strtolower($title)),
-            'slug'=>slugify($title),
+            'title'=>$request->title,
+            'slug'=>Str::slug($request->title)
         ]);
-        return redirect()->route('tags.index')->with('success','Tag Successfully Created');
+
+        return redirect()->route('admin.tags.index')->with('success','Tag Successfully Created');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function edit(Tag $tag)
     {
-        //
+        abort_if(Gate::denies('product_tag_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('admin.tags.edit', compact('tag'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(UpdateTagRequest $request, Tag $tag)
     {
-        $tag = Tag::find($id);
-
-        return view('admin.tags.edit')->with('tag',$tag);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $this->validate($request,[
-            'tag'=>'required'
-
-        ]);
-        $tag= Tag::find($id);
-
-        $tag->tag = $request->tag;
+        $tag->update($request->all());
+        $tag->slug=Str::slug($request->title);
         $tag->save();
-        Session::flash('success','Tag Updated Successfully');
-        return redirect()->route('tags');
+
+        return redirect()->route('admin.tags.index')->with('success','Tag Successfully Updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function show(Tag $tag)
     {
-        Tag::destroy($id);
-        Session::flash('success','Tag deleted Successfully');
-        return redirect()->back();
+        abort_if(Gate::denies('product_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('admin.tags.show', compact('tag'));
+    }
+
+    public function destroy(Tag $tag)
+    {
+        abort_if(Gate::denies('product_tag_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $tag->delete();
+        return back()->with('success','Tag Successfully Deleted');
     }
 }

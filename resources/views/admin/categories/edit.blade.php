@@ -13,7 +13,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Edit Tag</li>
+                            <li class="breadcrumb-item active">Edit Category</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -31,17 +31,17 @@
                         <!-- jquery validation -->
                         <div class="card card-secondary">
                             <div class="card-header">
-                                <h3 class="card-title">Edit Tag</h3>
+                                <h3 class="card-title">Edit Category</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form method="POST" action="{{ route("admin.tags.update", [$tag->id]) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route("admin.categories.update", [$category->id]) }}" enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="title">Title</label>
-                                        <input type="text" name="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" id="title" placeholder="Enter title for tag" value="{{ old('title', $tag->title) }}" required>
+                                        <input type="text" name="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" id="title" placeholder="Enter title for category" value="{{ old('title', $category->title) }}" required>
                                         @error('title')
                                         <small class="text-danger">{{$message}}</small>
                                         @enderror

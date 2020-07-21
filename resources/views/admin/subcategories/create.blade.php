@@ -31,16 +31,16 @@
                         <!-- jquery validation -->
                         <div class="card card-secondary">
                             <div class="card-header">
-                                <h3 class="card-title">Add a new Category</h3>
+                                <h3 class="card-title">Add a new SubCategory</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{route('subcategory.store')}}" role="form" id="quickForm" method="post" >
+                            <form action="{{route('admin.subcategories.store')}}" role="form" id="quickForm" method="post" >
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="title">Title</label>
-                                        <input type="title" name="title" class="form-control" id="title" placeholder="Enter title for category">
+                                        <input type="text" name="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" id="title" placeholder="Enter title for subcategory" value="{{ old('title', '') }}">
                                         @error('title')
                                         <small class="text-danger">{{$message}}</small>
                                         @enderror
@@ -48,13 +48,13 @@
                                 </div>
                                 <div class="form-group mx-3">
                                     <label for="inputCategory">Categories</label>
-                                    <select name="category_id" class="form-control custom-select">
+                                    <select name="category_id" id="inputCategory" class="form-control custom-select {{ $errors->has('category_id') ? 'is-invalid' : '' }}" required>
                                         <option selected disabled>Select one</option>
                                         @foreach($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->title}}</option>
+                                            <option value="{{$category->id}}" selected="{{ old('category_id','') }}">{{$category->title}}</option>
                                         @endforeach
                                     </select>
-                                    @error('category')
+                                    @error('category_id')
                                     <small class="text-danger">{{$message}}</small>
                                     @enderror
                                 </div>

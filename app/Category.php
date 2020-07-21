@@ -3,13 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
     protected $fillable=[
         'title','slug',
     ];
-
     public function subcategories()
     {
         return $this->hasMany(Subcategory::class);

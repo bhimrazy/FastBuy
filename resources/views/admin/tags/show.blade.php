@@ -2,38 +2,37 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-    @include('admin.includes.alert')
-    <!-- Content Header (Page header) -->
-        <section class="content-header">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Dashboard</h1>
-                    </div>
+                        <h1 class="m-0 text-dark">Dashboard</h1>
+                    </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Show Permission</li>
+                            <li class="breadcrumb-item active">Show Tag</li>
                         </ol>
-                    </div>
-                </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
             </div><!-- /.container-fluid -->
-        </section>
+        </div>
+        <!-- /.content-header -->
 
         <!-- Main content -->
         <section class="content">
-
-            <!-- Default box -->
-            <div class="card">
-                <div class="card-header">
-                    Show Permission
-                </div>
-
-                <div class="card-body">
+            <div class="container-fluid">
+                <!-- card -->
+                <div class="card">
+                    <div class="card-header">
+                        Show Tag
+                    </div>
+                    <div class="card-body">
                     <div class="form-group">
                         <div class="form-group">
-                            <a class="btn btn-default" href="{{ route('admin.permissions.index') }}">
+                            <a class="btn btn-default" href="{{ route('admin.categories.index') }}">
                                 Back To List
                             </a>
                         </div>
@@ -44,7 +43,7 @@
                                     ID
                                 </th>
                                 <td>
-                                    {{ $permission->id }}
+                                    {{ $tag->id }}
                                 </td>
                             </tr>
                             <tr>
@@ -52,19 +51,18 @@
                                     Title
                                 </th>
                                 <td>
-                                    {{ $permission->title }}
+                                    {{ $tag->title }}
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+                </div>
             </div>
-            <!-- /.card -->
-
+                <!-- /.card -->
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 @endsection
-

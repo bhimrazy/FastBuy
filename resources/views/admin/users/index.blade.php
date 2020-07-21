@@ -1,9 +1,4 @@
 @extends('admin.layouts.app')
-@section('css')
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{asset('/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{asset('/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-@endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -39,7 +34,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example1" class="table table-bordered table-striped text-nowrap">
                                 <thead>
                                 <tr>
                                     <th width="10">
@@ -100,7 +95,7 @@
                                             @endcan
 
                                             @can('user_delete')
-                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$user->firstname}}?');" style="display: inline-block;">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="submit" class="btn btn-xs btn-danger" value="Delete">
@@ -127,24 +122,11 @@
     <!-- /.content-wrapper -->
 @endsection
 @section('scripts')
-    <script src="{{asset('/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{asset('/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script>
         $(function () {
             $("#example1").DataTable({
                 "responsive": true,
                 "autoWidth": false,
-            });
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
             });
         });
     </script>
