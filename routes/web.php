@@ -24,7 +24,7 @@ Route::get('/sqs', function () {
     \App\Jobs\ProcessPodcast::dispatch();
 });
 Route::get('/email', function () {
-    \App\User::where('email','bhimrajyadav977@gmail.com')->first()->notify(new \App\Notifications\NewUserRegistered());
+    \App\User::first()->notify(new \App\Notifications\NewUserRegistered());
 });
 
 Route::get('/blog', function () {

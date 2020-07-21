@@ -17,8 +17,7 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "stripe/stripe-php": "^7.38",
-        "fzaninotto/faker": "^1.9.1"
+        "stripe/stripe-php": "^7.38"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
