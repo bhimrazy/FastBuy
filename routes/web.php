@@ -132,6 +132,15 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
         // Users
         Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
         Route::resource('users', 'UsersController');
+
+        //Category
+        Route::resource('categories', 'CategoryController');
+
+        //SubCategory
+        Route::resource('subcategories', 'SubCategoryController');
+
+        //Tag
+        Route::resource('tags', 'TagController');
     });
 
     Route::get('/orders',[
@@ -146,9 +155,7 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
         'uses' => 'AdminController@brands',
         'as' => 'admin.brands'
     ]);
-    Route::resource('tags', 'TagController');
-    Route::resource('category', 'CategoryController');
-    Route::resource('subcategory', 'SubcategoryController');
+
     Route::resource('products', 'ProductController');
 
 });

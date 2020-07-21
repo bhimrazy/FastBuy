@@ -49,7 +49,7 @@
                             <div class="row">
                                 @foreach($permissions as $id => $permission)
                                     <div class="form-check form-check-inline col-xl-3 col-md-2 col-sm-12 p-1">
-                                        <input class="form-check-input checkbox-jquery" type="checkbox" name="permissions[]" id="inlineCheckbox{{ $id }}" value="{{ $id }}" {{ in_array($id, old('permissions', [])) ? 'checked' : '' }}>
+                                        <input class="form-check-input checkbox-jquery {{ $errors->has('permissions') ? 'is-invalid' : '' }}" type="checkbox" name="permissions[]" id="inlineCheckbox{{ $id }}" value="{{ $id }}" {{ in_array($id, old('permissions', [])) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="inlineCheckbox{{ $id }}">{{ $permission}}</label>
                                     </div>
                                 @endforeach

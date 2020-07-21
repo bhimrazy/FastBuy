@@ -8,13 +8,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Dashboard : Permissions</h1>
+                        <h1>Dashboard : SubCategories</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Permissions</li>
+                            <li class="breadcrumb-item active">SubCategories</li>
                         </ol>
                     </div>
                 </div>
@@ -27,50 +27,68 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Permission List</h3>
-                            @can('permission_create')
-                                <a href="{{route('admin.permissions.create')}}" class="btn-sm btn-success float-right">Add Permission</a>
+                            <h3 class="card-title">SubCategory List</h3>
+                            @can('product_category_create')
+                                <a href="{{route('admin.subcategories.create')}}" class="btn-sm btn-success float-right">Add SubCategory</a>
                             @endcan
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example1" class="table table-bordered table-striped text-nowrap">
                                 <thead>
                                 <tr>
-                                    <th width="10"></th>
-                                    <th>S.N.</th>
-                                    <th>Title</th>
-                                    <th>Control(s)</th>
+                                    <th width="10">
+
+                                    </th>
+                                    <th>
+                                        S.N.
+                                    </th>
+                                    <th>
+                                        Title
+                                    </th>
+                                    <th>
+                                        Control(s)
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($permissions as $key => $permission)
-                                    <tr data-entry-id="{{ $permission->id }}">
-                                        <td></td>
-                                        <td> {{ $key+1 ?? '' }}</td>
-                                        <td> {{ $permission->title ?? '' }}</td>
+                                @foreach($subcategories as $key => $subcategory)
+                                    <tr data-entry-id="{{ $subcategory->id }}">
                                         <td>
-                                            @can('permission_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.permissions.show', $permission->id) }}">
+
+                                        </td>
+                                        <td>
+                                            {{ $key+1 ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $subcategory->title?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('product_category_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.subcategories.show', $subcategory->id) }}">
                                                     View
                                                 </a>
                                             @endcan
-                                            @can('permission_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('admin.permissions.edit', $permission->id) }}">
+
+                                            @can('product_category_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.subcategories.edit', $subcategory->id) }}">
                                                     Edit
                                                 </a>
                                             @endcan
 
-                                            @can('permission_delete')
-                                                <form action="{{ route('admin.permissions.destroy', $permission->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete: {{$permission->title}} ?');" style="display: inline-block;">
+                                            @can('product_category_delete')
+                                                <form action="{{ route('admin.subcategories.destroy', $subcategory->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want to Delete : {{$subcategory->title}}?');" style="display: inline-block;">
                                                     @csrf
-                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    @method('delete')
                                                     <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                                                 </form>
                                             @endcan
+
                                         </td>
+
                                     </tr>
                                 @endforeach
+                                </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -92,7 +110,15 @@
                 "responsive": true,
                 "autoWidth": false,
             });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
         });
     </script>
-
 @endsection

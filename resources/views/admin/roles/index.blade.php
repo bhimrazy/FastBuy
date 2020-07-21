@@ -1,9 +1,4 @@
 @extends('admin.layouts.app')
-@section('css')
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{asset('/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{asset('/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-@endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -53,7 +48,7 @@
                                 @foreach($roles as $key => $role)
                                     <tr data-entry-id="{{ $role->id }}">
                                         <td></td>
-                                        <td> {{ $role->id ?? '' }}</td>
+                                        <td> {{ $key+1 ?? '' }}</td>
                                         <td> {{ $role->title ?? '' }}</td>
                                         <td>
                                             @foreach($role->permissions as $key => $item)
@@ -73,7 +68,7 @@
                                             @endcan
 
                                             @can('role_delete')
-                                                <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$role->title}}?');" style="display: inline-block;">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="submit" class="btn btn-xs btn-danger" value="Delete">
@@ -97,24 +92,11 @@
     <!-- /.content-wrapper -->
 @endsection
 @section('scripts')
-    <script src="{{asset('/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{asset('/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script>
         $(function () {
             $("#example1").DataTable({
                 "responsive": true,
                 "autoWidth": false,
-            });
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
             });
         });
     </script>
