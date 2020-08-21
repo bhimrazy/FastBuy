@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Dashboard | FastBuy | Mega Store</title>
-
+    <title>{{($pageTitle??'')?$pageTitle.' - ':''}}Dashboard | {{config('settings.site_title')??config('app.name')}}</title>
+    <meta name="description" content="{{$pageDescription??config('settings.seo_meta_description')}}">
+    <meta name="author" content="{{config('settings.site_author')??config('settings.site_name')}}">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
     <!-- overlayScrollbars -->
@@ -18,6 +19,7 @@
     <link rel="stylesheet" href="{{asset('/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -196,7 +198,6 @@
 <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('dist/js/adminlte.js')}}"></script>
-
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
 

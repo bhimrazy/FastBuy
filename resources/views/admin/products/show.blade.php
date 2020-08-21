@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Project Detail</h1>
+                        <h1>Product Detail</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Project Detail</li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
+                            <li class="breadcrumb-item active">Product Detail</li>
                         </ol>
                     </div>
                 </div>
@@ -23,145 +23,114 @@
         <section class="content">
 
             <!-- Default box -->
-            <div class="card">
+            <div class="card card-solid">
                 <div class="card-header">
-                    <h3 class="card-title">Projects Detail</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fas fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fas fa-times"></i></button>
-                    </div>
+                    <h3 class="card-title text-bold text-gray-dark">Show Product : {{$product->name}}</h3>
+                    @can('product_edit')
+                        <a class="btn btn-xs btn-info float-right" href="{{ route('admin.products.edit', $product->id) }}">
+                            Edit Product
+                        </a>
+                    @endcan
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-                            <div class="row">
-                                <div class="col-12 col-sm-4">
-                                    <div class="info-box bg-light">
-                                        <div class="info-box-content">
-                                            <span class="info-box-text text-center text-muted">Estimated budget</span>
-                                            <span class="info-box-number text-center text-muted mb-0">2300</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-4">
-                                    <div class="info-box bg-light">
-                                        <div class="info-box-content">
-                                            <span class="info-box-text text-center text-muted">Total amount spent</span>
-                                            <span class="info-box-number text-center text-muted mb-0">2000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-4">
-                                    <div class="info-box bg-light">
-                                        <div class="info-box-content">
-                                            <span class="info-box-text text-center text-muted">Estimated project duration</span>
-                                            <span class="info-box-number text-center text-muted mb-0">20 <span>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col-12 col-sm-6">
+                            <h3 class="d-inline-block d-sm-none">{{$product->name}}</h3>
+                            <div class="col-12">
+                                <img src="{{asset($product->media->first()->url)}}" class="product-image" alt="Product Image">
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <h4>Recent Activity</h4>
-                                    <div class="post">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
-                                            <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
-                        </span>
-                                            <span class="description">Shared publicly - 7:45 PM today</span>
-                                        </div>
-                                        <!-- /.user-block -->
-                                        <p>
-                                            Lorem ipsum represents a long-held tradition for designers,
-                                            typographers and the like. Some people hate it and argue for
-                                            its demise, but others ignore.
-                                        </p>
-
-                                        <p>
-                                            <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v2</a>
-                                        </p>
-                                    </div>
-
-                                    <div class="post clearfix">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
-                                            <span class="username">
-                          <a href="#">Sarah Ross</a>
-                        </span>
-                                            <span class="description">Sent you a message - 3 days ago</span>
-                                        </div>
-                                        <!-- /.user-block -->
-                                        <p>
-                                            Lorem ipsum represents a long-held tradition for designers,
-                                            typographers and the like. Some people hate it and argue for
-                                            its demise, but others ignore.
-                                        </p>
-                                        <p>
-                                            <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 2</a>
-                                        </p>
-                                    </div>
-
-                                    <div class="post">
-                                        <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
-                                            <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
-                        </span>
-                                            <span class="description">Shared publicly - 5 days ago</span>
-                                        </div>
-                                        <!-- /.user-block -->
-                                        <p>
-                                            Lorem ipsum represents a long-held tradition for designers,
-                                            typographers and the like. Some people hate it and argue for
-                                            its demise, but others ignore.
-                                        </p>
-
-                                        <p>
-                                            <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v1</a>
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="col-12 product-image-thumbs">
+                                @foreach($product->media as $key=>$image)
+                                    <div class="product-image-thumb {{$key?'':'active'}}"><img src="{{asset($image->url)}}" alt="{{$product->name}}"></div>
+                                @endforeach
                             </div>
                         </div>
-                        <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-                            <h3 class="text-primary"><i class="fas fa-paint-brush"></i> AdminLTE v3</h3>
-                            <p class="text-muted">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
-                            <br>
-                            <div class="text-muted">
-                                <p class="text-sm">Client Company
-                                    <b class="d-block">Deveint Inc</b>
-                                </p>
-                                <p class="text-sm">Project Leader
-                                    <b class="d-block">Tony Chicken</b>
-                                </p>
+                        <div class="col-12 col-sm-6">
+                            <h3 class="my-3 text-black text-bold text-capitalize">{{$product->name}}</h3>
+                            <p>{{$product->description}}</p>
+
+                            <hr>
+                            <h4 class="text-gray-dark text-bold">Attributes</h4>
+                            <p>{{$product->attributes}}</p>
+
+                            <h4 class="mt-3 text-bold">Product Info</h4>
+                            <div class="btn-group">
+                                <label class="btn btn-default text-center active">
+                                    <span class="badge {{$product->status=='Active'?'badge-success':'badge-danger'}}">{{$product->status}}</span>
+                                </label>
+                                <label class="btn btn-default text-center">
+                                    <span class="badge {{$product->stock=='In Stock'?'badge-success':'badge-danger'}}">{{$product->stock}}</span>
+
+                                </label>
+                                <label class="btn btn-default text-center">
+                                    <span class="badge {{$product->featured=='Featured'?'badge-success':'badge-danger'}}">{{$product->featured}}</span>
+                                </label>
+                                <label class="btn btn-default text-center">
+                                    <span class="badge {{$product->quantity>0?'badge-info':'badge-danger'}}">{{'QTY : '.$product->quantity}}</span>
+                                </label>
+                                <label class="btn btn-default text-center">
+                                    <span class="badge badge-secondary">{{'SKU : '.strtoupper($product->sku)}}</span>
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    <span class="badge p-2 bg-gradient-blue">{{'Likes : '.$product->likes}}</span>
+                                </label>
+                                <label>
+                                    <span class="badge p-2 bg-gradient-indigo">{{'Rating : '.$product->rating}}</span>
+                                </label>
                             </div>
 
-                            <h5 class="mt-5 text-muted">Project files</h5>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> Functional-requirements.docx</a>
-                                </li>
-                                <li>
-                                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> UAT.pdf</a>
-                                </li>
-                                <li>
-                                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i> Email-from-flatbal.mln</a>
-                                </li>
-                                <li>
-                                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image "></i> Logo.png</a>
-                                </li>
-                                <li>
-                                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> Contract-10_12_2014.docx</a>
-                                </li>
-                            </ul>
-                            <div class="text-center mt-5 mb-3">
-                                <a href="#" class="btn btn-sm btn-primary">Add files</a>
-                                <a href="#" class="btn btn-sm btn-warning">Report contact</a>
+                            <div class="bg-info py-2 px-3 mt-4 rounded">
+                                <h2 class="mb-0 text-bold">
+                                    {{config('settings.currency_symbol').'.'.$product->price}}
+                                </h2>
+                                <h4 class="mt-0">
+                                    <small>{{'Discount : '.$product->discount.'%'}} </small>
+                                </h4>
                             </div>
+
+                            <div class="mt-4">
+                                <div class="btn btn-primary btn-lg btn-flat">
+                                    <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                                    Add to Cart
+                                </div>
+
+                                <div class="btn btn-default btn-lg btn-flat">
+                                    <i class="fas fa-heart fa-lg mr-2"></i>
+                                    Add to Wishlist
+                                </div>
+                            </div>
+
+                            <div class="mt-4 product-share">
+                                <a href="#" class="text-gray">
+                                    <i class="fab fa-facebook-square fa-2x"></i>
+                                </a>
+                                <a href="#" class="text-gray">
+                                    <i class="fab fa-twitter-square fa-2x"></i>
+                                </a>
+                                <a href="#" class="text-gray">
+                                    <i class="fas fa-envelope-square fa-2x"></i>
+                                </a>
+                                <a href="#" class="text-gray">
+                                    <i class="fas fa-rss-square fa-2x"></i>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <nav class="w-100">
+                            <div class="nav nav-tabs" id="product-tab" role="tablist">
+                                <a class="nav-item nav-link" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="false">Description</a>
+                                <a class="nav-item nav-link active" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">Specifications</a>
+                                <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="true">Comments</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content p-3" id="nav-tabContent">
+                            <div class="tab-pane fade" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">{{$product->description}}</div>
+                            <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">{{$product->attributes}}</div>
+                            <div class="tab-pane fade active show" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab"> Cras ut ipsum ornare, aliquam ipsum non, posuere elit. In hac habitasse platea dictumst. Aenean elementum leo augue, id fermentum risus efficitur vel. Nulla iaculis malesuada scelerisque. Praesent vel ipsum felis. Ut molestie, purus aliquam placerat sollicitudin, mi ligula euismod neque, non bibendum nibh neque et erat. Etiam dignissim aliquam ligula, aliquet feugiat nibh rhoncus ut. Aliquam efficitur lacinia lacinia. Morbi ac molestie lectus, vitae hendrerit nisl. Nullam metus odio, malesuada in vehicula at, consectetur nec justo. Quisque suscipit odio velit, at accumsan urna vestibulum a. Proin dictum, urna ut varius consectetur, sapien justo porta lectus, at mollis nisi orci et nulla. Donec pellentesque tortor vel nisl commodo ullamcorper. Donec varius massa at semper posuere. Integer finibus orci vitae vehicula placerat. </div>
                         </div>
                     </div>
                 </div>

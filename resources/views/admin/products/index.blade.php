@@ -23,126 +23,132 @@
 
         <!-- Main content -->
         <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Default box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Products</h3>
 
-            <!-- Default box -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Products</h3>
+                            @can('product_create')
+                                <a href="{{route('admin.products.create')}}" class="btn-sm btn-success float-right">Add Product</a>
+                            @endcan
+                        </div>
+                        <div class="card-body">
+                            <table id="products" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="width: 1%">
+                                        S.N.
+                                    </th>
+                                    <th style="width: 10%">
+                                        Product Name
+                                    </th>
+                                    <th style="width: 10%">
+                                        Thumbnail
+                                    </th>
+                                    <th>
+                                        Price
+                                    </th>
+                                    <th>
+                                        Tags
+                                    </th>
+                                    <th style="width: 8%" class="text-center">
+                                        Product Info
+                                    </th>
+                                    <th style="width: 20%">
+                                        Actions
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($products as $key=>$product)
+                                    <tr data-entry-id="{{ $product->id }}">
+                                        <td>
+                                            {{$key+1}}
+                                        </td>
+                                        <td>
+                                            <span class="text-bold text-gray-dark">
+                                                {{$product->name}}
+                                            </span>
+                                            <br/>
+                                            <small>
+                                                Created at {{$product->created_at->format('d-m-Y')}}
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <ul class="list-inline">
+                                                @foreach($product->media->take(2) as $image)
+                                                    <li class="list-inline-item p-1">
+                                                        <img alt="{{$product->name}}" class="table-avatar img-circle elevation-1" width="60" height="60" src="{{asset($image->url)}}">
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        <td>
+                                           {{config('settings.currency_symbol').'.'}} {{$product->price}}
+                                        </td>
+                                        <td class="product-state">
+                                            @foreach($product->tags as $tag)
+                                                <span class="badge badge-primary">{{$tag->title}}</span><br>
+                                            @endforeach
+                                        </td>
+                                        <td class="product-state">
+                                            <span class="badge {{$product->status=='Active'?'badge-success':'badge-danger'}}">{{$product->status}}</span>
+                                            <span class="badge {{$product->stock=='In Stock'?'badge-success':'badge-danger'}}">{{$product->stock}}</span>
+                                            <span class="badge {{$product->featured=='Featured'?'badge-success':'badge-danger'}}">{{$product->featured}}</span>
+                                            <span class="badge badge-secondary">{{$product->sku}}</span><br>
+                                            <span class="badge {{$product->quantity>0?'badge-info':'badge-danger'}}">{{$product->quantity}}</span>
 
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fas fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fas fa-times"></i></button>
+                                        </td>
+                                        <td>
+                                            @can('product_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.products.show', $product->id) }}">
+                                                    Show
+                                                </a>
+                                            @endcan
+
+                                            @can('product_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.products.edit', $product->id) }}">
+                                                    Edit
+                                                </a>
+                                            @endcan
+
+                                            @can('product_delete')
+                                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$product->name}}?');" style="display: inline-block;">
+                                                    @csrf
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                                </form>
+                                            @endcan
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
-                <div class="card-body p-0">
-                    <table class="table table-bordered table-responsive table-hover text-nowrap">
-                        <thead>
-                        <tr>
-                            <th style="width: 1%">
-                               S.N.
-                            </th>
-                            <th style="width: 10%">
-                                Product Name
-                            </th>
-                            <th style="width: 30%">
-                                Thumbnail
-                            </th>
-                            <th>
-                                Price
-                            </th>
-                            <th>
-                                Tags
-                            </th>
-                            <th style="width: 8%" class="text-center">
-                                Status
-                            </th>
-                            <th style="width: 20%">
-                                View
-                            </th>
-                            <th style="width: 20%">
-                                Edit
-                            </th>
-                            <th style="width: 20%">
-                                Delete
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($products as $key=>$product)
-                            <tr>
-                                <td>
-                                    {{$key+1}}
-                                </td>
-                                <td>
-                                    <a>
-                                        {{$product->title}}
-                                    </a>
-                                    <br/>
-                                    <small>
-                                        Created at {{$product->created_at->format('d-m-Y')}}
-                                    </small>
-                                </td>
-                                <td>
-                                    <ul class="list-inline">
-                                        @foreach($product->media as $image)
-                                            <li class="list-inline-item">
-                                                <img alt="Avatar" class="table-avatar img-circle elevation-1" width="60" height="60" src="{{asset($image->url)}}">
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td>
-                                    Rs.{{$product->price}}
-                                </td>
-                                <td class="product-state">
-                                    @foreach($product->tags as $tag)
-                                        <span class="badge badge-primary">{{$tag->title}}</span><br>
-                                    @endforeach
-                                </td>
-                                <td class="product-state">
-                                    <span class="badge badge-success">In Stock</span>
-                                </td>
-                                <td class="product-actions text-left">
-                                    <a class="btn btn-primary btn-sm" href="#">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        View
-                                    </a>
-                                </td>
-                                <td class="product-actions text-left">
-                                    <a class="btn btn-info btn-sm" href="#">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Edit
-                                    </a>
-                                </td>
-                                <td class="product-actions text-left">
-                                    <a class="btn btn-danger btn-sm" href="#">
-                                        <i class="fas fa-trash">
-                                        </i>
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                    <div class="pagination pagination-sm m-0 float-right">
-                        {{$products->links()}}
-                    </div>
-                </div>
+                <!-- /.col -->
             </div>
-            <!-- /.card -->
 
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 @endsection
+@section('scripts')
+    <script>
+        $(function () {
+            $("#products").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
 
+@endsection

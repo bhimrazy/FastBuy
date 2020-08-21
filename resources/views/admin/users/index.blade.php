@@ -34,7 +34,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped text-nowrap">
+                            <table id="users" class="table table-bordered table-striped text-nowrap">
                                 <thead>
                                 <tr>
                                     <th width="10">
@@ -124,7 +124,7 @@
 @section('scripts')
     <script>
         $(function () {
-            $("#example1").DataTable({
+            $("#users").DataTable({
                 "responsive": true,
                 "autoWidth": false,
             });

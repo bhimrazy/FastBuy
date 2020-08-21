@@ -41,7 +41,7 @@
                     <!-- Slider Area End Here -->
                     <div class="col-lg-3">
                         <div class="row">
-                            <!-- Begin FB's Banner Area -->
+                            <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                             <div class="col-lg-12 col-sm-6">
                                 <div class="fb-banner fb-img-hover-effect pt-sm-30 pt-xs-30">
                                     <a href="#">
@@ -56,14 +56,14 @@
                                     </a>
                                 </div>
                             </div>
-                            <!-- FB's Banner Area End Here -->
+                            <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Slider With Banner Area End Here -->
-        <!-- Begin FB's customer Support Area -->
+        <!-- Begin {{initials(config('settings.site_name'))}}'s customer Support Area -->
         <div class="fb-customer_support pb-55">
             <div class="container">
                 <div class="row fb-customer_support-nav bg-white ml-0 mr-0 mt-30">
@@ -97,15 +97,15 @@
                 </div>
             </div>
         </div>
-        <!-- FB's customer Support Area End Here -->
-        <!-- Begin FB's Product With Banner Area -->
+        <!-- {{initials(config('settings.site_name'))}}'s customer Support Area End Here -->
+        <!-- Begin {{initials(config('settings.site_name'))}}'s Product With Banner Area -->
         <div class="fb-product_with_banner pb-60">
             <div class="container">
                 <div class="fb-section_title">
                     <h2>Hot Deals</h2>
                 </div>
                 <div class="row no-gutters">
-                    <!-- Begin FB's Banner Area -->
+                    <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                     <div class="col-xl-3 col-lg-4 col-md-5">
                         <div class="fb-banner fb-img-hover-effect">
                             <a href="#">
@@ -113,12 +113,12 @@
                             </a>
                         </div>
                     </div>
-                    <!-- FB's Banner Area End Here -->
-                    <!-- Begin FB's Product Wrap Area -->
+                    <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
+                    <!-- Begin {{initials(config('settings.site_name'))}}'s Product Wrap Area -->
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="fb-product_wrap bg-white">
                             <div class="fb-product_active owl-carousel">
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -160,8 +160,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -204,8 +204,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -248,8 +248,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -292,8 +292,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -336,22 +336,22 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
+                                <!-- Single Product Area End Here -->
                             </div>
                         </div>
                     </div>
-                    <!-- FB's Product Wrap Area End Here -->
+                    <!-- {{initials(config('settings.site_name'))}}'s Product Wrap Area End Here -->
                 </div>
             </div>
         </div>
-        <!-- FB's Product Area End Here -->
+        <!-- {{initials(config('settings.site_name'))}}'s Product Area End Here -->
         <div class="fb-product_with_banner pb-60">
             <div class="container">
                 <div class="fb-section_title">
                     <h2>Hot DB Product Deals</h2>
                 </div>
                 <div class="row no-gutters">
-                    <!-- Begin FB's Banner Area -->
+                    <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                     <div class="col-xl-3 col-lg-4 col-md-5">
                         <div class="fb-banner fb-img-hover-effect">
                             <a href="#">
@@ -359,19 +359,19 @@
                             </a>
                         </div>
                     </div>
-                    <!-- FB's Banner Area End Here -->
-                    <!-- Begin FB's Product Wrap Area -->
+                    <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
+                    <!-- Begin {{initials(config('settings.site_name'))}}'s Product Wrap Area -->
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="fb-product_wrap bg-white">
                             <div class="fb-product_active owl-carousel">
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Begin Single Product Area -->
                                 @if($products)
-                                @foreach($products as $product)
-                                <div class="single-product">
+                                    @foreach($products as $product)
+                                        <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
-                                        <a href="#">
-                                            <img class="primary-img" src="{{asset($product->media->first()->url)}}" alt="FB'S Product">
+                                        <a href="{{route('product.productShow',['product'=>$product->slug])}}">
+                                            <img class="primary-img" src="{{asset($product->media->first()->url)}}" alt="{{$product->name}}">
                                         </a>
                                         <div class="sticker"><span>New</span></div>
                                         <div class="sticker-2"><span>-{{$product->discount}}%</span></div>
@@ -383,7 +383,7 @@
                                     <!-- Begin Product Content Area -->
                                     <div class="product-content">
                                         <h2 class="product-name">
-                                            <a href="{{route('product.show',['product'=>$product->slug])}}">{{$product->title}}</a>
+                                            <a href="{{route('product.productShow',['product'=>$product->slug])}}">{{$product->name}}</a>
                                         </h2>
                                         <div class="rating-box">
                                             <ul class="rating">
@@ -403,7 +403,7 @@
                                             <ul class="product-action-link">
                                                 <li class="shopping-cart_link"><a href="#" title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                <li class="single-product_link"><a href="{{route('product.show',['product'=>$product->slug])}}" title="Single Product"><i class="ion-link"></i></a></li>
+                                                <li class="single-product_link"><a href="{{route('product.productShow',['product'=>$product->slug])}}" title="Single Product"><i class="ion-link"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -411,7 +411,7 @@
                                 </div>
                                 @endforeach
                                 @endif
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -453,8 +453,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -497,8 +497,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -541,8 +541,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -585,8 +585,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -629,20 +629,20 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
+                                <!-- Single Product Area End Here -->
                             </div>
                         </div>
                     </div>
-                    <!-- FB's Product Wrap Area End Here -->
+                    <!-- {{initials(config('settings.site_name'))}}'s Product Wrap Area End Here -->
                 </div>
             </div>
         </div>
-        <!-- FB's Product Area End Here -->
-        <!-- Begin FB's Banner Wrap Area -->
+        <!-- {{initials(config('settings.site_name'))}}'s Product Area End Here -->
+        <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Wrap Area -->
         <div class="fb-banner_wrap">
             <div class="container">
                 <div class="row">
-                    <!-- Begin FB's Banner Area -->
+                    <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                     <div class="col-lg-6">
                         <div class="fb-banner fb-img-hover-effect pb-sm-30 pb-xs-30">
                             <a href="#">
@@ -650,8 +650,8 @@
                             </a>
                         </div>
                     </div>
-                    <!-- FB's Banner Area End Here -->
-                    <!-- Begin FB's Banner Area -->
+                    <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
+                    <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                     <div class="col-lg-6">
                         <div class="fb-banner fb-img-hover-effect">
                             <a href="#">
@@ -659,12 +659,12 @@
                             </a>
                         </div>
                     </div>
-                    <!-- FB's Banner Area End Here -->
+                    <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
                 </div>
             </div>
         </div>
-        <!-- FB's Banner Wrap Area End Here -->
-        <!-- Begin FB's Banner With List Product Area -->
+        <!-- {{initials(config('settings.site_name'))}}'s Banner Wrap Area End Here -->
+        <!-- Begin {{initials(config('settings.site_name'))}}'s Banner With List Product Area -->
         <div class="fb-banner_with_list-product cookware-product pt-60 pb-60">
             <div class="container">
                 <div class="fb-product_list_nav">
@@ -673,13 +673,13 @@
                             <div class="fb-section_title-2">
                                 <h2>Cookware</h2>
                             </div>
-                            <!-- Begin FB's Banner Area -->
+                            <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                             <div class="fb-banner fb-img-hover-effect">
                                 <a href="#">
                                     <img src="{{asset('assets/images/banner/1_6.jpg')}}" alt="FB'S Banner">
                                 </a>
                             </div>
-                            <!-- FB's Banner Area End Here -->
+                            <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
                         </div>
                         <div class="col-xl-9 col-lg-8 col-md-7">
                             <div class="btn-group">
@@ -690,20 +690,20 @@
                                     <li><a href="{{route('shop.index')}}" target="_blank">Individual Cookware</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Enamel Cookware</a></li>
                                 </ul>
-                                <!-- Begin FB's List Product Menu Area -->
+                                <!-- Begin {{initials(config('settings.site_name'))}}'s List Product Menu Area -->
                                 <ul class="list-product_menu">
                                     <li><a href="{{route('shop.index')}}" target="_blank">Cookware Brands</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Cookware Sets</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Individual Cookware</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Enamel Cookware</a></li>
                                 </ul>
-                                <!-- FB's List Product Menu Area End Here -->
+                                <!-- {{initials(config('settings.site_name'))}}'s List Product Menu Area End Here -->
                             </div>
-                            <!-- Begin FB's List Product Area -->
+                            <!-- Begin {{initials(config('settings.site_name'))}}'s List Product Area -->
                             <div class="fb-list_product">
                                 <div class="fb-list_product_active owl-carousel">
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -741,8 +741,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -780,10 +780,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -821,8 +821,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -859,10 +859,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -900,8 +900,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -938,10 +938,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -979,8 +979,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1017,18 +1017,18 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                 </div>
                             </div>
-                            <!-- FB's List Product Area End Here -->
+                            <!-- {{initials(config('settings.site_name'))}}'s List Product Area End Here -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- FB's Banner With List Product Area End Here -->
-        <!-- Begin FB's Banner With List Product Area -->
+        <!-- {{initials(config('settings.site_name'))}}'s Banner With List Product Area End Here -->
+        <!-- Begin {{initials(config('settings.site_name'))}}'s Banner With List Product Area -->
         <div class="fb-banner_with_list-product large-appliances_product pb-60">
             <div class="container">
                 <div class="fb-product_list_nav">
@@ -1037,13 +1037,13 @@
                             <div class="fb-section_title-2">
                                 <h2>Large Appliances</h2>
                             </div>
-                            <!-- Begin FB's Banner Area -->
+                            <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                             <div class="fb-banner fb-img-hover-effect">
                                 <a href="#">
                                     <img src="{{asset('assets/images/banner/1_7.jpg')}}" alt="FB'S Banner">
                                 </a>
                             </div>
-                            <!-- FB's Banner Area End Here -->
+                            <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
                         </div>
                         <div class="col-xl-9 col-lg-8 col-md-7">
                             <div class="btn-group">
@@ -1054,20 +1054,20 @@
                                     <li><a href="{{route('shop.index')}}" target="_blank">Mattress</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Sideboard</a></li>
                                 </ul>
-                                <!-- Begin FB's List Product Menu Area -->
+                                <!-- Begin {{initials(config('settings.site_name'))}}'s List Product Menu Area -->
                                 <ul class="list-product_menu">
                                     <li><a href="{{route('shop.index')}}" target="_blank">Armchairs</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Bunk Bed</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Mattress</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Sideboard</a></li>
                                 </ul>
-                                <!-- FB's List Product Menu Area End Here -->
+                                <!-- {{initials(config('settings.site_name'))}}'s List Product Menu Area End Here -->
                             </div>
-                            <!-- Begin FB's List Product Area -->
+                            <!-- Begin {{initials(config('settings.site_name'))}}'s List Product Area -->
                             <div class="fb-list_product">
                                 <div class="fb-list_product_active owl-carousel">
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1104,8 +1104,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1142,10 +1142,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1183,8 +1183,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1221,10 +1221,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1261,8 +1261,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1299,10 +1299,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1340,8 +1340,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1378,18 +1378,18 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                 </div>
                             </div>
-                            <!-- FB's List Product Area End Here -->
+                            <!-- {{initials(config('settings.site_name'))}}'s List Product Area End Here -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- FB's Banner With List Product Area End Here -->
-        <!-- Begin FB's Banner With List Product Area -->
+        <!-- {{initials(config('settings.site_name'))}}'s Banner With List Product Area End Here -->
+        <!-- Begin {{initials(config('settings.site_name'))}}'s Banner With List Product Area -->
         <div class="fb-banner_with_list-product small-appliances_product pb-60">
             <div class="container">
                 <div class="fb-product_list_nav">
@@ -1398,13 +1398,13 @@
                             <div class="fb-section_title-2">
                                 <h2>Small Appliances</h2>
                             </div>
-                            <!-- Begin FB's Banner Area -->
+                            <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                             <div class="fb-banner fb-img-hover-effect">
                                 <a href="#">
                                     <img src="{{asset('assets/images/banner/1_8.jpg')}}" alt="FB'S Banner">
                                 </a>
                             </div>
-                            <!-- FB's Banner Area End Here -->
+                            <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
                         </div>
                         <div class="col-xl-9 col-lg-8 col-md-7">
                             <div class="btn-group">
@@ -1415,20 +1415,20 @@
                                     <li><a href="{{route('shop.index')}}" target="_blank">Shelf</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Shoes</a></li>
                                 </ul>
-                                <!-- Begin FB's List Product Menu Area -->
+                                <!-- Begin {{initials(config('settings.site_name'))}}'s List Product Menu Area -->
                                 <ul class="list-product_menu">
                                     <li><a href="{{route('shop.index')}}" target="_blank">Bootees Bags</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Jackets</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Shelf</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Shoes</a></li>
                                 </ul>
-                                <!-- FB's List Product Menu Area End Here -->
+                                <!-- {{initials(config('settings.site_name'))}}'s List Product Menu Area End Here -->
                             </div>
-                            <!-- Begin FB's List Product Area -->
+                            <!-- Begin {{initials(config('settings.site_name'))}}'s List Product Area -->
                             <div class="fb-list_product">
                                 <div class="fb-list_product_active owl-carousel">
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1465,8 +1465,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1504,10 +1504,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1545,8 +1545,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1583,10 +1583,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1623,8 +1623,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1662,10 +1662,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1703,8 +1703,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1741,18 +1741,18 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                 </div>
                             </div>
-                            <!-- FB's List Product Area End Here -->
+                            <!-- {{initials(config('settings.site_name'))}}'s List Product Area End Here -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- FB's Banner With List Product Area End Here -->
-        <!-- Begin FB's Banner With List Product Area -->
+        <!-- {{initials(config('settings.site_name'))}}'s Banner With List Product Area End Here -->
+        <!-- Begin {{initials(config('settings.site_name'))}}'s Banner With List Product Area -->
         <div class="fb-banner_with_list-product drinkware_product pb-60">
             <div class="container">
                 <div class="fb-product_list_nav">
@@ -1761,13 +1761,13 @@
                             <div class="fb-section_title-2">
                                 <h2>Drinkware</h2>
                             </div>
-                            <!-- Begin FB's Banner Area -->
+                            <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                             <div class="fb-banner fb-img-hover-effect">
                                 <a href="#">
                                     <img src="{{asset('assets/images/banner/1_9.jpg')}}" alt="FB'S Banner">
                                 </a>
                             </div>
-                            <!-- FB's Banner Area End Here -->
+                            <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
                         </div>
                         <div class="col-xl-9 col-lg-8 col-md-7">
                             <div class="btn-group">
@@ -1778,20 +1778,20 @@
                                     <li><a href="{{route('shop.index')}}" target="_blank">Direction Drinkware</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Crescent Drinkware</a></li>
                                 </ul>
-                                <!-- Begin FB's List Product Menu Area -->
+                                <!-- Begin {{initials(config('settings.site_name'))}}'s List Product Menu Area -->
                                 <ul class="list-product_menu">
                                     <li><a href="{{route('shop.index')}}" target="_blank">Tour Drinkware</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Hatch Drinkware</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Direction Drinkware</a></li>
                                     <li><a href="{{route('shop.index')}}" target="_blank">Crescent Drinkware</a></li>
                                 </ul>
-                                <!-- FB's List Product Menu Area End Here -->
+                                <!-- {{initials(config('settings.site_name'))}}'s List Product Menu Area End Here -->
                             </div>
-                            <!-- Begin FB's List Product Area -->
+                            <!-- Begin {{initials(config('settings.site_name'))}}'s List Product Area -->
                             <div class="fb-list_product">
                                 <div class="fb-list_product_active owl-carousel">
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1828,8 +1828,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1867,10 +1867,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1908,8 +1908,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1946,10 +1946,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -1986,8 +1986,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -2025,10 +2025,10 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                     <div class="row no-gutters">
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -2066,8 +2066,8 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
-                                        <!-- Begin Sigle Product Area -->
+                                        <!-- Single Product Area End Here -->
+                                        <!-- Begin Single Product Area -->
                                         <div class="single-product list-single_product">
                                             <!-- Begin Product Image Area -->
                                             <div class="product-img list-product_img">
@@ -2104,18 +2104,18 @@
                                             </div>
                                             <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Sigle Product Area End Here -->
+                                        <!-- Single Product Area End Here -->
                                     </div>
                                 </div>
                             </div>
-                            <!-- FB's List Product Area End Here -->
+                            <!-- {{initials(config('settings.site_name'))}}'s List Product Area End Here -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- FB's Banner With List Product Area End Here -->
-        <!-- Begin FB's Banner With New Product Area -->
+        <!-- {{initials(config('settings.site_name'))}}'s Banner With List Product Area End Here -->
+        <!-- Begin {{initials(config('settings.site_name'))}}'s Banner With New Product Area -->
         <div class="fb-banner_with-new_product pb-60">
             <div class="container">
                 <div class="row">
@@ -2123,16 +2123,16 @@
                         <div class="fb-section_title fb-section_title-3">
                             <h2>New products </h2>
                         </div>
-                        <!-- Begin FB's Banner Area -->
+                        <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                         <div class="fb-banner fb-img-hover-effect">
                             <a href="#">
                                 <img src="assets/images/banner/1_10.jpg" alt="FB'S Banner">
                             </a>
                         </div>
-                        <!-- FB's Banner Area End Here -->
+                        <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
                         <div class="fb-product_wrap fb-new_product_wrap bg-white">
                             <div class="fb-new_product_active owl-carousel">
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -2170,8 +2170,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -2208,8 +2208,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -2247,8 +2247,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -2285,7 +2285,7 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
+                                <!-- Single Product Area End Here -->
                             </div>
                         </div>
                     </div>
@@ -2293,16 +2293,16 @@
                         <div class="fb-section_title fb-section_title-4 pt-sm-60 pt-xs-60">
                             <h2>Featured products </h2>
                         </div>
-                        <!-- Begin FB's Banner Area -->
+                        <!-- Begin {{initials(config('settings.site_name'))}}'s Banner Area -->
                         <div class="fb-banner fb-img-hover-effect">
                             <a href="#">
                                 <img src="assets/images/banner/1_11.jpg" alt="FB'S Banner">
                             </a>
                         </div>
-                        <!-- FB's Banner Area End Here -->
+                        <!-- {{initials(config('settings.site_name'))}}'s Banner Area End Here -->
                         <div class="fb-product_wrap fb-new_product_wrap bg-white">
                             <div class="fb-new_product_active owl-carousel">
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -2340,8 +2340,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -2379,8 +2379,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -2418,8 +2418,8 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
-                                <!-- Begin Sigle Product Area -->
+                                <!-- Single Product Area End Here -->
+                                <!-- Begin Single Product Area -->
                                 <div class="single-product">
                                     <!-- Begin Product Image Area -->
                                     <div class="product-img">
@@ -2456,14 +2456,14 @@
                                     </div>
                                     <!-- Product Content Area End Here -->
                                 </div>
-                                <!-- Sigle Product Area End Here -->
+                                <!-- Single Product Area End Here -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- FB's Banner With New Product Area End Here -->
+        <!-- {{initials(config('settings.site_name'))}}'s Banner With New Product Area End Here -->
 
 
 @endsection

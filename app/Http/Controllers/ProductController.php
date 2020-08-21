@@ -2,113 +2,114 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
 use App\Category;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Media;
 use App\Product;
-use App\Subcategory;
 use App\Tag;
-use Intervention\Image\Facades\Image;
+use App\Traits\pageMetaContent;
+use App\Traits\UploadAble;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
-{
+{   use pageMetaContent;use UploadAble;
 
     public function index()
-    {
-        return view('admin.products.index')->with('products',Product::with('media')->paginate(10));
+    {   abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $this->setPageTitle('List Products','This Page Lists all the products.');
+        return view('admin.products.index')->with('products',Product::with('media')->latest()->get());
     }
-
 
     public function create()
     {
+        abort_if(Gate::denies('product_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $this->setPageTitle('Add a new Product','This Page allows to add a new Product.');
         $tags=Tag::all();
         $categories=Category::with('subcategories')->get();
-        $subcategories=Subcategory::with('category')->get();
-        //dd($categories);
-        return view('admin.products.create')->with([
-            'tags'=> $tags,
-            'categories'=>$categories,
-        ]);
+        $brands=Brand::all();
+        return view('admin.products.create',compact(['tags','categories','brands']));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(ProductRequest $request)
+    public function store(StoreProductRequest $request)
     {
-        $newProduct=Product::create([
-            'title'=> $request->title,
-            'description'=>$request->description,
-            'subcategory_id'=>$request->subcategory_id,
-            'price'=>$request->price,
-            'slug'=>slugify($request->title),
-        ]);
-         $newProduct->tags()->attach($request->tags);
+         $newProduct=Product::create($request->all());
+         $newProduct->tags()->sync($request->input('tags', []));
          $newProduct->save();
         if($request->hasfile('image'))
-        {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension(); // getting image extension
-            $filename =time().'.'.$extension;
-            $file->storeAs('uploads/products/', $filename,'public');
-            $image=Image::make(public_path("storage/uploads/products/{$filename}"))->fit(600,695);
-            $image->save();
-            $media=Media::create([
-                'type'=>'image',
-                'url'=>'storage/uploads/products/'.$filename,
-                'product_id'=>$newProduct->id,
-            ]);
+        {   foreach($request->file('image')  as $image){
+                $img = $this->uploadOne($image, 'products/'.$newProduct['id'],600,695);
+                Media::create([
+                    'type'=>'image',
+                    'url'=>'storage/'.$img,
+                    'product_id'=>$newProduct->id,
+                ]);
+            }
         }
-        return redirect()->route('products.index')->with('success','Product Created Successfully');
+        return redirect()->route('admin.products.index')->with('success','Product Created Successfully with name : '.$newProduct->name);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function show(Product $product)
     {
-        //
+        abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $product->load('media');
+        $this->setPageTitle($product['name'],$product['description']);
+        return view('admin.products.show', compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Product $product)
     {
-        //
+        abort_if(Gate::denies('product_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $product->load('media');
+        $this->setPageTitle('Edit - '.$product['name'],$product['description']);
+        $tags=Tag::all();
+        $categories=Category::with('subcategories')->get();
+        $brands=Brand::all();
+        return view('admin.products.edit', compact('product','tags','categories','brands'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->update($request->all());
+        $product->tags()->sync($request->input('tags', []));
+        $product->update();
+        if($request->hasfile('image')){
+            if(File::isDirectory(public_path('storage/uploads/products/'.$product['id']))) {
+                 File::deleteDirectory(public_path('storage/uploads/products/'.$product['id']));
+            }
+            $product->media()->delete();
+            foreach($request->file('image')  as $image){
+                $img = $this->uploadOne($image, 'products/'.$product['id'],600,695);
+                Media::create([
+                    'type'=>'image',
+                    'url'=>'storage/'.$img,
+                    'product_id'=>$product->id,
+                ]);
+            }
+        }
+        return redirect()->route('admin.products.index')->with('success','Product Updated Successfully with name'.$product->name);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Product $product)
     {
-        //
+        abort_if(Gate::denies('product_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if(File::isDirectory(public_path('storage/uploads/products/'.$product['id']))) {
+            File::deleteDirectory(public_path('storage/uploads/products/'.$product['id']));
+        }
+        $product->media()->delete();
+        $product->delete();
+        return redirect()->back()->with('success',$product['name'].' deleted successfully.');
+    }
+    public function productShow(Request $request)
+    {
+        $product=Product::where('slug',$request->product)->with('media')->firstOrFail();
+        return view('client.product-details')->with('product',$product);
     }
     public function search(Request $request)
     {
