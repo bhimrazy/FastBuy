@@ -23,7 +23,7 @@ class AdminController extends Controller
     }
     public function index(){
         $users=User::all()->where('type','customer');
-        $products=Product::orderBy('created_at','desc')->get();
+        $products=Product::with('media')->latest()->get();
         $orders=Order::orderBy('status','desc')->orderBy('created_at','desc')->get();
         return view('admin.index')->with('users',$users)->with('orders',$orders)->with('products',$products);
     }

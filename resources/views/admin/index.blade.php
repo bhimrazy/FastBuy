@@ -40,7 +40,7 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-briefcase"></i></span>
+                            <span class="info-box-icon bg-danger elevation-1"><a href="{{route('admin.products.index')}}"><i class="fas fa-briefcase"></i></a></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Products</span>
@@ -732,14 +732,15 @@
                                     @foreach($products->take(3) as $product)
                                         <li class="item">
                                             <div class="product-img">
-                                                <img src="{{$product->media[0]->url}}" alt="{{$product->title}}" class="img-size-50">
+                                                <img src="{{asset($product->media->first()->url)}}" alt="{{$product->name}}" class="img-size-50">
                                             </div>
                                             <div class="product-info">
-                                                <a href="" class="product-title">{{$product->title}}
+                                                <a href="" class="product-title">{{$product->name}}
                                                     <span class="badge badge-warning float-right">${{$product->price}}</span></a>
                                                 <span class="product-description">
                                                     {{$product->description}}.
                                                 </span>
+                                                {{$product->created_at->diffForHumans()}}
                                             </div>
                                         </li>
                                         <!-- /.item -->
@@ -749,7 +750,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer text-center">
-                                <a href="{{route('products.index')}}" class="uppercase">View All Products</a>
+                                <a href="{{route('admin.products.index')}}" class="uppercase">View All Products</a>
                             </div>
                             <!-- /.card-footer -->
                         </div>

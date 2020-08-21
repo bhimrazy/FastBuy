@@ -4,9 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>FastBuy - Home and Kitchen Appliances | Mega Shop</title>
+    <title>{{ $pageTitle??config('settings.site_title')??config('app.name') }}</title>
     <meta name="robots" content="noindex, follow"/>
-    <meta name="description" content="">
+    <meta name="description" content="{{$pageDescription??config('settings.seo_meta_description')}}">
+    <meta name="keywords" content="{{config('settings.seo_meta_keywords')??str_replace (" ", ", ",config('settings.site_title'))}}">
+    <meta name="author" content="{{config('settings.site_author')??config('settings.site_name')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/favicon.ico')}}">
@@ -27,6 +29,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     <!-- Modernizer JS -->
     <script src="{{asset('assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    <!-- Site Meta Property -->
+    @include('client.includes.meta')
 </head>
 <body>
 <!-- Begin Body Wraper Area -->
@@ -78,22 +82,26 @@
                         <div class="col-lg-7 col-md-6">
                             <div class="header-top-right">
                                 <ul class="user-block list-inline">
-                                    @if(Auth::check())
-                                    <li><a href="{{route('my-account')}}">Howdy {{ucfirst(Auth::user()->firstname)}}</a></li>
-                                    <li><a href="{{route('checkout')}}">Checkout</a></li>
-                                    <li><a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
+                                    @if(auth()->check())
+                                        @if(auth()->user()->isAdmin())
+                                            <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+                                        @else
+                                            <li><a href="{{route('my-account')}}">Howdy {{ucfirst(auth()->user()->firstname)}}</a></li>
+                                            <li><a href="{{route('checkout')}}">Checkout</a></li>
+                                        @endif
+                                            <li><a href="{{ route('logout') }}"
+                                                   onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                                    {{ __('Logout') }}
+                                                </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </li>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                </form>
+                                            </li>
                                     @else
-                                    <li><a href="{{route('register')}}">Register</a></li>
-                                    <li><a href="{{route('login')}}">Sign In</a></li>
+                                        <li><a href="{{route('register')}}">Register</a></li>
+                                        <li><a href="{{route('login')}}">Sign In</a></li>
                                     @endif
                                 </ul>
                             </div>
@@ -112,7 +120,7 @@
                     <div class="col-lg-3">
                         <div class="logo">
                             <a href="{{route('home')}}">
-                                <img src="{{asset('assets/images/menu/logo/1.jpg')}}" alt="FB's Logo">
+                                <img src="{{asset('assets/images/menu/logo/1.jpg')??asset('storage/'.config('settings.site_logo'))}}" alt="{{config('settings.site_name')??config('app.name')}}">
                             </a>
                         </div>
                     </div>
@@ -133,7 +141,7 @@
                                         @endforeach
                                     @endforeach
                                 </select>
-                                <input name="query" type="text" placeholder="{{$query??'Enter your search key ...'}}">
+                                <input name="query" type="text" placeholder="{{$query??'Enter your search key ...'}}" required>
                                 <button class="fb-search_btn" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                             <!-- Header Middle Searchbox Area End Here -->
@@ -593,7 +601,7 @@
                     <!-- Begin Copyright Area -->
                     <div class="col-lg-6 col-md-6">
                         <div class="copyright">
-                            <span>Copyright &copy; 2018 <a href="#">Fastbuy.</a> All rights reserved.</span>
+                            <span>{!! config('settings.footer_copyright_text')??'Copyright &copy; 2020 <a href="/">FastBuy.</a> All rights reserved.' !!} </span>
                         </div>
                     </div>
                     <!-- Copyright Area End Here -->

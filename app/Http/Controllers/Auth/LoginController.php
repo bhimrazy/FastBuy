@@ -27,7 +27,7 @@ class LoginController extends Controller
      {
          if(session()->has('oldUrl')){
              $url=session()->get('oldUrl');
-             return redirect()->route($url);
+             return redirect($url);
          }
          elseif($user->isAdmin()){
              auth()->logout();

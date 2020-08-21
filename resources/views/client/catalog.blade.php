@@ -62,7 +62,7 @@
                                                     <div class="single-product">
                                                         <!-- Begin Product Image Area -->
                                                         <div class="product-img">
-                                                            <a href="{{route('product.show',['product'=>$product->slug])}}">
+                                                            <a href="{{route('product.productShow',['product'=>$product->slug])}}">
                                                                 <img class="primary-img" src="{{asset($product->media[0]->url)}}" alt="{{$product->title}}">
                                                                 <img class="secondary-img" src="{{asset($product->media[1]->url)}}" alt="{{$product->title}}">
                                                             </a>
@@ -73,7 +73,7 @@
                                                         <!-- Begin Product Content Area -->
                                                         <div class="product-content">
                                                             <h2 class="product-name">
-                                                                <a href="{{route('product.show',['product'=>$product->slug])}}">{{$product->title}}</a>
+                                                                <a href="{{route('product.productShow',['product'=>$product->slug])}}">{{$product->title}}</a>
                                                             </h2>
                                                             <div class="rating-box">
                                                                 <ul class="rating">

@@ -124,13 +124,13 @@
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
                                 <li class="pl-3 nav-item">
-                                    <a href="{{route('products.index')}}" class="nav-link">
+                                    <a href="{{route('admin.products.index')}}" class="nav-link">
                                         <i class="fas fa-tasks nav-icon"></i>
                                         <p>List Products</p>
                                     </a>
                                 </li>
                                 <li class="pl-3 nav-item">
-                                    <a href="{{route('products.create')}}" class="nav-link">
+                                    <a href="{{route('admin.products.create')}}" class="nav-link">
                                         <i class="fas fa-plus-circle nav-icon"></i>
                                         <p>Add Product</p>
                                     </a>
@@ -191,7 +191,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('admin.settings.index')}}" class="nav-link">
                         <i class="fas fa-cogs nav-icon"></i>
                         <p>
                             Settings

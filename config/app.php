@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Aws\Laravel\AwsServiceProvider::class,
+        App\Providers\SettingServiceProvider::class,
 
     ],
 
