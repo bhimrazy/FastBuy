@@ -67,7 +67,7 @@
                                             <label for="billing_country">Country <span class="required">*</span></label>
                                             <select id="billing_country" name="billing_country" class="nice-select wide" required>
                                                 <option data-display="Select Country">Select Country</option>
-                                                <option value="Nepal" {{'Nepal'==old('billing_country',$user->billingAddress->country)?'selected':''}} >Nepal</option>
+                                                <option value="Nepal" {{'Nepal'==old('billing_country',$user->billingAddress->country??'')?'selected':''}} >Nepal</option>
                                             </select>
                                         </div>
                                     </div>

@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use App\Cart;
+use App\Contracts\OrderContract;
 use App\Http\Requests\CheckoutRequest;
 use App\Order;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-
 class CheckoutController extends Controller
 {
-    public function __construct()
+    protected $orderRepository;
+    public function __construct(OrderContract $orderRepository)
     {
         $this->middleware('auth');
+        $this->orderRepository = $orderRepository;
     }
     public function getCheckout()
     {
@@ -27,7 +29,8 @@ class CheckoutController extends Controller
         return view('client.checkout')->with(['cartitems'=>$cart->items,'totalPrice'=>$cart->totalPrice,'user'=>$user]);
     }
     public function postCheckout(CheckoutRequest $request)
-    { //dd($request->validated());
+    {   $request = $request->validated();
+        //dd($request);
         if (!session()->has('cart')) {
             return view('client.checkout');
         }
@@ -69,13 +72,14 @@ class CheckoutController extends Controller
                 'country'=>$request['shipping_country'],
             ]);
         }
-        $oldCart=session()->has('cart')?session('cart'):null;
-        $cart=new Cart($oldCart);
-        if($request->payment_method=="Cash On Delivery"){
+//        $oldCart=session()->has('cart')?session('cart'):null;
+//        $cart=new Cart($oldCart);
+        if($request['payment_method']=="Cash On Delivery"){
+            $order = $this->orderRepository->storeOrderDetails($request);
             session()->forget('cart');
-            $order=new Order();
-            $order->total= $cart->totalPrice;
-            $order->cart= serialize($cart);
+//            $order=new Order();
+//            $order->total= $cart->totalPrice;
+//            $order->cart= serialize($cart);
             Auth::user()->customerOrders()->save($order);
             return redirect()->route('my-account')->with('success','Order Placed');
 

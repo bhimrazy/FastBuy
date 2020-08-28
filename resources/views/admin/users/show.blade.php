@@ -27,7 +27,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    Show Users
+                    Show User
                 </div>
 
                 <div class="card-body">

@@ -140,11 +140,11 @@
                     </ul>
                 </li>
                 <li class="nav-item ">
-                    <a href="{{route('admin.orders')}}" class="nav-link">
+                    <a href="{{route('admin.orders.index')}}" class="nav-link">
                         <i class="fas fa-newspaper nav-icon"></i>
                         <p>
                             Orders
-                            <span class="right"><span class="badge badge-info px-2">6</span><span class="badge badge-danger">New</span>
+                            <span class="right"><span class="badge badge-info px-2">{{count(\App\Order::latest()->first()->toArray())}}</span><span class="badge badge-danger">New</span>
                         </p>
                     </a>
                 </li>
