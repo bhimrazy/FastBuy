@@ -16,11 +16,13 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('street_name')->nullable();
-            $table->string('street_number')->nullable();
-            $table->string('suburb')->nullable();
+            $table->string('address')->nullable();
+            $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('post_code')->nullable();
+            $table->unsignedBigInteger('billing_address')->nullable();
+            $table->unsignedBigInteger('shipping_address')->nullable();
             $table->timestamps();
         });
     }

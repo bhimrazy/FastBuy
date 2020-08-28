@@ -15,6 +15,7 @@ class UserSeedr extends Seeder
             ->create()
             ->each(function ($user) {
                 $user->roles()->sync(\App\Role::all());
+               // $user->shippingAddress()->create(factory(\App\Address::class,1)->make());php
             });
     }
 }
