@@ -577,8 +577,8 @@
                                         <tbody>
                                         @foreach($orders->take(5) as $order)
                                             <tr>
-                                            <td><a href="">#FB{{$order->id}}HK</a></td>
-                                            <td>${{$order->total}}</td>
+                                            <td><a href="">{{$order->order_number}}</a></td>
+                                            <td>{{config('settings.currency_symbol').' '.number_format($order->grand_total)}}</td>
                                             <td><span class="badge badge-{{($order->status=='pending')?'warning':'info'}}">{{$order->status}}</span></td>
                                             <td>
                                                 <div >{{$order->customer->getFullName()}}</div>
@@ -593,7 +593,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
-                                <a href="{{route('admin.orders')}}" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                                <a href="{{route('admin.orders.index')}}" class="btn btn-sm btn-secondary float-right">View All Orders</a>
                             </div>
                             <!-- /.card-footer -->
                         </div>

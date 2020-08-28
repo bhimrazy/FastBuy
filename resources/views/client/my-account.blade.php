@@ -81,7 +81,7 @@
                                             <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                                                 <div class="card-header">Orders (Approved)</div>
                                                 <div class="card-body">
-                                                    <h5 class="card-title">{{count($orders->where('status','approved'))}}</h5>
+                                                    <h5 class="card-title">{{count($orders->where('status','completed'))}}</h5>
                                                     <p class="card-text">Orders Approved.</p>
                                                 </div>
                                             </div>
@@ -90,7 +90,7 @@
                                             <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                                                 <div class="card-header">Invoice</div>
                                                 <div class="card-body">
-                                                    <h5 class="card-title">${{$orders->where('status','pending')->map(function ($order){return $order->total;})->sum()}}</h5>
+                                                    <h5 class="card-title">{{config('settings.currency_symbol' ).' '.$orders->where('status','pending')->map(function ($order){return $order->grand_total;})->sum()}}</h5>
                                                     <p class="card-text">Total Invoice.</p>
                                                 </div>
                                             </div>
@@ -116,10 +116,10 @@
                                                 @foreach($orders as $order)
                                                     <tr>
                                                         <td><a class="account-order-id"
-                                                               href=")">#FB{{$order->id}}HK</a></td>
+                                                               href="">{{$order->order_number}}</a></td>
                                                         <td>{{$order->created_at->Format('M d, Y')}}</td>
-                                                        <td><p class="badge-primary rounded">{{$order->status}}</p></td>
-                                                        <td>${{$order->total}} for {{$order->cart->totalQty}} items</td>
+                                                        <td><p class="badge-primary rounded text-sm">{{$order->status}}</p></td>
+                                                        <td>{{config('settings.currency_symbol').' '.number_format($order->grand_total)}}</td>
                                                         <td><button class="fb-btn fb-btn_dark fb-btn_sm" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}"><span>View</span></button>
                                                         </td>
                                                     </tr>
@@ -142,13 +142,13 @@
                                                                                 <div class="col-3">Price</div>
                                                                             </div>
                                                                         </li>
-                                                                        @foreach($order->cart->items as $key=> $cartitem)
+                                                                        @foreach($order->items as $key=> $orderItem)
                                                                             <li class="list-group-item">
                                                                                 <div class="row">
-                                                                                    <div class="col-3"><img width="90" height="100" src="{{asset($cartitem['item']->media->first()->url)}}" alt="{{$cartitem['item']->title}}"></div>
-                                                                                    <div class="col-3">{{$cartitem['item']->title}}</div>
-                                                                                    <div class="col-3">{{$cartitem['qty']}}</div>
-                                                                                    <div class="col-3">${{$cartitem['price']}}</div>
+                                                                                    <div class="col-3"><img width="90" height="100" src="{{asset($orderItem->product->media->first()->url)}}" alt="{{$orderItem->product->name}}"></div>
+                                                                                    <div class="col-3">{{$orderItem->product->name}}</div>
+                                                                                    <div class="col-3">{{$orderItem->quantity}}</div>
+                                                                                    <div class="col-3">{{config('settings.currency_symbol').' '.$orderItem->price}}</div>
                                                                                 </div>
                                                                             </li>
                                                                         @endforeach

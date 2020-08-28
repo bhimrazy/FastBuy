@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Address;
 use App\Cart;
+use App\Contracts\OrderContract;
+use App\Http\Requests\CheckoutRequest;
 use App\Order;
-use Illuminate\Http\Request;
+use App\User;
 use Illuminate\Support\Facades\Auth;
-
 class CheckoutController extends Controller
 {
-    public function __construct()
+    protected $orderRepository;
+    public function __construct(OrderContract $orderRepository)
     {
         $this->middleware('auth');
+        $this->orderRepository = $orderRepository;
     }
     public function getCheckout()
     {
@@ -20,20 +24,62 @@ class CheckoutController extends Controller
         }
         $oldCart=session()->has('cart')?session('cart'):null;
         $cart=new Cart($oldCart);
-        return view('client.checkout')->with(['cartitems'=>$cart->items,'totalPrice'=>$cart->totalPrice]);
+        $user=User::findOrFail(auth()->id())->load(['billingAddress','shippingAddress']);
+       // dd($user->billingAddress());
+        return view('client.checkout')->with(['cartitems'=>$cart->items,'totalPrice'=>$cart->totalPrice,'user'=>$user]);
     }
-    public function postCheckout(Request $request)
-    {
+    public function postCheckout(CheckoutRequest $request)
+    {   $request = $request->validated();
+        //dd($request);
         if (!session()->has('cart')) {
             return view('client.checkout');
         }
-        $oldCart=session()->has('cart')?session('cart'):null;
-        $cart=new Cart($oldCart);
-        if($request->payment_method=="Cash On Delivery"){
+        $user=\App\User::where('id',auth()->user()->id)->first();
+        //dd($user);
+        $user['mobile']= $request['shipping_phone'];
+        $user->update();
+
+        //dd($user->has('billingAddress') && $user->has('shippingAddress'));
+        if($user->has('billingAddress') && $user->has('shippingAddress')){
+            $user->billingAddress()->update([
+                'address'=>$request['billing_address'],
+                'city'=>$request['billing_city'],
+                'state'=>$request['billing_state'],
+                'post_code'=>$request['billing_post_code'],
+                'country'=>$request['billing_country'],
+            ]);
+            $user->shippingAddress()->update([
+                'address'=>$request['shipping_address'],
+                'city'=>$request['shipping_city'],
+                'state'=>$request['shipping_state'],
+                'post_code'=>$request['shipping_post_code'],
+                'country'=>$request['shipping_country'],
+            ]);
+        }else{
+            Address::create([
+                'billing_address'=>$user['id'],
+                'address'=>$request['billing_address'],
+                'city'=>$request['billing_city'],
+                'state'=>$request['billing_state'],
+                'post_code'=>$request['billing_post_code'],
+                'country'=>$request['billing_country'],
+            ]);
+            Address::create([
+                'shipping_address'=>$user['id'],
+                'city'=>$request['shipping_city'],
+                'state'=>$request['shipping_state'],
+                'post_code'=>$request['shipping_post_code'],
+                'country'=>$request['shipping_country'],
+            ]);
+        }
+//        $oldCart=session()->has('cart')?session('cart'):null;
+//        $cart=new Cart($oldCart);
+        if($request['payment_method']=="Cash On Delivery"){
+            $order = $this->orderRepository->storeOrderDetails($request);
             session()->forget('cart');
-            $order=new Order();
-            $order->total= $cart->totalPrice;
-            $order->cart= serialize($cart);
+//            $order=new Order();
+//            $order->total= $cart->totalPrice;
+//            $order->cart= serialize($cart);
             Auth::user()->customerOrders()->save($order);
             return redirect()->route('my-account')->with('success','Order Placed');
 

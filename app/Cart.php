@@ -47,6 +47,15 @@ class Cart
             $this->totalPrice += $this->items[$id]['item']->price;
         }
     }
+    public function getSubTotal(){
+        return $this->totalPrice;
+    }
+    public function getTotalQuantity(){
+        return $this->totalQty;
+    }
+    public function getContent(){
+        return $this->items;
+    }
     public function destroy($id){
         $this->totalPrice -= $this->items[$id]['price'];
         unset($this->items[$id]);

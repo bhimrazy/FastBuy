@@ -140,6 +140,9 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
         //Product
         Route::resource('products', 'ProductController');
 
+        //Orders
+        Route::resource('orders', 'OrderController');
+
         //Setting
         Route::get('/settings',[
             'uses' => 'SettingController@index',
@@ -152,12 +155,6 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
 
 
     });
-
-
-    Route::get('/orders',[
-        'uses' => 'AdminController@orders',
-        'as' => 'admin.orders'
-    ]);
     Route::get('/customers',[
         'uses' => 'AdminController@customers',
         'as' => 'admin.customers'

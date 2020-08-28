@@ -35,10 +35,6 @@ class AdminController extends Controller
         }
         return $this->sendFailedLoginResponse($request);
     }
-    public function orders(){
-        $orders=Order::orderBy('status','desc')->orderBy('created_at','desc')->with('customer')->paginate(10);
-        return view('admin.orders.index')->with('orders',$orders);
-    }
     public function customers(){
         $users=User::with('customerOrders')->where('type','customer')->orderBy('created_at','desc')->paginate(10);
         return view('admin.customers.index')->with('users',$users);
