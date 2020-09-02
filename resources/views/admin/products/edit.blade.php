@@ -161,14 +161,14 @@
                                 <div class="form-group">
                                     <label for="tags">Featured and Status</label>
                                     <div class="icheck-primary custom-control custom-checkbox">
-                                        <input type="checkbox" name="featured" id="checkboxPrimary1featured" {{old('featured',$product->featured)?'checked':''}}>
+                                        <input type="checkbox" name="featured" id="checkboxPrimary1featured" {{old('featured',$product->featured==1?true:'')?'checked':''}}>
                                         <label for="checkboxPrimary1featured">Featured</label>
                                     </div>
                                     @error('featured')
                                     <small class="text-danger">{{$message}}</small>
                                     @enderror
                                     <div class="icheck-primary custom-control custom-checkbox">
-                                        <input type="checkbox" name="status" id="checkboxPrimary1status" {{old('status',$product->status)?'checked':''}}>
+                                        <input type="checkbox" name="status" id="checkboxPrimary1status" {{old('status',$product->getOriginal('status')==1?true:'')?'checked':''}}>
                                         <label for="checkboxPrimary1status">Status(Active)</label>
                                     </div>
                                     @error('status')
@@ -178,7 +178,7 @@
                                 <div class="form-group">
                                     <label for="inputCategory">Stock</label>
                                     <div class="icheck-primary custom-control custom-checkbox">
-                                        <input type="checkbox" name="stock" id="checkboxPrimary1stock" {{old('stock',$product->stock)?'checked':''}}>
+                                        <input type="checkbox" name="stock" id="checkboxPrimary1stock" {{old('stock',$product->getOriginal('stock')==1?true:'')?'checked':''}}>
                                         <label for="checkboxPrimary1stock">Stock</label>
                                     </div>
                                     @error('stock')

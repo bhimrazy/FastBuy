@@ -25,74 +25,64 @@
         <section class="content">
 
             <!-- Default box -->
-            <div class="card">
-                <div class="card-header">
-                    Show Order
-                </div>
-
-                <div class="card-body">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <a class="btn btn-default" href="{{ route('admin.orders.index') }}">
-                                Back to List
-                            </a>
-                        </div>
-                        <table class="table table-bordered table-striped">
-                            <tbody>
-                            <tr>
-                                <th>
-                                    Order ID
-                                </th>
-                                <td>
-                                    {{ $order->order_number }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Customer Name
-                                </th>
-                                <td>
-                                    {{ $order->customer->getFullName()}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Total price
-                                </th>
-                                <td>
-                                    {{config('settings.currency_symbol').' '.number_format($order->grand_total)}}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- /.card -->
             <div class="card" >
                 <div class="card-header">
-                    Ordered Items
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <h2 class="page-header"><i class="fa fa-globe"></i> {{ $order->order_number }}</h2>
+                        </div>
+                        <div class="col-6">
+                            <h5 class="text-right">Date: {{ $order->created_at->toFormattedDateString() }}</h5>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item bg-primary text-white">
-                            <div class="row">
-                                <div class="col-3">Thumbnail</div>
-                                <div class="col-3">Title</div>
-                                <div class="col-3">Qty</div>
-                                <div class="col-3">Price</div>
-                            </div>
-                        </li>
-                        @foreach($order->items as $key=> $orderItem)
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-3"><img width="90" height="100" src="{{asset($orderItem->product->media->first()->url)}}" alt="{{$orderItem->product->name}}"></div>
-                                    <div class="col-3">{{$orderItem->product->name}}</div>
-                                    <div class="col-3">{{$orderItem->quantity}}</div>
-                                    <div class="col-3">{{config('settings.currency_symbol').' '.$orderItem->price}}</div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
+                    <div class="form-group">
+                        <a class="btn btn-default" href="{{ route('admin.orders.index') }}">
+                            Back to List
+                        </a>
+                    </div>
+                    <div class="row invoice-info">
+                        <div class="col-4">Placed By
+                            <address><strong>{{ $order->customer->getFullname() }}</strong><br>Email: {{ $order->user->email }}</address>
+                        </div>
+                        <div class="col-4">Ship To
+                            <address><strong>{{ $order->first_name }} {{ $order->last_name }}</strong><br>{{ $order->address }}<br>{{ $order->city }}, {{ $order->country }} {{ $order->post_code }}<br>{{ $order->phone_number }}<br></address>
+                        </div>
+                        <div class="col-4">
+                            <b>Order ID:</b> {{ $order->order_number }}<br>
+                            <b>Amount: </b> {{ config('settings.currency_symbol') }}{{' '. number_format($order->grand_total) }}<br>
+                            <b>Payment Method:</b> {{ $order->payment_method }}<br>
+                            <b>Payment Status:</b> {{ $order->payment_status == 1 ? 'Completed' : 'Not Completed' }}<br>
+                            <b>Order Status:</b> {{ $order->status }}<br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>S.N.</th>
+                                    <th>Product</th>
+                                    <th>SKU</th>
+                                    <th>Qty</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($order->items as $key=>$item)
+                                    <tr>
+                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $item->product->name }}</td>
+                                        <td>{{ $item->product->sku }}</td>
+                                        <td>{{ $item->quantity }}</td>
+                                        <td>{{ config('settings.currency_symbol') }}{{ ' '.$item->price }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /.card -->

@@ -47,7 +47,7 @@ class TagController extends Controller
 
     public function update(UpdateTagRequest $request, Tag $tag)
     {
-        $tag->update($request->all());
+        $tag->update($request->validated());
         $tag->slug=Str::slug($request->title);
         $tag->save();
 

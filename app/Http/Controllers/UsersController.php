@@ -34,12 +34,12 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $user = User::create($request->all());
+        $user = User::create($request->validated());
         $user->type='admin';
         $user->password=Hash::make($request->password);
         $user->roles()->sync($request->input('roles', []));
         $user->save();
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index')->with('success',$user->firstname.' : User Created Successfully');
     }
 
     public function edit(User $user)
@@ -55,11 +55,11 @@ class UsersController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update($request->all());
+        $user->update($request->validated());
         $user->password=Hash::make($request->password);
         $user->roles()->sync($request->input('roles', []));
         $user->save();
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index')->with('success',$user->firstname.' : User Updated Successfully');
     }
 
     public function show(User $user)
@@ -77,7 +77,7 @@ class UsersController extends Controller
 
         $user->delete();
 
-        return back();
+        return back()->with('success',$user->firstname.' : User Deleted Successfully');;
     }
 
     public function massDestroy(MassDestroyUserRequest $request)

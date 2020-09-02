@@ -17,7 +17,9 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "stripe/stripe-php": "^7.38"
+        "league/omnipay": "^3.0",
+        "stripe/stripe-php": "^7.38",
+        "sudiptpa/omnipay-esewa": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

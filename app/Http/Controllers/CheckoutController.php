@@ -39,8 +39,7 @@ class CheckoutController extends Controller
         $user['mobile']= $request['shipping_phone'];
         $user->update();
 
-        //dd($user->has('billingAddress') && $user->has('shippingAddress'));
-        if($user->has('billingAddress') && $user->has('shippingAddress')){
+        if($user->billingAddress !=null && $user->shippingAddress !=null){
             $user->billingAddress()->update([
                 'address'=>$request['billing_address'],
                 'city'=>$request['billing_city'],
@@ -83,6 +82,15 @@ class CheckoutController extends Controller
             Auth::user()->customerOrders()->save($order);
             return redirect()->route('my-account')->with('success','Order Placed');
 
+        }
+        elseif ($request['payment_method']=="eSewa"){
+            //dd($request);
+            $order = $this->orderRepository->storeOrderDetails($request);
+            session()->forget('cart');
+//            $order=new Order();
+//            $order->total= $cart->totalPrice;
+//            $order->cart= serialize($cart);
+            return view('client.esewa.checkout')->with('order',$order);
         }
         else{
             return redirect()->back();

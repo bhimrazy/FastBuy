@@ -5,9 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
-{
+{   const PAYMENT_COMPLETED = 1;
+    const PAYMENT_PENDING = 0;
     protected $fillable = [
-        'order_number', 'user_id', 'status', 'grand_total', 'item_count', 'payment_status', 'payment_method',
+        'order_number', 'user_id', 'status','transaction_id', 'grand_total', 'item_count', 'payment_status', 'payment_method',
         'first_name', 'last_name', 'address', 'city', 'country', 'post_code', 'phone_number', 'notes'
     ];
     public function user()

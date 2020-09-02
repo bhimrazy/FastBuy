@@ -18,25 +18,25 @@ class Product extends Model
     }
     public function setFeaturedAttribute($value)
     {
-        $this->attributes['featured'] = $value=='on'?1:0;
+        $this->attributes['featured'] = $value?1:0;
     }
     public function setStatusAttribute($value)
     {
-        $this->attributes['status'] = $value=='on'?1:0;
+        $this->attributes['status'] = $value?1:0;
     }
     public function setStockAttribute($value)
     {
-        $this->attributes['stock'] = $value=='on'?1:0;
+        $this->attributes['stock'] = $value?1:0;
     }
-    public function getStockAttribute($value)
+    public function getStockAttribute()
     {
         return $this->attributes['stock']?'In Stock':'OutOf Stock';
     }
-    public function getStatusAttribute($value)
+    public function getStatusAttribute()
     {
         return $this->attributes['status']?'Active':'In Active';
     }
-    public function getFeaturedAttribute($value)
+    public function getFeaturedAttribute()
     {
         return $this->attributes['featured']?'Featured':'Not Featured';
     }

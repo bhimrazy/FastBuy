@@ -33,10 +33,10 @@ class RoleController extends Controller
 
     public function store(StoreRoleRequest $request)
     {
-        $role = Role::create($request->all());
+        $role = Role::create($request->validated());
         $role->permissions()->sync($request->input('permissions', []));
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('admin.roles.index')->with('success',$role->title.' : Role Created Successfully');
     }
 
     public function edit(Role $role)
@@ -52,10 +52,10 @@ class RoleController extends Controller
 
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        $role->update($request->all());
+        $role->update($request->validated());
         $role->permissions()->sync($request->input('permissions', []));
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('admin.roles.index')->with('success',$role->title.' : Role Updated Successfully');
     }
 
     public function show(Role $role)
@@ -73,7 +73,7 @@ class RoleController extends Controller
 
         $role->delete();
 
-        return back();
+        return back()->with('success',$role->title.' : Role Deleted Successfully');
     }
 
     public function massDestroy(MassDestroyRoleRequest $request)

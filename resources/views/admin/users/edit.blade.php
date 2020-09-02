@@ -40,28 +40,28 @@
                                     @csrf
                                     <div class="form-group">
                                         <label class="required" for="firstname">First Name</label>
-                                        <input class="form-control {{ $errors->has('firstname') ? 'is-invalid' : '' }}" type="text" name="firstname" id="firstname" value="{{ old('firstname',$user->firstname) }}" required>
+                                        <input class="form-control {{ $errors->has('firstname') ? 'is-invalid' : '' }}" type="text" name="firstname" id="firstname" value="{{ old('firstname',$user->firstname) }}" required {{auth()->user()['id'] == $user->id?'':'readonly'}}>
                                         @if($errors->has('firstname'))
                                             <span class="text-danger">{{ $errors->first('firstname') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label class="required" for="lastname">Last Name</label>
-                                        <input class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" type="text" name="lastname" id="lastname" value="{{ old('lastname',$user->lastname) }}" required>
+                                        <input class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" type="text" name="lastname" id="lastname" value="{{ old('lastname',$user->lastname) }}" required {{auth()->user()['id'] == $user->id?'':'readonly'}}>
                                         @if($errors->has('lastname'))
                                             <span class="text-danger">{{ $errors->first('lastname') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label class="required" for="email">Email</label>
-                                        <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email',$user->email) }}" required>
+                                        <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email',$user->email) }}" required {{auth()->user()['id'] == $user->id?'':'readonly'}}>
                                         @if($errors->has('email'))
                                             <span class="text-danger">{{ $errors->first('email') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label class="required" for="password">Password</label>
-                                        <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password" required>
+                                        <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password" required {{auth()->user()['id'] == $user->id?'':'readonly'}}>
                                         @if($errors->has('password'))
                                             <span class="text-danger">{{ $errors->first('password') }}</span>
                                         @endif

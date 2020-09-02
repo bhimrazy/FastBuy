@@ -32,7 +32,7 @@ class CategoryController extends Controller
             'title'=>$request->title,
             'slug'=>$slug
         ]);
-        return redirect()->route('admin.categories.index')->with('success','Category Successfully Created');
+        return redirect()->route('admin.categories.index')->with('success',$category->title.' : Category Successfully Created');
     }
     public function edit(Category $category)
     {
@@ -42,10 +42,10 @@ class CategoryController extends Controller
     }
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update($request->all());
+        $category->update($request->validated());
         $category->slug=Str::slug($request->title);
         $category->save();
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('success',$category->title.' : Category Updated Successfully Created');
     }
 
     public function show(Category $category)
@@ -53,6 +53,14 @@ class CategoryController extends Controller
         abort_if(Gate::denies('product_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.categories.show', compact('category'));
+    }
+    public function updateStatus(Request $request)
+    {   abort_if(Gate::denies('product_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $category = Category::findOrFail($request->category_id);
+        $category->status = $request->status;
+        $category->save();
+
+        return response()->json(['success' => $category->title.' : Category status updated successfully.']);
     }
     public function destroy(Category $category)
     {

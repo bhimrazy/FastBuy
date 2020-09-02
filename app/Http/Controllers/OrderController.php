@@ -36,7 +36,7 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $order->load('items');
-        $this->setPageTitle('Show Order','This Page shows the order.');
+        $this->setPageTitle($order['order_number'].'| Show Order','This Page shows the order with Order Number:'.$order['order_number']);
         return view('admin.orders.show', compact('order'));
     }
 

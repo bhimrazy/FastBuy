@@ -638,7 +638,7 @@
 <!-- Main JS -->
 <script src="{{asset('assets/js/main.js')}}"></script>
 <!-- App JS -->
-<script src="{{asset('js/app.js')}}"></script>
+{{--<script src="{{asset('js/app.js')}}"></script>--}}
 @yield('scripts')
 </body>
 </html>
