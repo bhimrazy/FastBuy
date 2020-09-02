@@ -8,7 +8,14 @@ use Faker\Generator as Faker;
 $factory->define(Subcategory::class, function (Faker $faker) {
     $title = $faker->unique()->randomElement(['Water Purifiers','Refrigerators',
         'Washing Machine','Air Conditioners','Vacuum Cleaner','Steam Cleaning','Washer & Dryer',
-        'Rice Cookers','Fans','Microwave Oven'
+        'Rice Cookers','Fans','Microwave Oven','Tour Drinkware','Hatch Drinkware','Direction Drinkware',
+        'Crescent Drinkware','Armchairs','Bunk Bed','Mattress','Sideboard','Cookware Brands','Cookware Sets',
+        'Individual Cookware','Enamel Cookware'
+
+
+
+
+
     ]);
 
     return [

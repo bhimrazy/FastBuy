@@ -112,7 +112,8 @@ class ProductController extends Controller
     public function productShow(Request $request)
     {
         $product=Product::where('slug',$request->product)->with('media')->firstOrFail();
-        return view('client.product-details')->with('product',$product);
+        $recommendedProducts=Product::with('media')->latest()->get()->random(10);
+        return view('client.product-details',compact(['product','recommendedProducts']));
     }
     public function search(Request $request)
     {

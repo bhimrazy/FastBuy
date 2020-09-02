@@ -21,292 +21,133 @@
         <!-- Product Details Area -->
         <div class="product-details-area">
             <div class="container">
-                @if($product ?? '' )
-                    <form role="form" action="{{route('carts.store')}}" method="POST">
-                        @csrf
-                        <input name="product_id" value="{{$product->id}}" hidden>
-                       <div class="pdetails bg-white">
-                           <div class="row">
-                               <div class="col-lg-5">
-                                   <div class="pdetails-images">
-                                       <div class="pdetails-largeimages pdetails-imagezoom">
-                                           <div class="pdetails-singleimage" data-src="{{asset($product->media->first()->url)}}">
-                                               <img src="{{asset($product->media->first()->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
-                                               <div class="sticker">New</div>
-                                           </div>
-                                           @foreach($product->media as $key => $image)
-                                               @if($key>0)
-                                                   <div class="pdetails-singleimage" data-src="{{asset($image->url)}}">
-                                                       <img src="{{asset($image->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
-                                                   </div>
-                                               @endif
-                                           @endforeach
-                                       </div>
+                <form role="form" action="{{route('carts.store')}}" method="POST">
+                    @csrf
+                    <input name="product_id" value="{{$product->id}}" hidden>
+                    <div class="pdetails bg-white">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="pdetails-images">
+                                    <div class="pdetails-largeimages pdetails-imagezoom">
+                                        <div class="pdetails-singleimage" data-src="{{asset($product->media->first()->url)}}">
+                                            <img src="{{asset($product->media->first()->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
+                                            <div class="sticker">New</div>
+                                        </div>
+                                        @foreach($product->media as $key => $image)
+                                            @if($key>0)
+                                                <div class="pdetails-singleimage" data-src="{{asset($image->url)}}">
+                                                    <img src="{{asset($image->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
 
-                                       <div class="pdetails-thumbs">
-                                           @foreach($product->media as $image)
-                                               <div class="pdetails-singlethumb" data-src="{{asset($image->url)}}">
-                                                   <img src="{{asset($image->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
-                                               </div>
-                                           @endforeach
+                                    <div class="pdetails-thumbs">
+                                        @foreach($product->media as $image)
+                                            <div class="pdetails-singlethumb" data-src="{{asset($image->url)}}">
+                                                <img src="{{asset($image->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
+                                            </div>
+                                        @endforeach
 
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="col-lg-7">
-                                   <div class="product-details-view-content mt-20">
-                                       <div class="product-info">
-                                           <h2>{{$product->title}}</h2>
-                                           <span class="product-details-ref">Reference: demo_11</span>
-                                           <div class="rating-box pt-10">
-                                               <ul class="rating-with-review-item">
-                                                   <li class="review-item"><a href="#">Write Review</a></li>
-                                               </ul>
-                                           </div>
-                                           <div class="price-box pb-10">
-                                               <span class="new-price">${{$product->price}}</span>
-                                           </div>
-                                           <div class="product-desc">
-                                               <p>
-                                                   <span>{{$product->description}}</span>
-                                               </p>
-                                           </div>
-                                           <div class="single-add-to-cart">
-                                               <form action="#" class="cart-quantity mt-0">
-                                                   <div class="quantity">
-                                                       <label>Quantity</label>
-                                                       <div class="cart-plus-minus">
-                                                           <input class="cart-plus-minus-box" name="quantity" value="1" type="text">
-                                                           <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                           <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                       </div>
-                                                   </div>
-                                                   <button type="submit" class="fb-btn add-to-cart">Add to cart</button>
-                                               </form>
-                                           </div>
-                                           <span class="product-availability pt-25">In stock</span>
-                                           <div class="footer-widget-social-link footer-widget-social-link-2">
-                                               <span>Share</span>
-                                               <ul class="social-link">
-                                                   <li class="facebook">
-                                                       <a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank" title="Facebook">
-                                                           <i class="fa fa-facebook"></i>
-                                                       </a>
-                                                   </li>
-                                                   <li class="twitter">
-                                                       <a href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter">
-                                                           <i class="fa fa-twitter"></i>
-                                                       </a>
-                                                   </li>
-                                                   <li class="youtube">
-                                                       <a href="https://www.youtube.com/" data-toggle="tooltip" target="_blank" title="Youtube">
-                                                           <i class="fa fa-youtube"></i>
-                                                       </a>
-                                                   </li>
-                                                   <li class="google-plus">
-                                                       <a href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank" title="Google Plus">
-                                                           <i class="fa fa-google-plus"></i>
-                                                       </a>
-                                                   </li>
-                                                   <li class="instagram">
-                                                       <a href="https://www.instagram.com/" data-toggle="tooltip" target="_blank" title="Instagram">
-                                                           <i class="fa fa-instagram"></i>
-                                                       </a>
-                                                   </li>
-                                               </ul>
-                                           </div>
-                                           <div class="block-reassurance">
-                                               <ul>
-                                                   <li>
-                                                       <div class="reassurance-item">
-                                                           <div class="reassurance-icon">
-                                                               <i class="fa fa-check-square-o"></i>
-                                                           </div>
-                                                           <p>Security policy (edit with Customer reassurance module)</p>
-                                                       </div>
-                                                   </li>
-                                                   <li>
-                                                       <div class="reassurance-item">
-                                                           <div class="reassurance-icon">
-                                                               <i class="fa fa-truck"></i>
-                                                           </div>
-                                                           <p>Delivery policy (edit with Customer reassurance module)</p>
-                                                       </div>
-                                                   </li>
-                                                   <li>
-                                                       <div class="reassurance-item">
-                                                           <div class="reassurance-icon">
-                                                               <i class="fa fa-exchange"></i>
-                                                           </div>
-                                                           <p> Return policy (edit with Customer reassurance module)</p>
-                                                       </div>
-                                                   </li>
-                                               </ul>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                   </form>
-                @else
-                <div class="pdetails bg-white">
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <div class="pdetails-images">
-                                <div class="pdetails-largeimages pdetails-imagezoom">
-                                    <div class="pdetails-singleimage" data-src="{{asset('assets/images/product-details/large-size/1.jpg')}}">
-                                        <img src="{{asset('assets/images/product-details/large-size/1.jpg')}}" alt="product image">
-                                        <div class="sticker">New</div>
-                                    </div>
-                                    <div class="pdetails-singleimage" data-src="{{asset('assets/images/product-details/large-size/2.jpg')}}">
-                                        <img src="{{asset('assets/images/product-details/large-size/2.jpg')}}" alt="product image">
-                                    </div>
-                                    <div class="pdetails-singleimage" data-src="{{asset('assets/images/product-details/large-size/3.jpg')}}">
-                                        <img src="{{asset('assets/images/product-details/large-size/3.jpg')}}" alt="product image">
-                                    </div>
-                                    <div class="pdetails-singleimage" data-src="{{asset('assets/images/product-details/large-size/4.jpg')}}">
-                                        <img src="{{asset('assets/images/product-details/large-size/4.jpg')}}" alt="product image">
-                                    </div>
-                                    <div class="pdetails-singleimage" data-src="{{asset('assets/images/product-details/large-size/1.jpg')}}">
-                                        <img src="{{asset('assets/images/product-details/large-size/1.jpg')}}" alt="product image">
-                                    </div>
-                                    <div class="pdetails-singleimage" data-src="{{asset('assets/images/product-details/large-size/2.jpg')}}">
-                                        <img src="{{asset('assets/images/product-details/large-size/2.jpg')}}" alt="product image">
-                                    </div>
-                                    <div class="pdetails-singleimage" data-src="{{asset('assets/images/product-details/large-size/3.jpg')}}">
-                                        <img src="{{asset('assets/images/product-details/large-size/3.jpg')}}" alt="product image">
-                                    </div>
-                                    <div class="pdetails-singleimage" data-src="{{asset('assets/images/product-details/large-size/4.jpg')}}">
-                                        <img src="{{asset('assets/images/product-details/large-size/4.jpg')}}" alt="product image">
-                                    </div>
-                                </div>
-
-                                <div class="pdetails-thumbs">
-                                    <div class="pdetails-singlethumb">
-                                        <img src="{{asset('assets/images/product-details/small-size/1.jpg')}}" alt="product thumb">
-                                    </div>
-                                    <div class="pdetails-singlethumb">
-                                        <img src="{{asset('assets/images/product-details/small-size/2.jpg')}}" alt="product thumb">
-                                    </div>
-                                    <div class="pdetails-singlethumb">
-                                        <img src="{{asset('assets/images/product-details/small-size/3.jpg')}}" alt="product thumb">
-                                    </div>
-                                    <div class="pdetails-singlethumb">
-                                        <img src="{{asset('assets/images/product-details/small-size/4.jpg')}}" alt="product thumb">
-                                    </div>
-                                    <div class="pdetails-singlethumb">
-                                        <img src="{{asset('assets/images/product-details/small-size/1.jpg')}}" alt="product thumb">
-                                    </div>
-                                    <div class="pdetails-singlethumb">
-                                        <img src="{{asset('assets/images/product-details/small-size/2.jpg')}}" alt="product thumb">
-                                    </div>
-                                    <div class="pdetails-singlethumb">
-                                        <img src="{{asset('assets/images/product-details/small-size/3.jpg')}}" alt="product thumb">
-                                    </div>
-                                    <div class="pdetails-singlethumb">
-                                        <img src="{{asset('assets/images/product-details/small-size/4.jpg')}}" alt="product thumb">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-7">
-                            <div class="product-details-view-content mt-20">
-                                <div class="product-info">
-                                    <h2>Printed Summer Dress</h2>
-                                    <span class="product-details-ref">Reference: demo_11</span>
-                                    <div class="rating-box pt-10">
-                                        <ul class="rating-with-review-item">
-                                            <li class="review-item"><a href="#">Write Review</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="price-box pb-10">
-                                        <span class="new-price">$30.50</span>
-                                    </div>
-                                    <div class="product-desc">
-                                        <p>
-                                                        <span>100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom. Lorem ipsum dolor sit amet, consectetur adipisicing elit. quibusdam corporis, earum facilis et nostrum dolorum accusamus similique eveniet quia pariatur.
-                                                        </span>
-                                        </p>
-                                    </div>
-                                    <div class="single-add-to-cart">
-                                        <form action="#" class="cart-quantity mt-0">
-                                            <div class="quantity">
-                                                <label>Quantity</label>
-                                                <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" value="1" type="text">
-                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                </div>
-                                            </div>
-                                            <a href="{{route('carts.index')}}" class="fb-btn add-to-cart">Add to cart</a>
-                                        </form>
-                                    </div>
-                                    <span class="product-availability pt-25">In stock</span>
-                                    <div class="footer-widget-social-link footer-widget-social-link-2">
-                                        <span>Share</span>
-                                        <ul class="social-link">
-                                            <li class="facebook">
-                                                <a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank" title="Facebook">
-                                                    <i class="fa fa-facebook"></i>
-                                                </a>
-                                            </li>
-                                            <li class="twitter">
-                                                <a href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter">
-                                                    <i class="fa fa-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li class="youtube">
-                                                <a href="https://www.youtube.com/" data-toggle="tooltip" target="_blank" title="Youtube">
-                                                    <i class="fa fa-youtube"></i>
-                                                </a>
-                                            </li>
-                                            <li class="google-plus">
-                                                <a href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank" title="Google Plus">
-                                                    <i class="fa fa-google-plus"></i>
-                                                </a>
-                                            </li>
-                                            <li class="instagram">
-                                                <a href="https://www.instagram.com/" data-toggle="tooltip" target="_blank" title="Instagram">
-                                                    <i class="fa fa-instagram"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="block-reassurance">
-                                        <ul>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-check-square-o"></i>
+                            <div class="col-lg-7">
+                                <div class="product-details-view-content mt-20">
+                                    <div class="product-info">
+                                        <h2>{{$product->title}}</h2>
+                                        <span class="product-details-ref">Reference: {{$product->sku}}</span>
+                                        <div class="rating-box pt-10">
+                                            <ul class="rating-with-review-item">
+                                                <li class="review-item"><a href="#">Write Review</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box pb-10">
+                                            <span class="new-price">{{config('settings.currency_symbol')}}{{$product->price}}</span>
+                                        </div>
+                                        <div class="product-desc">
+                                            <p>
+                                                <span>{{$product->description}}</span>
+                                            </p>
+                                        </div>
+                                        <div class="single-add-to-cart">
+                                            <form action="#" class="cart-quantity mt-0">
+                                                <div class="quantity">
+                                                    <label>Quantity</label>
+                                                    <div class="cart-plus-minus">
+                                                        <input class="cart-plus-minus-box" name="quantity" value="1" type="text">
+                                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                     </div>
-                                                    <p>Security policy (edit with Customer reassurance module)</p>
                                                 </div>
-                                            </li>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-truck"></i>
+                                                <button type="submit" class="fb-btn add-to-cart">Add to cart</button>
+                                            </form>
+                                        </div>
+                                        <span class="product-availability pt-25">In stock</span>
+                                        <div class="footer-widget-social-link footer-widget-social-link-2">
+                                            <span>Share</span>
+                                            <ul class="social-link">
+                                                <li class="facebook">
+                                                    <a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank" title="Facebook">
+                                                        <i class="fa fa-facebook"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="twitter">
+                                                    <a href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter">
+                                                        <i class="fa fa-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="youtube">
+                                                    <a href="https://www.youtube.com/" data-toggle="tooltip" target="_blank" title="Youtube">
+                                                        <i class="fa fa-youtube"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="google-plus">
+                                                    <a href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank" title="Google Plus">
+                                                        <i class="fa fa-google-plus"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="instagram">
+                                                    <a href="https://www.instagram.com/" data-toggle="tooltip" target="_blank" title="Instagram">
+                                                        <i class="fa fa-instagram"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="block-reassurance">
+                                            <ul>
+                                                <li>
+                                                    <div class="reassurance-item">
+                                                        <div class="reassurance-icon">
+                                                            <i class="fa fa-check-square-o"></i>
+                                                        </div>
+                                                        <p>Security policy (edit with Customer reassurance module)</p>
                                                     </div>
-                                                    <p>Delivery policy (edit with Customer reassurance module)</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="reassurance-item">
-                                                    <div class="reassurance-icon">
-                                                        <i class="fa fa-exchange"></i>
+                                                </li>
+                                                <li>
+                                                    <div class="reassurance-item">
+                                                        <div class="reassurance-icon">
+                                                            <i class="fa fa-truck"></i>
+                                                        </div>
+                                                        <p>Delivery policy (edit with Customer reassurance module)</p>
                                                     </div>
-                                                    <p> Return policy (edit with Customer reassurance module)</p>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                                </li>
+                                                <li>
+                                                    <div class="reassurance-item">
+                                                        <div class="reassurance-icon">
+                                                            <i class="fa fa-exchange"></i>
+                                                        </div>
+                                                        <p> Return policy (edit with Customer reassurance module)</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @endif
+                </form>
             </div>
         </div>
         <!-- Product Details Area End Here -->
@@ -454,281 +295,52 @@
                         <div class="col-lg-12">
                             <div class="fb-product_wrap bg-white mt-sm-60 mt-xs-60">
                                 <div class="fb-other-product_active owl-carousel">
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="{{route('product-details')}}">
-                                                <img class="primary-img" src="{{asset('assets/images/product/2_1.jpg')}}" alt="FB'S Prduct">
-                                                <img class="secondary-img" src="{{asset('assets/images/product/2_2.jpg')}}" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
+                                    <!-- Begin Single Product Area -->
+                                    @foreach($recommendedProducts as $product)
+                                        <div class="single-product">
+                                            <!-- Begin Product Image Area -->
+                                            <div class="product-img">
+                                                <a href="{{route('product.productShow',['product'=>$product->slug])}}">
+                                                    <img class="primary-img" src="{{asset($product->media->first()->url)}}" loading="lazy" alt="{{$product->name}}">
+                                                </a>
+                                                <div class="sticker"><span>New</span></div>
+                                                <div class="sticker-2"><span>-{{$product->discount}}%</span></div>
+                                                <div class="countersection">
+                                                    <div class="fb-countdown"></div>
+                                                </div>
+                                            </div>
+                                            <!-- Product Image Area End Here -->
+                                            <!-- Begin Product Content Area -->
+                                            <div class="product-content">
+                                                <h2 class="product-name">
+                                                    <a href="{{route('product.productShow',['product'=>$product->slug])}}">{{$product->name}}</a>
+                                                </h2>
+                                                <div class="rating-box">
+                                                    <ul class="rating">
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li><i class="fa fa-star"></i></li>
+                                                        <li class="no-star"><i class="fa fa-star"></i></li>
+                                                        <li class="no-star"><i class="fa fa-star"></i></li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="price-box">
+                                                    <span class="new-price">{{config('settings.currency_symbol')}}{{$product->price - ($product->discount /100 * $product->price)}}</span>
+                                                    <span class="old-price">{{config('settings.currency_symbol').$product->price}}</span>
+                                                </div>
+                                                <div class="product-action">
+                                                    <ul class="product-action-link">
+                                                        <li class="shopping-cart_link"><a href="#" title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                        <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
+                                                        <li class="single-product_link"><a href="{{route('product.productShow',['product'=>$product->slug])}}" title="Single Product"><i class="ion-link"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- Product Content Area End Here -->
                                         </div>
-                                        <!-- Product Image Area End Here -->
-                                        <!-- Begin Product Content Area -->
-                                        <div class="product-content">
-                                            <h2 class="product-name">
-                                                <a href="single-product">Printed Dress</a>
-                                            </h2>
-                                            <div class="rating-box">
-                                                <ul class="rating">
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price-box-2">
-                                                <span class="new-price">$26.50</span>
-                                            </div>
-                                            <div class="product-action">
-                                                <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                    <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                    <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- Product Content Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="{{route('product-details')}}">
-                                                <img class="primary-img" src="{{asset('assets/images/product/5_1.jpg')}}" alt="FB'S Prduct">
-                                                <img class="secondary-img" src="{{asset('assets/images/product/5_2.jpg')}}" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                        <!-- Begin Product Content Area -->
-                                        <div class="product-content">
-                                            <h2 class="product-name">
-                                                <a href="single-product">Printed Dress</a>
-                                            </h2>
-                                            <div class="rating-box">
-                                                <ul class="rating">
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price-box-2">
-                                                <span class="new-price">$26.50</span>
-                                            </div>
-                                            <div class="product-action">
-                                                <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                    <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                    <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- Product Content Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="{{route('product-details')}}">
-                                                <img class="primary-img" src="{{asset('assets/images/product/9.jpg')}}" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                        <!-- Begin Product Content Area -->
-                                        <div class="product-content">
-                                            <h2 class="product-name">
-                                                <a href="single-product">Printed Dress</a>
-                                            </h2>
-                                            <div class="rating-box">
-                                                <ul class="rating">
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price-box-2">
-                                                <span class="new-price">$30.50</span>
-                                            </div>
-                                            <div class="product-action">
-                                                <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                    <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                    <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- Product Content Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="{{route('product-details')}}">
-                                                <img class="primary-img" src="{{asset('assets/images/product/1.jpg')}}" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                        <!-- Begin Product Content Area -->
-                                        <div class="product-content">
-                                            <h2 class="product-name">
-                                                <a href="single-product">Printed Dress</a>
-                                            </h2>
-                                            <div class="rating-box">
-                                                <ul class="rating">
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price-box-2">
-                                                <span class="new-price">$30.50</span>
-                                            </div>
-                                            <div class="product-action">
-                                                <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                    <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                    <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- Product Content Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="{{route('product-details')}}">
-                                                <img class="primary-img" src="{{asset('assets/images/product/4_1.jpg')}}" alt="FB'S Prduct">
-                                                <img class="secondary-img" src="{{asset('assets/images/product/4_2.jpg')}}" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                            <div class="sticker-2"><span>-20%</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                        <!-- Begin Product Content Area -->
-                                        <div class="product-content">
-                                            <h2 class="product-name">
-                                                <a href="single-product">Printed Dress</a>
-                                            </h2>
-                                            <div class="rating-box">
-                                                <ul class="rating">
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price-box-2">
-                                                <span class="new-price-2">$16.40</span>
-                                                <span class="old-price">$20.50</span>
-                                            </div>
-                                            <div class="product-action">
-                                                <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                    <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                    <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- Product Content Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="{{route('product-details')}}">
-                                                <img class="primary-img" src="{{asset('assets/images/product/10.jpg')}}" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                            <div class="sticker-2"><span>-20%</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                        <!-- Begin Product Content Area -->
-                                        <div class="product-content">
-                                            <h2 class="product-name">
-                                                <a href="single-product">Printed Dress</a>
-                                            </h2>
-                                            <div class="rating-box">
-                                                <ul class="rating">
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price-box-2">
-                                                <span class="new-price-2">$16.40</span>
-                                                <span class="old-price">$20.50</span>
-                                            </div>
-                                            <div class="product-action">
-                                                <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                    <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                    <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- Product Content Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
-                                    <!-- Begin Sigle Product Area -->
-                                    <div class="single-product">
-                                        <!-- Begin Product Image Area -->
-                                        <div class="product-img">
-                                            <a href="{{route('product-details')}}">
-                                                <img class="primary-img" src="{{asset('assets/images/product/11.jpg')}}" alt="FB'S Prduct">
-                                            </a>
-                                            <div class="sticker"><span>New</span></div>
-                                            <div class="sticker-2"><span>-20%</span></div>
-                                        </div>
-                                        <!-- Product Image Area End Here -->
-                                        <!-- Begin Product Content Area -->
-                                        <div class="product-content">
-                                            <h2 class="product-name">
-                                                <a href="single-product">Printed Dress</a>
-                                            </h2>
-                                            <div class="rating-box">
-                                                <ul class="rating">
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price-box-2">
-                                                <span class="new-price-2">$16.40</span>
-                                                <span class="old-price">$20.50</span>
-                                            </div>
-                                            <div class="product-action">
-                                                <ul class="product-action-link">
-                                                    <li class="shopping-cart_link"><a href="{{route('carts.index')}}" title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                    <li class="quick-view-btn"><a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-eye"></i></a></li>
-                                                    <li class="single-product_link"><a href="{{route('product-details')}}" title="Single Product"><i class="ion-link"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- Product Content Area End Here -->
-                                    </div>
-                                    <!-- Sigle Product Area End Here -->
+                                @endforeach
+                                    <!-- Single Product Area End Here -->
                                 </div>
                             </div>
                         </div>

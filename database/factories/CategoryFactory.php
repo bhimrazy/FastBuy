@@ -6,7 +6,7 @@ use App\Category;
 use Faker\Generator as Faker;
 
 $factory->define(Category::class, function (Faker $faker) {
-    $title = $faker->unique()->randomElement(['Home Appliances','Kitchen Appliances','Smart Home Appliances']);
+    $title = $faker->unique()->randomElement(['Home Appliances','Kitchen Appliances','Smart Home Appliances','Large Appliances','Small Appliances','Cookware','Drinkware']);
     return [
         'title'=>ucwords(strtolower($title)),
         'slug'=>slugify($title),

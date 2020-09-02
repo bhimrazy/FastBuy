@@ -15,9 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes(['verify'=>true]);
-Route::get('/', function () {
-    return view('client.index')->with('products',\App\Product::with('media')->latest()->get());
-})->name('home');
+Route::get('/', [
+    'uses' => 'HomePageController@index',
+    'as' => 'home'
+]);
+Route::post('/subscribeToNewsLetter', [
+    'uses' => 'HomePageController@subscribeToNewsLetter',
+    'as' => 'home.subscribe'
+]);
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');

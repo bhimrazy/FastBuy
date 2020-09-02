@@ -24,3 +24,6 @@
     </div>
     <!-- Content Wraper Area End Here -->
 @endsection
+@section('scripts')
+    <script src="{{asset('js/app.js')}}"></script>
+@endsection

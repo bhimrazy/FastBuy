@@ -370,48 +370,60 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="fb-branding bg-white">
+                        @if(\App\Brand::all()->isNotEmpty())
                         <div class="fb-branding_active owl-carousel">
-                            <div class="branding-item">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/branding/1.jpg')}}" alt="FB's Branding">
-                                </a>
-                            </div>
-                            <div class="branding-item">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/branding/2.jpg')}}" alt="FB's Branding">
-                                </a>
-                            </div>
-                            <div class="branding-item">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/branding/3.jpg')}}" alt="FB's Branding">
-                                </a>
-                            </div>
-                            <div class="branding-item">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/branding/4.jpg')}}" alt="FB's Branding">
-                                </a>
-                            </div>
-                            <div class="branding-item">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/branding/5.jpg')}}" alt="FB's Branding">
-                                </a>
-                            </div>
-                            <div class="branding-item">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/branding/6.jpg')}}" alt="FB's Branding">
-                                </a>
-                            </div>
-                            <div class="branding-item">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/branding/1.jpg')}}" alt="FB's Branding">
-                                </a>
-                            </div>
-                            <div class="branding-item">
-                                <a href="#">
-                                    <img src="{{asset('assets/images/branding/2.jpg')}}" alt="FB's Branding">
-                                </a>
-                            </div>
+                            @foreach(\App\Brand::all() as $brand)
+                                <div class="branding-item">
+                                    <a href="#">
+                                        <img src="{{asset($brand->url)}}" alt="{{$brand->title}}">
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
+                        @else
+                            <div class="fb-branding_active owl-carousel">
+                                <div class="branding-item">
+                                    <a href="#">
+                                        <img src="{{asset('assets/images/branding/1.jpg')}}" alt="FB's Branding">
+                                    </a>
+                                </div>
+                                <div class="branding-item">
+                                    <a href="#">
+                                        <img src="{{asset('assets/images/branding/2.jpg')}}" alt="FB's Branding">
+                                    </a>
+                                </div>
+                                <div class="branding-item">
+                                    <a href="#">
+                                        <img src="{{asset('assets/images/branding/3.jpg')}}" alt="FB's Branding">
+                                    </a>
+                                </div>
+                                <div class="branding-item">
+                                    <a href="#">
+                                        <img src="{{asset('assets/images/branding/4.jpg')}}" alt="FB's Branding">
+                                    </a>
+                                </div>
+                                <div class="branding-item">
+                                    <a href="#">
+                                        <img src="{{asset('assets/images/branding/5.jpg')}}" alt="FB's Branding">
+                                    </a>
+                                </div>
+                                <div class="branding-item">
+                                    <a href="#">
+                                        <img src="{{asset('assets/images/branding/6.jpg')}}" alt="FB's Branding">
+                                    </a>
+                                </div>
+                                <div class="branding-item">
+                                    <a href="#">
+                                        <img src="{{asset('assets/images/branding/1.jpg')}}" alt="FB's Branding">
+                                    </a>
+                                </div>
+                                <div class="branding-item">
+                                    <a href="#">
+                                        <img src="{{asset('assets/images/branding/2.jpg')}}" alt="FB's Branding">
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -435,10 +447,11 @@
                     <!-- Begin FB's Newsletters Form Area -->
                     <div class="col-lg-7">
                         <div class="fb-newsletters_form pt-sm-15 pt-xs-15">
-                            <form action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="footer-subscribe-form validate" target="_blank" novalidate>
+                            <form action="{{route('home.subscribe')}}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="footer-subscribe-form validate">
+                                @csrf
                                 <div id="mc_embed_signup_scroll">
                                     <div id="mc-form" class="mc-form subscribe-form form-group" >
-                                        <input id="mc-email" type="email" autocomplete="off" placeholder="Enter your email" />
+                                        <input id="mc-email" class="@error('email') is-invalid @enderror" name="email" type="email" autocomplete="off" placeholder="Enter your email" required/>
                                         <button  class="btn mt-sm-15 mt-xs-15" id="mc-submit">Subscribe!</button>
                                     </div>
                                 </div>
