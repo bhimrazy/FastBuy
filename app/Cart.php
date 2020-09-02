@@ -33,11 +33,10 @@ class Cart
         $this->totalPrice+=$storedItem['price'];
     }
     public function reduceByOne($id){
-        $this->items[$id]['qty']--;
-        $this->items[$id]['price'] = $this->items[$id]['item']->price * $this->items[$id]['qty'];
-        $this->totalPrice -= $this->items[$id]['item']->price;
-        if($this->items[$id]['qty'] <= 0) {
-            unset($this->items[$id]);
+        if($this->items[$id]['qty'] > 1) {
+            $this->items[$id]['qty']--;
+            $this->items[$id]['price'] = $this->items[$id]['item']->price * $this->items[$id]['qty'];
+            $this->totalPrice -= $this->items[$id]['item']->price;
         }
     }
     public function increaseByOne($id){

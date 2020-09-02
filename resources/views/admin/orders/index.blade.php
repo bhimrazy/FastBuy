@@ -34,20 +34,19 @@
                             <table id="orders" class="table table-bordered table-striped text-nowrap">
                                 <thead>
                                 <tr>
-                                    <th width="10">
-
+                                    <th>
                                     </th>
-                                    <th style="width: 1%">
+                                    <th>
                                         S.N.
                                     </th>
-                                    <th>Order ID</th>
-                                    <th>Total</th>
-                                    <th style="width: 8%" class="text-center">
+                                    <th>Order Number</th>
+                                    <th>Placed By</th>
+                                    <th>Total Amount</th>
+                                    <th class="text-sm">Payment Status</th>
+                                    <th class="text-center">
                                         Status
                                     </th>
-                                    <th>Customer Name</th>
-                                    <th>Created at</th>
-                                    <th style="width: 20%">
+                                    <th style="width: 10%">
                                         Actions
                                     </th>
                                 </tr>
@@ -61,15 +60,16 @@
                                         <td>
                                             {{$key+1}}
                                         </td>
-                                        <td><a href="">{{$order->order_number}}</a></td>
+                                        <td>
+                                            <a href="">{{$order->order_number}}</a><br>
+                                            <small class="ml-2 badge badge-secondary">{{$order->created_at->diffForHumans()}}</small>
+                                        </td>
+                                        <td>
+                                            <div >{{$order->customer->getFullName()}}</div>{{$order->created_at->format('Y-m-d H:i:s')}}
+                                        </td>
                                         <td>{{config('settings.currency_symbol').' '.number_format($order->grand_total)}}</td>
+                                        <td><span class="badge badge-{{$order->payment_status?'info':'warning'}}">{{$order->payment_status?'Completed':'Not Completed'}}</span></td>
                                         <td><span class="badge badge-{{($order->status=='pending')?'warning':'info'}}">{{$order->status}}</span></td>
-                                        <td>
-                                            <div >{{$order->customer->getFullName()}}</div>
-                                        </td>
-                                        <td>
-                                            <div>{{$order->created_at->format('Y-m-d H:i:s')}}<br><small class="ml-2 badge badge-secondary">{{$order->created_at->diffForHumans()}}</small></div>
-                                        </td>
                                         <td>
                                             @can('order_show')
                                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.orders.show', $order->id) }}">

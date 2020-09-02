@@ -17,7 +17,7 @@ class CartController extends Controller
         }
         $oldCart=session()->has('cart')?session('cart'):null;
         $cart=new Cart($oldCart);
-        return view('client.cart')->with(['cartitems'=>$cart->items,'totalPrice'=>$cart->totalPrice]);
+        return view('client.cart')->with(['cart_items'=>$cart->items,'totalPrice'=>$cart->totalPrice]);
     }
     public function store(CartRequest $request){
         //session()->flush();
@@ -28,19 +28,20 @@ class CartController extends Controller
         session()->put('cart',$cart);
         return redirect()->route('carts.index');
     }
-    public function reduceByOne($id){
+    public function reduceByOne(Request $request){
         $oldCart=session()->has('cart')?session('cart'):null;
         $cart=new Cart($oldCart);
-        $cart->reduceByOne($id);
+        $cart->reduceByOne($request->id);
         session()->put('cart',$cart);
-        return redirect()->route('carts.index');
+        return response()->json(['success' => 'Cart Updated Successfully']);
+        //return redirect()->route('carts.index');
     }
-    public function increaseByOne($id){
+    public function increaseByOne(Request $request){
         $oldCart=session()->has('cart')?session('cart'):null;
         $cart=new Cart($oldCart);
-        $cart->increaseByOne($id);
+        $cart->increaseByOne($request->id);
         session()->put('cart',$cart);
-        return redirect()->route('carts.index');
+        return response()->json(['success' => 'Cart Updated Successfully']);
     }
     public function delete($id){
         $oldCart=session()->has('cart')?session('cart'):null;

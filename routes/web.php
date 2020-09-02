@@ -15,9 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes(['verify'=>true]);
-Route::get('/', function () {
-    return view('client.index')->with('products',\App\Product::with('media')->latest()->get());
-})->name('home');
+Route::get('/', [
+    'uses' => 'HomePageController@index',
+    'as' => 'home'
+]);
+Route::post('/subscribeToNewsLetter', [
+    'uses' => 'HomePageController@subscribeToNewsLetter',
+    'as' => 'home.subscribe'
+]);
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
@@ -70,15 +75,11 @@ Route::resource('shop', 'ShopController');
 Route::resource('carts', 'CartController')->only([
     'index','store',
 ]);
-Route::get('/carts/reduceByOne/{id}',[
+Route::get('/carts/reduceByOne/',[
     'uses'=>'CartController@reduceByOne',
     'as'=>'carts.reduceByOne'
 ]);
-Route::get('/carts/increaseByOne/{id}',[
-    'uses'=>'CartController@increaseByOne',
-    'as'=>'carts.increaseByOne'
-]);
-Route::get('/carts/increaseByOne/{id}',[
+Route::get('/carts/increaseByOne/',[
     'uses'=>'CartController@increaseByOne',
     'as'=>'carts.increaseByOne'
 ]);
@@ -109,6 +110,32 @@ Route::put('/my-account/update/{user}', [
     'uses' => 'CustomerController@updateProfile',
     'as'=>'my-account.profile.update'
 ]);
+
+Route::get('/checkout/payment/esewa', [
+    'name' => 'eSewa Checkout Payment',
+    'as' => 'checkout.payment.esewa',
+    'uses' => 'EsewaController@checkout',
+]);
+
+Route::post('/checkout/payment/{order}/esewa/process', [
+    'name' => 'eSewa Checkout Payment',
+    'as' => 'checkout.payment.esewa.process',
+    'uses' => 'EsewaController@payment',
+]);
+
+Route::get('/checkout/payment/{order}/esewa/completed', [
+    'name' => 'eSewa Payment Completed',
+    'as' => 'checkout.payment.esewa.completed',
+    'uses' => 'EsewaController@completed',
+]);
+
+Route::get('/checkout/payment/{order}/failed', [
+    'name' => 'eSewa Payment Failed',
+    'as' => 'checkout.payment.esewa.failed',
+    'uses' => 'EsewaController@failed',
+]);
+
+
 Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
     Route::get('/dashboard',[
         'uses' => 'AdminController@index',
@@ -130,6 +157,7 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
 
         //Category
         Route::resource('categories', 'CategoryController');
+        Route::get('/categories/status/update', 'CategoryController@updateStatus')->name('categories.update.status');
 
         //SubCategory
         Route::resource('subcategories', 'SubCategoryController');

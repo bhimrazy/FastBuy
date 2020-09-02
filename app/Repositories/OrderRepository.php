@@ -27,13 +27,13 @@ class OrderRepository extends BaseRepository implements OrderContract
             'item_count'        =>  $cart->getTotalQuantity(),
             'payment_status'    =>  0,
             'payment_method'    =>  null,
-            'first_name'        =>  $params['billing_first_name'],
-            'last_name'         =>  $params['billing_last_name'],
-            'address'           =>  $params['billing_address'],
-            'city'              =>  $params['billing_city'],
-            'country'           =>  $params['billing_country'],
-            'post_code'         =>  $params['billing_post_code'],
-            'phone_number'      =>  $params['billing_phone'],
+            'first_name'        =>  $params['shipping_first_name'],
+            'last_name'         =>  $params['shipping_last_name'],
+            'address'           =>  $params['shipping_address'],
+            'city'              =>  $params['shipping_city'],
+            'country'           =>  $params['shipping_country'],
+            'post_code'         =>  $params['shipping_post_code'],
+            'phone_number'      =>  $params['shipping_phone'],
             //'notes'             =>  $params['notes']
         ]);
         if ($order) {

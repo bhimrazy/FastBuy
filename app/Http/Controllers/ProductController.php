@@ -37,7 +37,7 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-         $newProduct=Product::create($request->all());
+         $newProduct=Product::create($request->validated());
          $newProduct->tags()->sync($request->input('tags', []));
          $newProduct->save();
         if($request->hasfile('image'))
@@ -76,7 +76,10 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $product->update($request->all());
+        $product->update($request->validated());
+        $product['featured']= ($request['featured']??'')?1:0;
+        $product['status']= ($request['status']??'')?1:0;
+        $product['stock']= ($request['stock']??'')?1:0;
         $product->tags()->sync($request->input('tags', []));
         $product->update();
         if($request->hasfile('image')){
@@ -109,7 +112,8 @@ class ProductController extends Controller
     public function productShow(Request $request)
     {
         $product=Product::where('slug',$request->product)->with('media')->firstOrFail();
-        return view('client.product-details')->with('product',$product);
+        $recommendedProducts=Product::with('media')->latest()->get()->random(10);
+        return view('client.product-details',compact(['product','recommendedProducts']));
     }
     public function search(Request $request)
     {

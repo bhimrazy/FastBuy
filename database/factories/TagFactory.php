@@ -6,7 +6,7 @@ use App\Tag;
 use Faker\Generator as Faker;
 
 $factory->define(Tag::class, function (Faker $faker) {
-    $title = $faker->unique()->randomElement(['Featured Products','Hot Deals','Trending Products','Top Selling Products','New Arrival']);
+    $title = $faker->unique()->randomElement(['Featured Products','Hot Deals','Trending Products','Top Selling Products','New Products']);
     return [
         'title'=>ucwords(strtolower($title)),
         'slug'=>slugify($title),

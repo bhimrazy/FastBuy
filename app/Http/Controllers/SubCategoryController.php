@@ -44,7 +44,7 @@ class SubCategoryController extends Controller
     }
     public function update(UpdateSubCategoryRequest $request, Subcategory $subcategory)
     {
-        $subcategory->update($request->all());
+        $subcategory->update($request->validated());
         $subcategory->slug=Str::slug($request->title);
         $subcategory->save();
         return redirect()->route('admin.subcategories.index');

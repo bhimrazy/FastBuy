@@ -34,7 +34,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped text-nowrap">
+                            <table id="categories" class="table table-bordered table-striped text-nowrap">
                                 <thead>
                                 <tr>
                                     <th width="10">
@@ -47,7 +47,10 @@
                                         Title
                                     </th>
                                     <th>
-                                        Control(s)
+                                        Status
+                                    </th>
+                                    <th>
+                                        Actions
                                     </th>
                                 </tr>
                                 </thead>
@@ -62,6 +65,12 @@
                                         </td>
                                         <td>
                                             {{ $category->title?? '' }}
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-switch custom-switch-on-success">
+                                                <input type="checkbox" name="status" data-id="{{ $category->id }}" class="custom-control-input" id="customSwitch{{$category->id}}" {{ $category->status? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="customSwitch{{$category->id}}"></label>
+                                            </div>
                                         </td>
                                         <td>
                                             @can('product_category_show')
@@ -106,10 +115,50 @@
 @section('scripts')
     <script>
         $(function () {
-            $("#example1").DataTable({
+            $("#categories").DataTable({
                 "responsive": true,
                 "autoWidth": false,
             });
         });
+
+        $(document).ready(function(){
+            $('.custom-control-input').change(function () {
+                if(confirm('Are You Sure Want to update the status?')){
+                    let status = $(this).prop('checked') === true ? 1 : 0;
+                    let categoryId = $(this).data('id');
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: '{{ route('admin.categories.update.status') }}',
+                        data: {'status': status, 'category_id': categoryId},
+                        error: function(xhr, status, error) {
+                            var err = eval("(" + xhr.responseText + ")");
+                            setTimeout(function(){
+                                location.reload()
+                            },1000);
+                            toastr.options.closeButton = true;
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.options.closeDuration = 100;
+                            toastr.error(err.message);
+                        },
+                        success: function (data) {
+                            if(data.success){
+                                setTimeout(function(){
+                                    location.reload()
+                                },1000);
+                                toastr.options.closeButton = true;
+                                toastr.options.closeMethod = 'fadeOut';
+                                toastr.options.closeDuration = 100;
+                                toastr.success(data.success);
+                            }
+                        }
+                    });
+                }
+            });
+        });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@endsection
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 @endsection

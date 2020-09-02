@@ -11,6 +11,6 @@ class SubcategorySeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\Subcategory::class,8)->create();
+        factory(\App\Subcategory::class,22)->create();
     }
 }

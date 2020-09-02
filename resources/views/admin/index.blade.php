@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info elevation-1"><i class="far fa-bookmark"></i></span>
+                            <span class="info-box-icon bg-info elevation-1"><a href="{{route('admin.orders.index')}}"><i class="far fa-bookmark"></i></a></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Orders</span>
@@ -764,4 +764,9 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+@endsection
+@section('scripts')
+    <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
+    <!-- PAGE SCRIPTS -->
+    <script src="{{asset('dist/js/pages/dashboard2.js')}}"></script>
 @endsection
