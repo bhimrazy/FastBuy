@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('transaction_id')->nullable();
-            $table->enum('status', ['pending', 'processing', 'completed', 'decline'])->default('pending');
+            $table->enum('status', ['pending', 'processing', 'completed', 'declined'])->default('pending');
             $table->decimal('grand_total', 20, 6);
             $table->unsignedInteger('item_count');
 

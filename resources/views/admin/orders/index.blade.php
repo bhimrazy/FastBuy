@@ -68,8 +68,8 @@
                                             <div >{{$order->customer->getFullName()}}</div>{{$order->created_at->format('Y-m-d H:i:s')}}
                                         </td>
                                         <td>{{config('settings.currency_symbol').' '.number_format($order->grand_total)}}</td>
-                                        <td><span class="badge badge-{{$order->payment_status?'info':'warning'}}">{{$order->payment_status?'Completed':'Not Completed'}}</span></td>
-                                        <td><span class="badge badge-{{($order->status=='pending')?'warning':'info'}}">{{$order->status}}</span></td>
+                                        <td><span class="badge badge-{{$order->payment_status?'info':'warning'}}">{{$order->payment_status?'Completed':'Not Completed'}}</span>{{$order->transaction_id??''}}</td>
+                                        <td><span class="badge badge-{{($order->status=='completed')?'info':'warning'}}">{{$order->status}}</span></td>
                                         <td>
                                             @can('order_show')
                                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.orders.show', $order->id) }}">
@@ -84,7 +84,7 @@
                                             @endcan
 
                                             @can('order_delete')
-                                                <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$order->firstname}}?');" style="display: inline-block;">
+                                                <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete Order : {{$order->order_number}}?');" style="display: inline-block;">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="submit" class="btn btn-xs btn-danger" value="Delete">

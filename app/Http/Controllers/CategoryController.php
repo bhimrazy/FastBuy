@@ -67,6 +67,6 @@ class CategoryController extends Controller
         abort_if(Gate::denies('product_category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $category->delete();
-        return back();
+        return redirect()->back()->with('success',$category['name'].' deleted successfully.');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateOrderRequest;
 use App\Order;
 use App\Traits\pageMetaContent;
 use Illuminate\Http\Request;
@@ -42,16 +43,30 @@ class OrderController extends Controller
 
     public function edit(Order $order)
     {
-        //
+        abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $order->load('items');
+        $this->setPageTitle($order['order_number'].'| Edit Order','This Page shows the order with Order Number:'.$order['order_number']);
+        return view('admin.orders.edit', compact('order'));
     }
 
-    public function update(Request $request, Order $order)
+    public function update(UpdateOrderRequest $request, Order $order)
     {
-        //
+        $order->update($request->validated());
+        if($request['status']=='completed'){
+            $order->update(['payment_status'=>1]);
+        }
+        else{
+            $order->update(['payment_status'=>0]);
+        }
+
+        return back()->with('success','Order with OrderNumber: '.$order['order_number'].' updated successfully');
     }
 
     public function destroy(Order $order)
     {
-        //
+        abort_if(Gate::denies('order_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $order->delete();
+        return redirect()->back()->with('success','Order with OrderNumber: '.$order['order_number'].' deleted successfully');
     }
 }
