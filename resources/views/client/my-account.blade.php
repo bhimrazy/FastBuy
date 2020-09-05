@@ -90,7 +90,7 @@
                                             <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                                                 <div class="card-header">Invoice</div>
                                                 <div class="card-body">
-                                                    <h5 class="card-title">{{config('settings.currency_symbol' ).' '.$orders->where('status','pending')->map(function ($order){return $order->grand_total;})->sum()}}</h5>
+                                                    <h5 class="card-title">{{config('settings.currency_symbol' ).' '.$orders->where('status','!=','completed')->where('status','!=','declined')->map(function ($order){return $order->grand_total;})->sum()}}</h5>
                                                     <p class="card-text">Total Invoice.</p>
                                                 </div>
                                             </div>
@@ -109,6 +109,7 @@
                                                 <th>ORDER</th>
                                                 <th>DATE</th>
                                                 <th>STATUS</th>
+                                                <th>PAYMENT</th>
                                                 <th>TOTAL</th>
                                                 <th>VIEW</th>
                                             </tr>
@@ -118,7 +119,8 @@
                                                         <td><a class="account-order-id"
                                                                href="">{{$order->order_number}}</a></td>
                                                         <td>{{$order->created_at->Format('M d, Y')}}</td>
-                                                        <td><p class="badge-primary rounded text-sm">{{$order->status}}</p></td>
+                                                        <td><span class="badge badge-{{($order->status=='completed')?'info':'warning'}}">{{$order->status}}</span></td>
+                                                        <td><span class="badge badge-{{$order->payment_status?'info':'warning'}}">{{$order->payment_status?'Completed':'Not Completed'}}</span></td>
                                                         <td>{{config('settings.currency_symbol').' '.number_format($order->grand_total)}}</td>
                                                         <td><button class="fb-btn fb-btn_dark fb-btn_sm" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}"><span>View</span></button>
                                                         </td>
