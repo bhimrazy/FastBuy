@@ -119,8 +119,8 @@
                                                         <td><a class="account-order-id"
                                                                href="">{{$order->order_number}}</a></td>
                                                         <td>{{$order->created_at->Format('M d, Y')}}</td>
-                                                        <td><span class="badge badge-{{($order->status=='completed')?'info':'warning'}}">{{$order->status}}</span></td>
-                                                        <td><span class="badge badge-{{$order->payment_status?'info':'warning'}}">{{$order->payment_status?'Completed':'Not Completed'}}</span></td>
+                                                        <td><span class="badge p-1 badge-{{($order->status=='completed')?'info':'warning'}}">{{$order->status}}</span></td>
+                                                        <td><span class="badge p-1 badge-{{$order->payment_status?'info':'warning'}}">{{$order->payment_status?'Completed':'Not Completed'}}</span></td>
                                                         <td>{{config('settings.currency_symbol').' '.number_format($order->grand_total)}}</td>
                                                         <td><button class="fb-btn fb-btn_dark fb-btn_sm" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}"><span>View</span></button>
                                                         </td>
