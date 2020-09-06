@@ -42,6 +42,14 @@ class Admin extends Authenticable
     public function isAdmin(){
         return $this->attributes['is_super']?true:false;
     }
+    public function getFullName()
+    {
+        return $this->attributes['first_name'] .' '. $this->attributes['last_name'];
+    }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminResetPasswordNotification($token));

@@ -16,8 +16,7 @@ class AdminController extends Controller
     public function __construct()
     {
        $this->middleware('throttle:3,2')->only('authenticate');
-       $this->middleware('auth')->except('authenticate');
-       $this->middleware('admin')->except('authenticate');
+       $this->middleware('auth:admin')->except('authenticate');
        $this->middleware('verified')->except('authenticate');
        //$this->middleware('password.confirm');
     }

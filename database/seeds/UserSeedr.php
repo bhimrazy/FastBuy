@@ -11,7 +11,7 @@ class UserSeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\User::class,1)
+        factory(\App\Admin::class,1)
             ->create()
             ->each(function ($user) {
                 $user->roles()->sync(\App\Role::all());

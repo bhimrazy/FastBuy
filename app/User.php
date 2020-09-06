@@ -42,7 +42,7 @@ class User extends Authenticable implements MustVerifyEmail
     ];
     public function getFullName()
     {
-        return "{$this->firstname} {$this->lastname}";
+        return "$this->firstname .' '. $this->lastname";
     }
     public function isAdmin()
     {   if($this->type == 'admin'){
@@ -51,10 +51,6 @@ class User extends Authenticable implements MustVerifyEmail
          else{
              return false;
          }
-    }
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
     }
     public function customerOrders(){
         return $this->hasMany(Order::class);
