@@ -144,10 +144,10 @@ Route::group(['prefix'=>'admin','as' => 'admin.','namespace' => 'Admin\Auth'],fu
     // Logout route
     Route::post('/logout', 'AdminLoginController@logout')->name('logout');
     // Password reset routes
-    Route::get('/password/reset', 'AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
-    Route::post('/password/email', 'AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
-    Route::get('/password/reset/{token}', 'AdminResetPasswordController@showResetForm')->name('admin.password.reset');
-    Route::post('/password/reset', 'AdminResetPasswordController@reset')->name('admin.password.update');
+    Route::get('/password/reset', 'AdminForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('/password/email', 'AdminForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('/password/reset/{token}', 'AdminResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('/password/reset', 'AdminResetPasswordController@reset')->name('password.update');
 });
 Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
     Route::get('/dashboard',[
