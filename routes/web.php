@@ -135,12 +135,22 @@ Route::get('/checkout/payment/{order}/failed', [
     'uses' => 'EsewaController@failed',
 ]);
 
+//Admin AuthRoutes
+Route::group(['prefix'=>'admin','as' => 'admin.','namespace' => 'Admin\Auth'],function (){
+    // Login routes
+    Route::get('/login', 'AdminLoginController@login')->name('login');
+    Route::post('/login', 'AdminLoginController@authenticate')->name('login.submit');
 
+    // Logout route
+    Route::post('/logout', 'Auth\AdminLoginController@logout')->name('logout');
+
+});
 Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
     Route::get('/dashboard',[
         'uses' => 'AdminController@index',
         'as' => 'admin.dashboard'
     ]);
+
 
     Route::group(['as' => 'admin.'],function (){
         // Permissions
