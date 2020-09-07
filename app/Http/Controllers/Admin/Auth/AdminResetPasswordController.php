@@ -29,7 +29,7 @@ class AdminResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/admin/dashboard';
 
     protected function guard()
     {
@@ -42,9 +42,7 @@ class AdminResetPasswordController extends Controller
     }
 
     public function showResetForm(Request $request, $token = null)
-    {
-        return view('auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
-        );
+    {   dd($request->all());
+        return view('admin.auth.passwords.reset')->with('token', $token)->with( 'email', $request['email']);
     }
 }

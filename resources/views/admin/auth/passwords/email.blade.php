@@ -30,6 +30,7 @@
 
             <form method="POST" action="{{ route('admin.password.email') }}">
                 @csrf
+                @include('client.includes.alert')
                 <div class="input-group mb-3">
                     <label for="email" hidden>{{ __('E-Mail Address') }}*</label><br>
                     <input id="email" type="email" placeholder="Email Address" class="mb-0 form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>

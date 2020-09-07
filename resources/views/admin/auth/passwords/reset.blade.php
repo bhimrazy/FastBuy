@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -35,7 +35,7 @@
                     <label for="email" hidden>{{ __('E-Mail Address') }}*</label>
                     <input id="email" type="email"
                            class="form-control @error('email') is-invalid @enderror" name="email"
-                           value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                           value="{{ $email ?? old('email') }}" placeholder="Email Address" required autocomplete="email" autofocus>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -47,30 +47,33 @@
                     <strong>{{ $message }}</strong>
                 </small>
                 @enderror
-                <div class="form-group row">
+                <div class="input-group mb-3">
                     <label for="password"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                           class="form-control" hidden>{{ __('Password') }}</label>
+                    <input id="password" type="password"
+                           class="form-control @error('password') is-invalid @enderror" name="password" placeholder="New Password"
+                           required autocomplete="new-password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
 
-                    <div class="col-md-6">
-                        <input id="password" type="password"
-                               class="form-control @error('password') is-invalid @enderror" name="password"
-                               required autocomplete="new-password">
-
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
+                </div>
+                @error('password')
+                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
+                @enderror
+                <div class="input-group mb-3">
                     <label for="password-confirm"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password-confirm" type="password" class="form-control"
-                               name="password_confirmation" required autocomplete="new-password">
+                           class="form-control" hidden>{{ __('Confirm Password') }}</label>
+                    <input id="password-confirm" type="password" class="form-control"
+                           name="password_confirmation" required autocomplete="new-password" placeholder="Confirm New Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
                     </div>
                 </div>
 
@@ -89,11 +92,11 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+<script src="{{asset('dist/js/adminlte.min.js')}}"></script>
 
 </body>
 </html>

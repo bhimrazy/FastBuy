@@ -34,7 +34,7 @@
                                     <input id="email" type="email" placeholder="Email Address" class="mb-0form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     @error('email')
                                     <span class="text-danger">
-                                            <p>{{ $message }}</p>
+                                            <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
