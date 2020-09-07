@@ -50,6 +50,15 @@ class Admin extends Authenticable
     {
         return $this->belongsToMany(Role::class);
     }
+    /**
+     * Get the e-mail address where password reset links are sent.
+     *
+     * @return string
+     */
+    public function getEmailForPasswordReset()
+    {
+        return $this->attributes['email'];
+    }
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminResetPasswordNotification($token));
