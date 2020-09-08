@@ -34,7 +34,7 @@
                                     <input id="password" type="password" placeholder="Password for Verification" class="mb-0form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" autofocus>
                                     @error('password')
                                     <span class="text-danger">
-                                            <p>{{ $message }}</p>
+                                            <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>

@@ -26,44 +26,39 @@
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">{{ __('Admin Reset Password') }}</p>
+            <p class="login-box-msg">{{ __('Confirm Password') }}</p>
 
-            <form method="POST" action="{{ route('admin.password.email') }}">
+            <form method="POST" action="{{ route('admin.login.submit') }}">
                 @csrf
-                <div class="input-group mb-3">
-                    <label for="email" hidden>{{ __('E-Mail Address') }}*</label>
-                    <input id="email" type="email" placeholder="Email Address" class="mb-0 form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                        </div>
-                    </div>
-                </div>
-                @error('email')
-                <small class="text-danger">
-                    <strong>{{ $message }}</strong>
-                </small>
+                <h4 class="login-title">{{ __('Please confirm your password before continuing.') }}</h4>
+                @include('client.includes.alert')
                 @enderror
                 <div class="input-group mb-3">
-                    <label for="password" hidden>{{ __('Password') }}</label>
-                    <input id="password" type="password" placeholder="Password" class="mb-0 form-control @error('password') is-invalid @enderror" name="password"  required autocomplete="current-password">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                    </div>
+                    <label for="password">{{ __('Password') }}*</label>
+                    <input id="password" type="password" placeholder="Password for Verification" class="mb-0form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" autofocus>
+                    @error('password')
+                    <span class="text-danger">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
-                @error('password')
-                <small class="text-danger"><strong>{{ $message }}</strong></small>
-                @enderror
                 <div class="row">
                     <!-- /.col -->
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block"> {{ __('Send Password Reset Link') }}</button>
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('Confirm Password') }}
+                        </button>
                     </div>
                     <!-- /.col -->
                 </div>
             </form>
+            <p class="mb-1">
+                @if (Route::has('admin.password.request'))
+                    <a href="{{ route('admin.password.request') }}">
+                        {{ __('Forgot Your Password?') }}
+                    </a>
+                @endif
+            </p>
         </div>
         <!-- /.login-card-body -->
     </div>

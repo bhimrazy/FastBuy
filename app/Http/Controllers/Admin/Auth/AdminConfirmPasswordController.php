@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
 use Illuminate\Http\Request;
 
-class ConfirmPasswordController extends Controller
+class AdminConfirmPasswordController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -33,11 +33,8 @@ class ConfirmPasswordController extends Controller
             $url=session()->get('oldUrl');
             return redirect()->route($url);
         }
-        elseif($user->isAdmin()){
-            return redirect()->route('admin.dashboard');
-        }
         else{
-            return redirect()->route('my-account');
+            return redirect()->route('admin.dashboard');
         }
     }
 
