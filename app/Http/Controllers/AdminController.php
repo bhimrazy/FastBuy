@@ -26,14 +26,14 @@ class AdminController extends Controller
         $orders=Order::orderBy('status','desc')->orderBy('created_at','desc')->get();
         return view('admin.index')->with('users',$users)->with('orders',$orders)->with('products',$products);
     }
-    public function authenticate(AdminRequest $request){
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->route('admin.dashboard');
-        }
-        return $this->sendFailedLoginResponse($request);
-    }
+//    public function authenticate(AdminRequest $request){
+//        $credentials = $request->only('email', 'password');
+//        if (Auth::attempt($credentials)) {
+//            // Authentication passed...
+//            return redirect()->route('admin.dashboard');
+//        }
+//        return $this->sendFailedLoginResponse($request);
+//    }
     public function customers(){
         $users=User::with('customerOrders')->where('type','customer')->orderBy('created_at','desc')->paginate(10);
         return view('admin.customers.index')->with('users',$users);

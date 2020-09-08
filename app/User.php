@@ -42,7 +42,7 @@ class User extends Authenticable implements MustVerifyEmail
     ];
     public function getFullName()
     {
-        return "$this->firstname .' '. $this->lastname";
+        return $this->attributes['firstname'] .' '. $this->attributes['lastname'];
     }
     public function isAdmin()
     {   if($this->type == 'admin'){

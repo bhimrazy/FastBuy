@@ -95,13 +95,13 @@ Route::post('/checkout', [
     'uses' => 'CheckoutController@postCheckout',
     'as'=>'checkout.process'
 ]);
-Route::get('/admin-login', function () {
-    return view('admin.admin-login');
-})->name('admin-login')->middleware('guest');
-Route::post('/admin-login',[
-    'uses' => 'AdminController@authenticate',
-    'as' => 'admin.authenticate'
-]);
+//Route::get('/admin-login', function () {
+//    return view('admin.admin-login');
+//})->name('admin-login')->middleware('guest');
+//Route::post('/admin-login',[
+//    'uses' => 'AdminController@authenticate',
+//    'as' => 'admin.authenticate'
+//]);
 Route::get('/my-account', [
     'uses' => 'CustomerController@getProfile',
     'as'=>'my-account'

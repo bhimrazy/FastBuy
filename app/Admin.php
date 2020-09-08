@@ -57,7 +57,7 @@ class Admin extends Authenticable
      */
     public function getEmailForPasswordReset()
     {
-        return $this->attributes['email'];
+        return $this->attributes['emailr'];
     }
     public function sendPasswordResetNotification($token)
     {

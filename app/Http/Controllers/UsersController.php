@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Role;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +18,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::all();
+        $users = Admin::all();
 
         return view('admin.users.index', compact('users'));
     }
@@ -34,15 +34,15 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $user = User::create($request->validated());
-        $user->type='admin';
-        $user->password=Hash::make($request->password);
+        $user = Admin::create($request->validated());
+        $user->password=Hash::make($request->validated()['password']);
+        $user->email_verified_at=now();
         $user->roles()->sync($request->input('roles', []));
         $user->save();
         return redirect()->route('admin.users.index')->with('success',$user->firstname.' : User Created Successfully');
     }
 
-    public function edit(User $user)
+    public function edit(Admin $user)
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -53,7 +53,7 @@ class UsersController extends Controller
         return view('admin.users.edit', compact('roles', 'user'));
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, Admin $user)
     {
         $user->update($request->validated());
         $user->password=Hash::make($request->password);
@@ -62,7 +62,7 @@ class UsersController extends Controller
         return redirect()->route('admin.users.index')->with('success',$user->firstname.' : User Updated Successfully');
     }
 
-    public function show(User $user)
+    public function show(Admin $user)
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -71,7 +71,7 @@ class UsersController extends Controller
         return view('admin.users.show', compact('user'));
     }
 
-    public function destroy(User $user)
+    public function destroy(Admin $user)
     {
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -82,7 +82,7 @@ class UsersController extends Controller
 
     public function massDestroy(MassDestroyUserRequest $request)
     {
-        User::whereIn('id', request('ids'))->delete();
+        Admin::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

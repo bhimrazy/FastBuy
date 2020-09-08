@@ -38,17 +38,17 @@
                                     <form method="POST" action="{{ route("admin.users.store") }}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
-                                            <label class="required" for="firstname">First Name</label>
-                                            <input class="form-control {{ $errors->has('firstname') ? 'is-invalid' : '' }}" type="text" name="firstname" id="firstname" value="{{ old('firstname', '') }}" required>
-                                            @if($errors->has('firstname'))
-                                                <span class="text-danger">{{ $errors->first('firstname') }}</span>
+                                            <label class="required" for="first_name">First Name</label>
+                                            <input class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}" type="text" name="first_name" id="first_name" value="{{ old('first_name', '') }}" required>
+                                            @if($errors->has('first_name'))
+                                                <span class="text-danger">{{ $errors->first('first_name') }}</span>
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label class="required" for="lastname">Last Name</label>
-                                            <input class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" type="text" name="lastname" id="lastname" value="{{ old('lastname', '') }}" required>
-                                            @if($errors->has('lastname'))
-                                                <span class="text-danger">{{ $errors->first('lastname') }}</span>
+                                            <label class="required" for="last_name">Last Name</label>
+                                            <input class="form-control {{ $errors->has('last_name') ? 'is-invalid' : '' }}" type="text" name="last_name" id="last_name" value="{{ old('last_name', '') }}" required>
+                                            @if($errors->has('last_name'))
+                                                <span class="text-danger">{{ $errors->first('last_name') }}</span>
                                             @endif
                                         </div>
                                         <div class="form-group">
