@@ -14,7 +14,7 @@ class SettingController extends Controller
 {   use UploadAble;use pageMetaContent;
     public function __construct()
     {
-        $this->middleware('password.confirm')->only('index');
+        $this->middleware('password.confirm:admin.password.confirm')->only('index');
     }
     public function index(){
         //abort_if(Gate::denies('product_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
