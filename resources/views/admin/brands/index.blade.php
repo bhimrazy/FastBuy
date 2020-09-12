@@ -36,8 +36,9 @@
                             <i class="fas fa-times"></i></button>
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <table class="table table-bordered table-responsive table-hover text-nowrap">
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="brands" class="table table-bordered table-striped text-nowrap">
                         <thead>
                         <tr>
                             <th style="width: 1%">
@@ -59,7 +60,7 @@
                         </thead>
                         <tbody>
                         @foreach($brands as $key=>$brand)
-                            <tr>
+                            <tr data-entry-id="{{ $brand->id }}">
                                 <td>
                                     {{$key+1}}
                                 </td>
@@ -90,11 +91,6 @@
                     </table>
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                    <div class="pagination pagination-sm m-0 float-right">
-                        {{$brands->links()}}
-                    </div>
-                </div>
             </div>
             <!-- /.card -->
 
@@ -102,5 +98,17 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+@endsection
+
+@section('scripts')
+    <script>
+        $(function () {
+            $("#brands").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+
 @endsection
 

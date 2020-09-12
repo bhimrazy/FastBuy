@@ -198,6 +198,10 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
             'uses' => 'AdminController@showCustomers',
             'as' => 'customers.show'
         ]);
+
+        //Brands
+        Route::resource('brands', 'BrandController');
+
         //Setting
         Route::get('/settings',[
             'uses' => 'SettingController@index',
@@ -211,10 +215,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
 
     });
 
-    Route::get('/brands',[
-        'uses' => 'AdminController@brands',
-        'as' => 'admin.brands'
-    ]);
 
 
 

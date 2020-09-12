@@ -165,7 +165,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a href="{{route('admin.brands')}}" class="nav-link">
+                    <a href="{{route('admin.brands.index')}}" class="nav-link">
                         <i class="fab fa-500px nav-icon"></i>
                         <p>
                             Brands
