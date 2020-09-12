@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Permission;
-use Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class StorePermissionRequest extends FormRequest
@@ -20,10 +20,14 @@ class StorePermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => [
-                'required',
-            ],
-        ];
 
+            'title'=>'bail|required|regex:/^[a-zA-Z]/|min:3|string|unique:permissions'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'title.regex'=>'Title is required.Use A-Za-z formatting.'
+        ];
     }
 }

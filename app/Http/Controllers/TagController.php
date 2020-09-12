@@ -35,7 +35,7 @@ class TagController extends Controller
             'slug'=>Str::slug($request->title)
         ]);
 
-        return redirect()->route('admin.tags.index')->with('success','Tag Successfully Created');
+        return redirect()->route('admin.tags.index')->with('success',$tag->title.' : Tag Successfully Created');
     }
 
     public function edit(Tag $tag)
@@ -51,7 +51,7 @@ class TagController extends Controller
         $tag->slug=Str::slug($request->title);
         $tag->save();
 
-        return redirect()->route('admin.tags.index')->with('success','Tag Successfully Updated');
+        return redirect()->route('admin.tags.index')->with('success',$tag->title.' : Tag Successfully Updated');
     }
 
     public function show(Tag $tag)
@@ -66,6 +66,6 @@ class TagController extends Controller
         abort_if(Gate::denies('product_tag_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $tag->delete();
-        return back()->with('success','Tag Successfully Deleted');
+        return back()->with('success',$tag->title.' : Tag Successfully Deleted');
     }
 }

@@ -20,9 +20,7 @@ class StoreRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'         => [
-                'required',
-            ],
+            'title'         => 'bail|required|regex:/^[a-zA-Z]/|min:3|string|unique:roles',
             'permissions.*' => [
                 'integer',
             ],
@@ -32,5 +30,11 @@ class StoreRoleRequest extends FormRequest
             ],
         ];
 
+    }
+    public function messages()
+    {
+        return [
+            'title.regex'=>'Title is required.Use A-Za-z formatting.'
+        ];
     }
 }

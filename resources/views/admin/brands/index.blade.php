@@ -28,13 +28,9 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Brands</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fas fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fas fa-times"></i></button>
-                    </div>
+                    @can('brand_create')
+                        <a href="{{route('admin.brands.create')}}" class="btn-sm btn-success float-right">Add Brand</a>
+                    @endcan
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -54,7 +50,7 @@
                                 Total Products
                             </th>
                             <th style="width: 20%">
-                                View
+                                Actions
                             </th>
                         </tr>
                         </thead>
@@ -78,11 +74,25 @@
                                 </td>
                                 <td class="text-left"><span class="badge bg-gradient-teal p-2">{{count($brand->products)}}</span></td>
                                 <td class="brand-actions text-left">
-                                    <a class="btn btn-primary btn-sm" href="#">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        View
-                                    </a>
+                                    @can('brand_show')
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.brands.show', $brand->id) }}">
+                                            Show
+                                        </a>
+                                    @endcan
+
+                                    @can('brand_edit')
+                                        <a class="btn btn-xs btn-info" href="{{ route('admin.brands.edit', $brand->id) }}">
+                                            Edit
+                                        </a>
+                                    @endcan
+
+                                    @can('brand_delete')
+                                        <form action="{{ route('admin.brands.destroy', $brand->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$brand->firstname}}?');" style="display: inline-block;">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

@@ -18,6 +18,7 @@ class CreateBrandsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('url');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
