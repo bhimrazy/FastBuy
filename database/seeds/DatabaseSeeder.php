@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeedr::class,
             RoleSeedr::class,
             UserSeedr::class,
+            CustomerSeedr::class,
             CategorySeedr::class,
             SubcategorySeedr::class,
             TagsSeedr::class,
