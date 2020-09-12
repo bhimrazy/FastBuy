@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
-use Illuminate\Http\Request;
 
 class AdminConfirmPasswordController extends Controller
 {
@@ -20,23 +19,13 @@ class AdminConfirmPasswordController extends Controller
     |
     */
 
-    use ConfirmsPasswords;
-
+     use ConfirmsPasswords;
     /**
-     * Where to redirect users when the intended url fails.
+     * Where to redirect users after resetting their password.
      *
-     //* @var string
+     * @var string
      */
-    protected function authenticated(Request $request, $user)
-    {
-        if(session()->has('oldUrl')){
-            $url=session()->get('oldUrl');
-            return redirect()->route($url);
-        }
-        else{
-            return redirect()->route('admin.dashboard');
-        }
-    }
+    protected $redirectTo = '/admin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -45,6 +34,13 @@ class AdminConfirmPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
+    }
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showConfirmForm()
+    {
+        return view('admin.auth.passwords.confirm');
     }
 }

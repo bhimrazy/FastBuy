@@ -35,8 +35,12 @@ class AdminController extends Controller
 //        return $this->sendFailedLoginResponse($request);
 //    }
     public function customers(){
-        $users=User::with('customerOrders')->where('type','customer')->orderBy('created_at','desc')->paginate(10);
+        $users=User::with('customerOrders')->where('type','customer')->orderBy('created_at','desc')->get();
         return view('admin.customers.index')->with('users',$users);
+    }
+    public function showCustomers(User $customer){
+
+        return view('admin.customers.show')->with('user',$customer);
     }
     public function brands(){
         $brands=Brand::with('products')->orderBy('created_at','desc')->paginate(10);
