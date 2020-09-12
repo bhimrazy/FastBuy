@@ -10,6 +10,7 @@ $factory->define(User::class, function (Faker $faker) {
         'firstname' => $faker->firstName,
         'lastname'=>$faker->lastName,
         'email' => $faker->email,
+        'mobile'=>$faker->phoneNumber,
         'email_verified_at' => now(),
         'password'=>Hash::make('password'),
         'type'=>'customer',

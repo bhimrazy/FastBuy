@@ -87,7 +87,7 @@
                                     @endcan
 
                                     @can('brand_delete')
-                                        <form action="{{ route('admin.brands.destroy', $brand->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$brand->firstname}}?');" style="display: inline-block;">
+                                        <form action="{{ route('admin.brands.destroy', $brand->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$brand->title}}?');" style="display: inline-block;">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="submit" class="btn btn-xs btn-danger" value="Delete">

@@ -13,8 +13,13 @@ class Brand extends Model
     public function products(){
         return $this->hasMany(Product::class);
     }
-    public function setSlugAttribute($value)
+    public function setTitleAttribute($value)
     {
-        $this->attributes['slug'] = Str::slug($this->attributes['title']);
+        $this->attributes['title'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
     }
+//    public function getUrlAttribute()
+//    {
+//        return 'storage'.$this->attributes['url'];
+//    }
 }

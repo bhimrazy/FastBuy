@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateBrandRequest;
 use App\Traits\pageMetaContent;
 use App\Traits\UploadAble;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,15 +30,16 @@ class BrandController extends Controller
 
     public function store(StoreBrandRequest $request)
     {
+        $title=$request['title'];
         $brand=new Brand();
-        $brand->title=$request->only('title');
+        $brand->title=$title;
         if($request->hasfile('image'))
-        {   foreach($request->file('image')  as $image){
-            $img = $this->uploadOne($request->file('image'), 'brands/'.$brand['title'],210,100);
-            $brand->url=$img;
-            dd($img);
-            }
+        {   $img = $this->uploadOne($request->file('image'), 'brands/'.$title,210,100);
+
+        }else{
+            $img='/assets/images/branding/1.jpg';
         }
+        $brand->url='storage/'.$img;
         $brand->save();
         return redirect()->route('admin.brands.index')->with('success',$brand->title.' : Brand Successfully Created');
     }
@@ -67,8 +69,10 @@ class BrandController extends Controller
 
     public function destroy(Brand $brand)
     {
-        abort_if(Gate::denies('brand_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        abort_if(Gate::denies('product_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        if(File::isDirectory(public_path('storage/uploads/brands/'.$brand['title']))) {
+            File::deleteDirectory(public_path('storage/uploads/brands/'.$brand['title']));
+        }
         $brand->delete();
         return back()->with('success',$brand->title.' : Brand Successfully Deleted');
     }
