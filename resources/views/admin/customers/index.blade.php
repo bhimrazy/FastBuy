@@ -7,12 +7,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Dashboard</h1>
+                        <h1 class="m-0 text-dark">Dashboard : Customers</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard:Customers</li>
+                            <li class="breadcrumb-item">Dashboard</li>
+                            <li class="breadcrumb-item active">Customers</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -35,8 +36,9 @@
                             <i class="fas fa-times"></i></button>
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <table class="table table-bordered table-responsive table-hover text-nowrap">
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="customers" class="table table-bordered table-striped text-nowrap">
                         <thead>
                         <tr>
                             <th style="width: 1%">
@@ -48,20 +50,19 @@
                                 Phone Number
                             </th>
                             <th>User_Type</th>
-                            <th>Created at</th>
                             <th>Verified</th>
-                            <th style="width: 20%">
-                                View
+                            <th>
+                                Actions
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $key=>$user)
-                            <tr>
+                        @foreach($users as $key => $user)
+                            <tr data-entry-id="{{ $user->id }}">
                                 <td>
                                     {{$key+1}}
                                 </td>
-                                <td><a href="">{{ucwords($user->getFullName())}}</a>
+                                <td><span class="text-bold text-gray-dark">{{ucwords($user->getFullName())}}</span>
                                     <br/>
                                     <small>
                                         Orders Placed : {{count($user->customerOrders)}}
@@ -69,15 +70,15 @@
                                 </td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->mobile?$user->mobile:'NA'}}</td>
-                                <td><span class="badge bg-gradient-indigo p-2">{{ucfirst($user->type)}}</span></td>
-                                <td>{{$user->created_at->format('Y-m-d H:i:s')}}</td>
-                                <td class="text-center"><span class="badge bg-gradient-{{$user->email_verified_at?'blue':'danger'}} p-2">{{$user->email_verified_at?'Verified':'Not Verified'}}</span></td>
-                                <td class="text-left">
-                                    <a class="btn btn-primary btn-sm" href="#">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        View
-                                    </a>
+                                <td><span class="badge bg-gradient-indigo p-2">{{ucfirst($user->type)}} <br><small>created : {{$user->created_at->diffForHumans()}}</small></span></td>
+                                <td class="text-center"><span class="badge bg-gradient-{{$user->email_verified_at?'blue':'danger'}} p-2">{{$user->email_verified_at?'Verified':'Not Verified'}}</span>
+                                </td>
+                                <td>
+                                @can('user_show')
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.customers.show', $user->id) }}">
+                                            Show
+                                        </a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -86,14 +87,22 @@
                     </table>
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                    <div class="pagination pagination-sm m-0 float-right">
-                        {{$users->links()}}
-                    </div>
-                </div>
+
             </div>
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 @endsection
+@section('scripts')
+    <script>
+        $(function () {
+            $("#customers").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+
+@endsection
+

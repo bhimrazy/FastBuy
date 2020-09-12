@@ -95,13 +95,13 @@ Route::post('/checkout', [
     'uses' => 'CheckoutController@postCheckout',
     'as'=>'checkout.process'
 ]);
-Route::get('/admin-login', function () {
-    return view('admin.admin-login');
-})->name('admin-login')->middleware('guest');
-Route::post('/admin-login',[
-    'uses' => 'AdminController@authenticate',
-    'as' => 'admin.authenticate'
-]);
+//Route::get('/admin-login', function () {
+//    return view('admin.admin-login');
+//})->name('admin-login')->middleware('guest');
+//Route::post('/admin-login',[
+//    'uses' => 'AdminController@authenticate',
+//    'as' => 'admin.authenticate'
+//]);
 Route::get('/my-account', [
     'uses' => 'CustomerController@getProfile',
     'as'=>'my-account'
@@ -135,12 +135,30 @@ Route::get('/checkout/payment/{order}/failed', [
     'uses' => 'EsewaController@failed',
 ]);
 
+//Admin AuthRoutes
+Route::group(['prefix'=>'admin','as' => 'admin.','namespace' => 'Admin\Auth'],function (){
+    // Login routes
+    Route::get('/login', 'AdminLoginController@login')->name('login');
+    Route::post('/login', 'AdminLoginController@authenticate')->name('login.submit');
 
-Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
+    // Logout route
+    Route::post('/logout', 'AdminLoginController@logout')->name('logout');
+    // Password reset routes
+    Route::get('/password/reset', 'AdminForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('/password/email', 'AdminForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('/password/reset/{token}', 'AdminResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('/password/reset', 'AdminResetPasswordController@reset')->name('password.update');
+    // Password confirmation process
+    Route::get('/password/confirm', 'AdminConfirmPasswordController@showConfirmForm')->name('password.confirm');
+    Route::post('/password/confirm', 'AdminConfirmPasswordController@confirm')->name('password.confirm');
+
+});
+Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
     Route::get('/dashboard',[
         'uses' => 'AdminController@index',
         'as' => 'admin.dashboard'
     ]);
+
 
     Route::group(['as' => 'admin.'],function (){
         // Permissions
@@ -171,6 +189,15 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
         //Orders
         Route::resource('orders', 'OrderController');
 
+        //Customers
+        Route::get('/customers',[
+            'uses' => 'AdminController@customers',
+            'as' => 'customers'
+        ]);
+        Route::get('/customers/{customer}',[
+            'uses' => 'AdminController@showCustomers',
+            'as' => 'customers.show'
+        ]);
         //Setting
         Route::get('/settings',[
             'uses' => 'SettingController@index',
@@ -183,10 +210,7 @@ Route::group(['prefix'=>'admin','middleware'=>['admin']],function(){
 
 
     });
-    Route::get('/customers',[
-        'uses' => 'AdminController@customers',
-        'as' => 'admin.customers'
-    ]);
+
     Route::get('/brands',[
         'uses' => 'AdminController@brands',
         'as' => 'admin.brands'

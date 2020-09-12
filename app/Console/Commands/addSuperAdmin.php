@@ -2,13 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Admin;
 use App\Permission;
 use App\Role;
-use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
-class addAdmin extends Command
+class addSuperAdmin extends Command
 {
     /**
      * The name and signature of the console command.
@@ -41,26 +41,26 @@ class addAdmin extends Command
      */
     public function handle()
     {
-        $admin=User::where('type','admin')->first();
+        $admin=Admin::where('is_super',1)->first();
         if ($admin===null){
-            $firstname=$this->ask('Enter The firstname');
-            $lastname=$this->ask('Enter The lastname');
+            $first_name=$this->ask('Enter The FirstName');
+            $last_name=$this->ask('Enter The LastName');
             $email=$this->ask('Enter The email for admin');
             $password=$this->secret('Enter The Password');
             $confirm_password=$this->secret('Enter The Confirmation Password');
             if($password == $confirm_password){
                 if ($this->confirm('Do you wish to continue?')) {
-                    $user=User::create([
-                        'firstname'=>$firstname,
-                        'lastname'=>$lastname,
+                    $admin=Admin::create([
+                        'first_name'=>$first_name,
+                        'last_name'=>$last_name,
                         'email'=>$email,
                         'password'=>Hash::make($password),
-                        'type'=>'admin'
+                        'is_admin'=>'1'
                     ]);
                     $role=Role::create(['title'=>'SuperAdmin']);
                     $role->permissions()->sync(Permission::all());
-                    $user->roles()->sync($role);
-                    return $this->info('Admin added with name:' . $user->firstname . '. Now login and Verify Email');
+                    $admin->roles()->sync($role);
+                    return $this->info('Admin added with name:' . $admin->first_name . '. Now login and Verify Email');
 
                 }
             }
@@ -69,7 +69,7 @@ class addAdmin extends Command
             }
         }
         else{
-            $this->warn('Admin already exists with name:' . $admin->firstname);
+            $this->warn('Admin already exists with name : ' . $admin->getfullName());
         }
     }
 }

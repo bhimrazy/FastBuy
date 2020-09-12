@@ -17,7 +17,7 @@ class AuthGates
      */
     public function handle($request, Closure $next)
     {
-        $user = Auth::user();
+        $user = Auth::guard('admin')->user();
         if ($user) {
             $roles = Role::with('permissions')->get();
             $permissionsArray = [];
@@ -29,7 +29,7 @@ class AuthGates
             }
 
             foreach ($permissionsArray as $title => $roles) {
-                Gate::define($title, function (\App\User $user) use ($roles) {
+                Gate::define($title, function (\App\Admin $user) use ($roles) {
                     return count(array_intersect($user->roles->pluck('id')->toArray(), $roles)) > 0;
                 });
             }

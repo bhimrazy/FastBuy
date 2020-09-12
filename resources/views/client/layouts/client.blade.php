@@ -83,12 +83,8 @@
                             <div class="header-top-right">
                                 <ul class="user-block list-inline">
                                     @if(auth()->check())
-                                        @if(auth()->user()->isAdmin())
-                                            <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-                                        @else
                                             <li><a href="{{route('my-account')}}">Howdy {{ucfirst(auth()->user()->firstname)}}</a></li>
                                             <li><a href="{{route('checkout')}}">Checkout</a></li>
-                                        @endif
                                             <li><a href="{{ route('logout') }}"
                                                    onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">

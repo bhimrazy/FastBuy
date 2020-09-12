@@ -4,10 +4,10 @@ namespace App;
 
 use App\Notifications\AdminResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Notifications\Notifiable;
 
-class Admin extends Authenticatable
+class Admin extends Authenticable
 {
     use Notifiable;
 
@@ -19,7 +19,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name','last_name', 'email', 'password','avatar','is_super'
     ];
 
     /**
@@ -39,7 +39,26 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    public function isAdmin(){
+        return $this->attributes['is_super']?true:false;
+    }
+    public function getFullName()
+    {
+        return $this->attributes['first_name'] .' '. $this->attributes['last_name'];
+    }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+    /**
+     * Get the e-mail address where password reset links are sent.
+     *
+     * @return string
+     */
+    public function getEmailForPasswordReset()
+    {
+        return $this->attributes['emailr'];
+    }
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminResetPasswordNotification($token));

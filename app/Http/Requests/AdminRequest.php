@@ -37,7 +37,7 @@ class AdminRequest extends FormRequest
     {
         return [
             'email'=>'Title is required and min of 3 characters',
-            'password'=>'Category field is required',
+            'password'=>'Password field is required',
         ];
     }
 }

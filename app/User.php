@@ -3,10 +3,10 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -42,7 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
     public function getFullName()
     {
-        return "{$this->firstname} {$this->lastname}";
+        return $this->attributes['firstname'] .' '. $this->attributes['lastname'];
     }
     public function isAdmin()
     {   if($this->type == 'admin'){
@@ -51,10 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail
          else{
              return false;
          }
-    }
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
     }
     public function customerOrders(){
         return $this->hasMany(Order::class);

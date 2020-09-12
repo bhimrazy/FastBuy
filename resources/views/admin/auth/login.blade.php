@@ -28,9 +28,10 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to Admin Panel</p>
 
-        <form method="POST" action="{{ route('admin.authenticate') }}">
+        <form method="POST" action="{{ route('admin.login.submit') }}">
             @csrf
         <div class="input-group mb-3">
+            <label for="email" hidden>{{ __('E-Mail Address') }}*</label>
             <input id="email" type="email" placeholder="Email Address" class="mb-0 form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
           <div class="input-group-append">
             <div class="input-group-text">
@@ -44,7 +45,8 @@
             </small>
             @enderror
         <div class="input-group mb-3">
-            <input id="password" type="password" placeholder="Password" class="mb-0 form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+            <label for="password" hidden>{{ __('Password') }}</label>
+            <input id="password" type="password" placeholder="Password" class="mb-0 form-control @error('password') is-invalid @enderror" name="password"  required autocomplete="current-password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -52,7 +54,7 @@
           </div>
         </div>
             @error('password')
-            <small class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></small>
+            <small class="text-danger"><strong>{{ $message }}</strong></small>
             @enderror
         <div class="row">
           <!-- /.col -->
@@ -63,8 +65,8 @@
         </div>
       </form>
       <p class="mb-1">
-          @if (Route::has('password.request'))
-              <a href="{{ route('password.request') }}">
+          @if (Route::has('admin.password.request'))
+              <a href="{{ route('admin.password.request') }}">
                   {{ __('Forgot Your Password?') }}
               </a>
           @endif

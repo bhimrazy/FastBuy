@@ -16,8 +16,7 @@ class AdminController extends Controller
     public function __construct()
     {
        $this->middleware('throttle:3,2')->only('authenticate');
-       $this->middleware('auth')->except('authenticate');
-       $this->middleware('admin')->except('authenticate');
+       $this->middleware('auth:admin')->except('authenticate');
        $this->middleware('verified')->except('authenticate');
        //$this->middleware('password.confirm');
     }
@@ -27,17 +26,21 @@ class AdminController extends Controller
         $orders=Order::orderBy('status','desc')->orderBy('created_at','desc')->get();
         return view('admin.index')->with('users',$users)->with('orders',$orders)->with('products',$products);
     }
-    public function authenticate(AdminRequest $request){
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->route('admin.dashboard');
-        }
-        return $this->sendFailedLoginResponse($request);
-    }
+//    public function authenticate(AdminRequest $request){
+//        $credentials = $request->only('email', 'password');
+//        if (Auth::attempt($credentials)) {
+//            // Authentication passed...
+//            return redirect()->route('admin.dashboard');
+//        }
+//        return $this->sendFailedLoginResponse($request);
+//    }
     public function customers(){
-        $users=User::with('customerOrders')->where('type','customer')->orderBy('created_at','desc')->paginate(10);
+        $users=User::with('customerOrders')->where('type','customer')->orderBy('created_at','desc')->get();
         return view('admin.customers.index')->with('users',$users);
+    }
+    public function showCustomers(User $customer){
+
+        return view('admin.customers.show')->with('user',$customer);
     }
     public function brands(){
         $brands=Brand::with('products')->orderBy('created_at','desc')->paginate(10);

@@ -23,7 +23,7 @@
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb-30">
                     <!-- Login Form s-->
-                    <form method="POST" action="{{ route('password.confirm') }}">
+                    <form method="POST" action="{{ route('admin.auth.password.confirm') }}">
                         @csrf
                         <div class="login-form">
                             <h4 class="login-title">{{ __('Please confirm your password before continuing.') }}</h4>
@@ -34,7 +34,7 @@
                                     <input id="password" type="password" placeholder="Password for Verification" class="mb-0form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" autofocus>
                                     @error('password')
                                     <span class="text-danger">
-                                            <p>{{ $message }}</p>
+                                            <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>

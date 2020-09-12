@@ -101,9 +101,7 @@
                                                     <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                                                 </form>
                                             @endcan
-
                                         </td>
-
                                     </tr>
                                 @endforeach
                                 </tbody>

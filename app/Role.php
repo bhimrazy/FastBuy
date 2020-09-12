@@ -9,9 +9,9 @@ class Role extends Model
     protected $fillable = [
         'title',
     ];
-    public function users()
+    public function admins()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany(Admin::class);
     }
     public function permissions()
     {
