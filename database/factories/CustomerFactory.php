@@ -7,8 +7,8 @@ use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'firstname' => $faker->firstName,
-        'lastname'=>$faker->lastName,
+        'first_name' => $faker->firstName,
+        'last_name'=>$faker->lastName,
         'email' => $faker->email,
         'mobile'=>$faker->phoneNumber,
         'email_verified_at' => now(),

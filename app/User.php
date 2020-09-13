@@ -16,8 +16,8 @@ class User extends Authenticable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'firstname', 'email', 'password',
-        'lastname','email_token','mobile_token','type',
+        'first_name', 'email', 'password',
+        'last_name','email_token','mobile_token','type',
         'mobile','verified_email','verified_mobile',
         'billing_address','shipping_address','avatar',
 
@@ -42,7 +42,7 @@ class User extends Authenticable implements MustVerifyEmail
     ];
     public function getFullName()
     {
-        return $this->attributes['firstname'] .' '. $this->attributes['lastname'];
+        return $this->attributes['first_name'] .' '. $this->attributes['last_name'];
     }
     public function isAdmin()
     {   if($this->type == 'admin'){

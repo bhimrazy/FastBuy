@@ -28,18 +28,18 @@
                             <h4 class="login-title">{{ __('Register') }}</h4>
                             <div class="row">
                                 <div class="col-md-6 col-12 mb-20">
-                                    <label for="firstname">{{ __('First Name') }}</label>
-                                    <input id="firstname" type="text" placeholder="First Name" class="form-control @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname" autofocus>
-                                    @error('firstname')
+                                    <label for="first_name">{{ __('First Name') }}</label>
+                                    <input id="first_name" type="text" placeholder="First Name" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus>
+                                    @error('first_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 col-12 mb-20">
-                                    <label for="lastname">{{__('Last Name')}}</label>
-                                    <input id="lastname" type="text" placeholder="Last Name" class="mb-0 form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
-                                    @error('lastname')
+                                    <label for="last_name">{{__('Last Name')}}</label>
+                                    <input id="last_name" type="text" placeholder="Last Name" class="mb-0 form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus>
+                                    @error('last_name')
                                     <span class="text-danger">
                                         <p>{{ $message}} </p>
                                     </span>
