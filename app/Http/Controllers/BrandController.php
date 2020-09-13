@@ -35,7 +35,6 @@ class BrandController extends Controller
         $brand->title=$title;
         if($request->hasfile('image'))
         {   $img = $this->uploadOne($request->file('image'), 'brands/'.$title,210,100);
-
         }else{
             $img='/assets/images/branding/1.jpg';
         }
@@ -48,14 +47,19 @@ class BrandController extends Controller
     {
         abort_if(Gate::denies('brand_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.brands.edit', compact('tag'));
+        return view('admin.brands.edit', compact('brand'));
     }
 
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
-        $brand->update($request->validated());
-        $brand->slug=Str::slug($request->title);
-        $brand->save();
+        $title=$request['title'];
+        $brand->title=$title;
+        if($request->hasfile('image'))
+        {   $img = $this->uploadOne($request->file('image'), 'brands/'.$title,210,100);
+            $brand->url='storage/'.$img;
+        }
+        $brand->slug=Str::slug($title);
+        $brand->update();
 
         return redirect()->route('admin.brands.index')->with('success',$brand->title.' : Brand Successfully Updated');
     }

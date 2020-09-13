@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class UpdateBrandRequest extends FormRequest
 {
@@ -13,7 +15,8 @@ class UpdateBrandRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        abort_if(Gate::denies('brand_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return true;
     }
 
     /**
@@ -24,7 +27,14 @@ class UpdateBrandRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title'=>'bail|required|regex:/^[a-zA-Z]/|min:3|string|unique:brands,id',
+            'image'=>'nullable|image|mimes:jpeg,jpg,png|max:1024',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'title.regex'=>'Title is required.Use A-Za-z formatting.'
         ];
     }
 }
