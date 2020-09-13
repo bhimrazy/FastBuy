@@ -31,7 +31,7 @@ trait UploadAble
             $name,
             $disk
         );
-        if(substr($file->getMimeType(), 0, 5)== 'image' && $width>240 && $height){
+        if(substr($file->getMimeType(), 0, 5)== 'image' && $width>200 && $height){
             Image::make(public_path("storage/{$upload}"))->resize($width, $height)->save();
 //            Image::make(public_path("storage/{$upload}"))->resize($width, $height, function ($constraint) {
 //                $constraint->aspectRatio();

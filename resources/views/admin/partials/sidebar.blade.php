@@ -114,6 +114,7 @@
                                     </a>
                                 </li>
                         @endcan
+                        @can('product_access')
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="fas fa-cart-arrow-down nav-icon"></i>
@@ -123,31 +124,38 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" style="display: none;">
+                                @can('product_access')
                                 <li class="pl-3 nav-item">
                                     <a href="{{route('admin.products.index')}}" class="nav-link">
                                         <i class="fas fa-tasks nav-icon"></i>
                                         <p>List Products</p>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('product_create')
                                 <li class="pl-3 nav-item">
                                     <a href="{{route('admin.products.create')}}" class="nav-link">
                                         <i class="fas fa-plus-circle nav-icon"></i>
                                         <p>Add Product</p>
                                     </a>
                                 </li>
+                                @endcan
                             </ul>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @can('order_access')
                 <li class="nav-item ">
                     <a href="{{route('admin.orders.index')}}" class="nav-link">
                         <i class="fas fa-newspaper nav-icon"></i>
                         <p>
                             Orders
-                            <span class="right"><span class="badge badge-info px-2">{{count(\App\Order::latest()->where('status','pending')->get())}}</span><span class="badge badge-danger">New</span>
+                            <span class="right"><span class="badge badge-info px-2">{{count(\App\Order::latest()->where('status','pending')->get())}}</span></span><span class="badge badge-danger">New</span>
                         </p>
                     </a>
                 </li>
+                @endcan
                 <li class="nav-item ">
                     <a href="#" class="nav-link">
                         <i class="fas fa-money-check-alt nav-icon"></i>
@@ -156,6 +164,7 @@
                         </p>
                     </a>
                 </li>
+                @can('customer_access')
                 <li class="nav-item ">
                     <a href="{{route('admin.customers')}}" class="nav-link">
                         <i class="fas fa-users nav-icon"></i>
@@ -164,14 +173,17 @@
                         </p>
                     </a>
                 </li>
+                @endcan
+                @can('brand_access')
                 <li class="nav-item ">
-                    <a href="{{route('admin.brands')}}" class="nav-link">
+                    <a href="{{route('admin.brands.index')}}" class="nav-link">
                         <i class="fab fa-500px nav-icon"></i>
                         <p>
                             Brands
                         </p>
                     </a>
                 </li>
+                @endcan
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-envelope nav-icon"></i>

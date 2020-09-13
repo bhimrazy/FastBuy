@@ -69,7 +69,7 @@
                                     </small>
                                 </td>
                                 <td>{{$user->email}}</td>
-                                <td>{{$user->mobile?$user->mobile:'NA'}}</td>
+                                <td><small>{{$user->mobile?$user->mobile:'NA'}}</small></td>
                                 <td><span class="badge bg-gradient-indigo p-2">{{ucfirst($user->type)}} <br><small>created : {{$user->created_at->diffForHumans()}}</small></span></td>
                                 <td class="text-center"><span class="badge bg-gradient-{{$user->email_verified_at?'blue':'danger'}} p-2">{{$user->email_verified_at?'Verified':'Not Verified'}}</span>
                                 </td>

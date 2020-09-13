@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PermissionSeedr extends Seeder
+class CustomerSeedr extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class PermissionSeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\Permission::class,42)->create();
+        factory(\App\User::class,100)->create();
     }
 }

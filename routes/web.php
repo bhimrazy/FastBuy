@@ -182,6 +182,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
 
         //Tag
         Route::resource('tags', 'TagController');
+        Route::get('/tags/status/update', 'TagController@updateStatus')->name('tags.update.status');
 
         //Product
         Route::resource('products', 'ProductController');
@@ -198,6 +199,11 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
             'uses' => 'AdminController@showCustomers',
             'as' => 'customers.show'
         ]);
+
+        //Brands
+        Route::resource('brands', 'BrandController');
+        Route::get('/brands/status/update', 'BrandController@updateStatus')->name('brands.update.status');
+
         //Setting
         Route::get('/settings',[
             'uses' => 'SettingController@index',
@@ -211,10 +217,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
 
     });
 
-    Route::get('/brands',[
-        'uses' => 'AdminController@brands',
-        'as' => 'admin.brands'
-    ]);
 
 
 

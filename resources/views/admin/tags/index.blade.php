@@ -47,6 +47,9 @@
                                         Title
                                     </th>
                                     <th>
+                                        Status
+                                    </th>
+                                    <th>
                                         Control(s)
                                     </th>
                                 </tr>
@@ -62,6 +65,12 @@
                                         </td>
                                         <td>
                                             {{ $tag->title?? '' }}
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-switch custom-switch-on-success">
+                                                <input type="checkbox" name="status" data-id="{{ $tag->id }}" class="custom-control-input" id="customSwitch{{$tag->id}}" {{ $tag->status? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="customSwitch{{$tag->id}}"></label>
+                                            </div>
                                         </td>
                                         <td>
                                             @can('product_category_show')
@@ -111,5 +120,44 @@
                 "autoWidth": false,
             });
         });
+        $(document).ready(function(){
+            $('.custom-control-input').change(function () {
+                if(confirm('Are You Sure Want to update the status?')){
+                    let status = $(this).prop('checked') === true ? 1 : 0;
+                    let tagId = $(this).data('id');
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: '{{ route('admin.tags.update.status') }}',
+                        data: {'status': status, 'tag_id': tagId},
+                        error: function(xhr, status, error) {
+                            var err = eval("(" + xhr.responseText + ")");
+                            setTimeout(function(){
+                                location.reload()
+                            },1000);
+                            toastr.options.closeButton = true;
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.options.closeDuration = 100;
+                            toastr.error(err.message);
+                        },
+                        success: function (data) {
+                            if(data.success){
+                                setTimeout(function(){
+                                    location.reload()
+                                },1000);
+                                toastr.options.closeButton = true;
+                                toastr.options.closeMethod = 'fadeOut';
+                                toastr.options.closeDuration = 100;
+                                toastr.success(data.success);
+                            }
+                        }
+                    });
+                }
+            });
+        });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@endsection
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 @endsection

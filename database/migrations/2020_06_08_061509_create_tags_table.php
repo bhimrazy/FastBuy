@@ -17,6 +17,7 @@ class CreateTagsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title')->unique();
             $table->string('slug');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
