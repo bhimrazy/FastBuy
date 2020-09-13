@@ -132,7 +132,7 @@
                                     </a>
                                 </li>
                                 @endcan
-                                @can('product_add')
+                                @can('product_create')
                                 <li class="pl-3 nav-item">
                                     <a href="{{route('admin.products.create')}}" class="nav-link">
                                         <i class="fas fa-plus-circle nav-icon"></i>

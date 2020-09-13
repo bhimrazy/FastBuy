@@ -182,6 +182,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
 
         //Tag
         Route::resource('tags', 'TagController');
+        Route::get('/tags/status/update', 'TagController@updateStatus')->name('tags.update.status');
 
         //Product
         Route::resource('products', 'ProductController');
