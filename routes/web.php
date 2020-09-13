@@ -201,6 +201,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
 
         //Brands
         Route::resource('brands', 'BrandController');
+        Route::get('/brands/status/update', 'BrandController@updateStatus')->name('brands.update.status');
 
         //Setting
         Route::get('/settings',[

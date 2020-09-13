@@ -70,7 +70,14 @@ class BrandController extends Controller
 
         return view('admin.brands.show', compact('brand'));
     }
+    public function updateStatus(Request $request)
+    {   abort_if(Gate::denies('brand_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $brand = Brand::findOrFail($request->brand_id);
+        $brand->status = $request->status;
+        $brand->save();
 
+        return response()->json(['success' => $brand->title.' : Brand status updated successfully.']);
+    }
     public function destroy(Brand $brand)
     {
         abort_if(Gate::denies('product_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');

@@ -49,6 +49,9 @@
                             <th>
                                 Total Products
                             </th>
+                            <th>
+                                Status
+                            </th>
                             <th style="width: 20%">
                                 Actions
                             </th>
@@ -73,6 +76,12 @@
 
                                 </td>
                                 <td class="text-left"><span class="badge bg-gradient-teal p-2">{{count($brand->products)}}</span></td>
+                                <td>
+                                    <div class="custom-control custom-switch custom-switch-on-success">
+                                        <input type="checkbox" name="status" data-id="{{ $brand->id }}" class="custom-control-input" id="customSwitch{{$brand->id}}" {{ $brand->status? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="customSwitch{{$brand->id}}"></label>
+                                    </div>
+                                </td>
                                 <td class="brand-actions text-left">
                                     @can('brand_show')
                                         <a class="btn btn-xs btn-primary" href="{{ route('admin.brands.show', $brand->id) }}">
@@ -118,7 +127,44 @@
                 "autoWidth": false,
             });
         });
+        $(document).ready(function(){
+            $('.custom-control-input').change(function () {
+                if(confirm('Are You Sure Want to update the status?')){
+                    let status = $(this).prop('checked') === true ? 1 : 0;
+                    let brandId = $(this).data('id');
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: '{{ route('admin.brands.update.status') }}',
+                        data: {'status': status, 'brand_id': brandId},
+                        error: function(xhr, status, error) {
+                            var err = eval("(" + xhr.responseText + ")");
+                            setTimeout(function(){
+                                location.reload()
+                            },1000);
+                            toastr.options.closeButton = true;
+                            toastr.options.closeMethod = 'fadeOut';
+                            toastr.options.closeDuration = 100;
+                            toastr.error(err.message);
+                        },
+                        success: function (data) {
+                            if(data.success){
+                                setTimeout(function(){
+                                    location.reload()
+                                },1000);
+                                toastr.options.closeButton = true;
+                                toastr.options.closeMethod = 'fadeOut';
+                                toastr.options.closeDuration = 100;
+                                toastr.success(data.success);
+                            }
+                        }
+                    });
+                }
+            });
+        });
     </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 @endsection
-
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+@endsection
