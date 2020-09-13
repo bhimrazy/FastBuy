@@ -46,7 +46,7 @@ class BrandController extends Controller
     public function edit(Brand $brand)
     {
         abort_if(Gate::denies('brand_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        $this->setPageTitle('Edit Brand : '.$brand->title,'This Page allows to edit Brand.');
         return view('admin.brands.edit', compact('brand'));
     }
 
@@ -67,7 +67,7 @@ class BrandController extends Controller
     public function show(Brand $brand)
     {
         abort_if(Gate::denies('brand_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        $this->setPageTitle('Show Brand : '.$brand->title,'This Page allows to show Brand.');
         return view('admin.brands.show', compact('brand'));
     }
     public function updateStatus(Request $request)

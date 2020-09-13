@@ -83,7 +83,7 @@
                             <div class="header-top-right">
                                 <ul class="user-block list-inline">
                                     @if(auth()->check())
-                                            <li><a href="{{route('my-account')}}">Howdy {{ucfirst(auth()->user()->firstname)}}</a></li>
+                                            <li><a href="{{route('my-account')}}">Howdy {{ucfirst(auth()->user()->first_name)}}</a></li>
                                             <li><a href="{{route('checkout')}}">Checkout</a></li>
                                             <li><a href="{{ route('logout') }}"
                                                    onclick="event.preventDefault();

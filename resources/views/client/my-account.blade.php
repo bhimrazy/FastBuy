@@ -8,7 +8,7 @@
                     <div class="breadcrumb-content">
                         <ul>
                             <li><a href="{{route('home')}}">Home</a></li>
-                            <li class="active">My Account : Dashboard | {{$user->firstname}}</li>
+                            <li class="active">My Account : Dashboard | {{$user->first_name}}</li>
                         </ul>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="account-dashboard-tab" data-toggle="tab"
                                    href="#account-dashboard" role="tab" aria-controls="account-dashboard"
-                                   aria-selected="true">Dashboard : {{ucfirst($user->firstname)}}</a>
+                                   aria-selected="true">Dashboard : {{ucfirst($user->first_name)}}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="account-orders-tab" data-toggle="tab"
@@ -64,7 +64,7 @@
                             <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                                  aria-labelledby="account-dashboard-tab">
                                 <div class="myaccount-dashboard shoptopbar-heading">
-                                   <h3>Dashboard :<b>{{$user->firstname}}</b>  {{$user->lastname}}</h3>
+                                   <h3>Dashboard :<b>{{$user->first_name}}</b>  {{$user->last_name}}</h3>
                                 </div>
                                 <div class="container">
                                     <div class="row">
@@ -198,11 +198,11 @@
                                         <div class="fb-form-inner">
                                             <div class="single-input single-input-half">
                                                 <label for="account-details-firstname">First Name*</label>
-                                                <input  type="text" id="account-details-firstname" value="{{$user->firstname??''}}">
+                                                <input  type="text" id="account-details-firstname" value="{{$user->first_name??''}}">
                                             </div>
                                             <div class="single-input single-input-half">
                                                 <label for="account-details-lastname">Last Name*</label>
-                                                <input  type="text" id="account-details-lastname" value="{{$user->lastname??''}}">
+                                                <input  type="text" id="account-details-lastname" value="{{$user->last_name??''}}">
                                             </div>
                                             <div class="single-input">
                                                 <label for="account-details-email">Email*</label>

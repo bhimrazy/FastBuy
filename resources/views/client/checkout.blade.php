@@ -30,13 +30,13 @@
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
                                             <label for="billing_first_name">First Name <span class="required">*</span></label>
-                                            <input id="billing_first_name" name="billing_first_name" placeholder="First Name" type="text" value="{{old('billing_first_name',$user->firstname)}}" required>
+                                            <input id="billing_first_name" name="billing_first_name" placeholder="First Name" type="text" value="{{old('billing_first_name',$user->first_name)}}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
                                             <label for="billing_last_name">Last Name <span class="required">*</span></label>
-                                            <input id="billing_last_name" name="billing_last_name" placeholder="Last name" type="text" value="{{old('billing_last_name',$user->lastname)}}" required>
+                                            <input id="billing_last_name" name="billing_last_name" placeholder="Last name" type="text" value="{{old('billing_last_name',$user->last_name)}}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
