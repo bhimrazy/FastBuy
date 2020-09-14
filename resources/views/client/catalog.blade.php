@@ -63,8 +63,8 @@
                                                         <!-- Begin Product Image Area -->
                                                         <div class="product-img">
                                                             <a href="{{route('product.productShow',['product'=>$product->slug])}}">
-                                                                <img class="primary-img" src="{{asset($product->media[0]->url)}}" alt="{{$product->title}}">
-                                                                <img class="secondary-img" src="{{asset($product->media[1]->url)}}" alt="{{$product->title}}">
+                                                                <img class="primary-img" src="{{asset($product->media[0]->url)}}" alt="{{$product->name}}">
+                                                                <img class="secondary-img" src="{{asset($product->media[1]->url)}}" alt="{{$product->name}}">
                                                             </a>
                                                             <div class="sticker"><span>New</span></div>
                                                             <div class="sticker-2"><span>-10%</span></div>
@@ -73,7 +73,7 @@
                                                         <!-- Begin Product Content Area -->
                                                         <div class="product-content">
                                                             <h2 class="product-name">
-                                                                <a href="{{route('product.productShow',['product'=>$product->slug])}}">{{$product->title}}</a>
+                                                                <a href="{{route('product.productShow',['product'=>$product->slug])}}">{{$product->name}}</a>
                                                             </h2>
                                                             <div class="rating-box">
                                                                 <ul class="rating">
