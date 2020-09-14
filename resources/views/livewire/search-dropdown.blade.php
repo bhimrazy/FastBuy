@@ -22,7 +22,7 @@
                         <li class="border-bottom p-2 py-3 m-auto">
                             <a href="{{route('product.productShow',['product'=>$product['slug']])}}">
                                 <img class="left" src="{{asset($product->media->first()->url)}}" loading="lazy" width="40px" height="auto" alt="{{$product->name}}">
-                                <span class=" ml-100 right">{{Str::limit($product['name'],40)}}</span>
+                                <span class="ml-100 right text-wrap">{{Str::limit($product['name'],35)}}</span>
                             </a>
                         </li>
                     @endforeach
