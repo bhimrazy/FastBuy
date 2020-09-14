@@ -15,9 +15,9 @@
         <button class="fb-search_btn" type="submit"><i class="fa fa-search"></i></button>
     </form><br>
     @if(count($searchProducts)>0)
-        <div class="position-relative category-menu col-6 ml-150 mt-20" style="z-index: 8;background-color: #232f3e">
+        <div class="position-relative category-menu col-6 ml-150" style="z-index: 8;background-color: #232f3e">
             <div id="cate-toggle" class="category-menu-list" >
-                <ul>
+                <ul class="mt-20">
                     @foreach($searchProducts as $product)
                         <li class="border-bottom p-2 py-3 m-auto">
                             <a href="{{route('product.productShow',['product'=>$product['slug']])}}">
