@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     <!-- Modernizer JS -->
     <script src="{{asset('assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    <!-- Livewire Styles -->
+    <livewire:styles />
     <!-- Site Meta Property -->
     @include('client.includes.meta')
 </head>
@@ -126,20 +128,7 @@
                         <!-- Begin Header Middle Right Area -->
                         <div class="header-middle-right">
                             <!-- Begin Header Middle Searchbox Area -->
-                            <form action="{{route('products.search')}}" class="hm-searchbox" method="post">
-                                @csrf
-                                <select name="category_id" class="nice-select select-search-category">
-                                    <option selected disabled>All categories</option>
-                                    @foreach(\App\Category::with('subcategories')->get() as $category)
-                                        <option disabled>&nbsp;{{$category->title}}</option>
-                                        @foreach($category->subcategories as $subcategory)
-                                            <option value="{{$subcategory->id}}">&nbsp;&nbsp;&nbsp;&nbsp;{{$subcategory->title}}</option>
-                                        @endforeach
-                                    @endforeach
-                                </select>
-                                <input name="query" type="text" placeholder="{{$query??'Enter your search key ...'}}" required>
-                                <button class="fb-search_btn" type="submit"><i class="fa fa-search"></i></button>
-                            </form>
+                                @livewire('search-dropdown')
                             <!-- Header Middle Searchbox Area End Here -->
                             <ul class="hm-menu">
                                 <!-- Begin Header Mini Cart Area -->
@@ -435,7 +424,7 @@
                     <!-- Begin FB's Newsletters Area -->
                     <div class="col-lg-5">
                         <div class="fb-newsletters">
-                            <h2 class="newsletters-headeing">Sign Up For Newsletters</h2>
+                            <h2 class="newsletters-heading">Sign Up For Newsletters</h2>
                             <p class="short-desc">Be The First To Know. Sign Up For Newsletter Today</p>
                         </div>
                     </div>
@@ -649,5 +638,7 @@
 <!-- App JS -->
 {{--<script src="{{asset('js/app.js')}}"></script>--}}
 @yield('scripts')
+
+<livewire:scripts />
 </body>
 </html>
