@@ -6,13 +6,14 @@
 
     <title>Laravel</title>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
     <!-- Styles -->
+    @livewireStyles
     <style>
         html, body {
             background-color: #fff;
@@ -98,10 +99,11 @@
                 <a href="https://vapor.laravel.com">Vapor</a>
                 <a href="https://github.com/laravel/laravel">GitHub</a>
             </div>
-            <example-component></example-component>
+            @livewire('hello-world')
 
         </div>
     </div>
 </div>
+@livewireScripts
 </body>
 </html>

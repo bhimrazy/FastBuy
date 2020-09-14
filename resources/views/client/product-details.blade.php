@@ -30,13 +30,13 @@
                                 <div class="pdetails-images">
                                     <div class="pdetails-largeimages pdetails-imagezoom">
                                         <div class="pdetails-singleimage" data-src="{{asset($product->media->first()->url)}}">
-                                            <img src="{{asset($product->media->first()->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
+                                            <img src="{{asset($product->media->first()->url)}}" title="{{$product->name}}" alt="{{$product->name}}">
                                             <div class="sticker">New</div>
                                         </div>
                                         @foreach($product->media as $key => $image)
                                             @if($key>0)
                                                 <div class="pdetails-singleimage" data-src="{{asset($image->url)}}">
-                                                    <img src="{{asset($image->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
+                                                    <img src="{{asset($image->url)}}" title="{{$product->name}}" alt="{{$product->name}}">
                                                 </div>
                                             @endif
                                         @endforeach
@@ -45,7 +45,7 @@
                                     <div class="pdetails-thumbs">
                                         @foreach($product->media as $image)
                                             <div class="pdetails-singlethumb" data-src="{{asset($image->url)}}">
-                                                <img src="{{asset($image->url)}}" title="{{$product->title}}" alt="{{$product->title}}">
+                                                <img src="{{asset($image->url)}}" title="{{$product->name}}" alt="{{$product->name}}">
                                             </div>
                                         @endforeach
 
@@ -55,7 +55,7 @@
                             <div class="col-lg-7">
                                 <div class="product-details-view-content mt-20">
                                     <div class="product-info">
-                                        <h2>{{$product->title}}</h2>
+                                        <h2>{{$product->name}}</h2>
                                         <span class="product-details-ref">Reference: {{$product->sku}}</span>
                                         <div class="rating-box pt-10">
                                             <ul class="rating-with-review-item">

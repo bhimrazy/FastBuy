@@ -45,7 +45,7 @@
                                         <!-- Begin Product Content Area -->
                                         <div class="product-content">
                                             <h2 class="product-name">
-                                                <a v-bind:href="asset('/'+product.slug)">{{product.title}}</a>
+                                                <a v-bind:href="asset('/'+product.slug)">{{product.name}}</a>
                                             </h2>
                                             <div class="rating-box">
                                                 <ul class="rating">
@@ -99,7 +99,7 @@
                                     <!-- Begin Product Content Area -->
                                     <div class="product-content product-content-list_view">
                                         <h2 class="product-name">
-                                            <a v-bind:href="asset('/'+product.slug)">{{product.title}}</a>
+                                            <a v-bind:href="asset('/'+product.slug)">{{product.name}}</a>
                                         </h2>
                                         <div class="rating-box">
                                             <ul class="rating">

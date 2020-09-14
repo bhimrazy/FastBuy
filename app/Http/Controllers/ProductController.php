@@ -120,11 +120,11 @@ class ProductController extends Controller
         $query=$request->input('query');
         if($request->input('category_id')){
             $products=Product::where('subcategory_id',$request->input('category_id'))
-                 ->where('title','LIKE',"%$query%")
+                 ->where('name','LIKE',"%$query%")
                 ->with('media')->get();
         }
         else{
-            $products=Product::where('title','LIKE',"%$query%")->with('media')->get();
+            $products=Product::where('name','LIKE',"%$query%")->with('media')->get();
         }
         return view('client.catalog')->with('products',$products)->with('query',$query);
     }
