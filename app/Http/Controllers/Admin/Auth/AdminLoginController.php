@@ -29,38 +29,12 @@ class AdminLoginController extends Controller
             return redirect()->intended(route('admin.dashboard'));
         }
         // If unsuccessful then redirect back to login page with email and remember fields
-        return redirect()->back()->withInput($request->only('email'))->withErrors('Failed to Login.Check your Credentials') && $this->sendFailedLoginResponse($request);
+        return redirect()->back()->withInput($request->only('email'))->withErrors('Failed to Login.Check your Credentials')->withErrors(trans('auth.failed'));
     }
 
     public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
         return redirect('/');
-    }
-
-
-
-    /**
-     * Get the failed login response instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    protected function sendFailedLoginResponse(Request $request)
-    {
-        throw ValidationException::withMessages([
-            $this->username() => [trans('auth.failed')],
-        ]);
-    }
-    /**
-     * Get the login username to be used by the controller.
-     *
-     * @return string
-     */
-    public function username()
-    {
-        return 'email';
     }
 }
