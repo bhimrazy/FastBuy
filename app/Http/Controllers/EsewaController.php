@@ -2,103 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Esewa;
-use App\Order;
-use Exception;
 use Illuminate\Http\Request;
+use App\Order;
+use Illuminate\Support\Facades\Auth;
 
-/**
- * Class EsewaController
- * @package App\Http\Controllers
- */
 class EsewaController extends Controller
 {
-    /**
-     * @param Request $request
-     */
-    public function checkout(Request $request)
+    public function success(Request $request)
     {
-        $order = Order::findOrFail(mt_rand(1, 20));
 
-        return view('esewa.checkout', compact('order'));
+        if( isset($request->oid) && isset($request->amt) && isset($request->refId))
+        {
+            $order = Order::where('order_number', $request->oid)->first();
+            //dd($order);
+            if( $order)
+            {
+                $url = "https://uat.esewa.com.np/epay/transrec";
+                $data =[
+                    'amt'=> $order->grand_total,
+                    'rid'=> $request->refId,
+                    'pid'=> $order->order_number,
+                    'scd'=> 'epay_payment'
+                ];
+
+                $curl = curl_init($url);
+                curl_setopt($curl, CURLOPT_POST, true);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                $response = curl_exec($curl);
+                //dd($response);
+                curl_close($curl);
+
+                $response_code = $this->get_xml_node_value('response_code',$response );
+                //dd($response_code);
+                if( trim($response_code) == 'Success')
+                {
+                    $order->status = 'processing';
+                    $order->payment_status = 1;
+                    $order->transaction_id=$request->refId;
+                    $order->payment_method='eSewa';
+                    $order->save();
+                    Auth::user()->customerOrders()->save($order);
+                    return redirect()->route('my-account')->with('success', 'Transaction completed.');
+                }else{
+                $order->delete();
+                return redirect()->route('my-account')->with('danger', ' You have cancelled your transaction .');
+            }
+            }
+
+
+        }
+        $order->delete();
+        return redirect()->route('my-account')->with('error', ' You have cancelled your transaction .');
+
     }
 
-    /**
-     * @param $order_id
-     * @param Request $request
-     */
-    public function payment($order_id, Request $request)
-    {
-        $order = Order::findOrFail($order_id);
-
-        $gateway = with(new Esewa);
-
-        try {
-            $response = $gateway->purchase([
-                'amount' => $gateway->formatAmount($order->grand_total),
-                'totalAmount' => $gateway->formatAmount($order->grand_total),
-                'productCode' => 'ABAC2098',
-                'failedUrl' => $gateway->getFailedUrl($order),
-                'returnUrl' => $gateway->getReturnUrl($order),
-            ], $request);
-
-        } catch (Exception $e) {
-            $order->update(['payment_status' => Order::PAYMENT_PENDING]);
-
-            return redirect()
-                ->route('checkout.payment.esewa.failed', [$order->id])
-                ->with('message', sprintf("Your payment failed with error: %s", $e->getMessage()));
-        }
-
-        if ($response->isRedirect()) {
-            $response->redirect();
-        }
-
-        return redirect()->back()->with([
-            'message' => "We're unable to process your payment at the moment, please try again !",
-        ]);
+    public function fail(Request $request)
+    {   $order = Order::where('order_number', $request->oid)->first();
+        $order->delete();
+        return redirect()->route('my-account')->with('error', ' You have cancelled your transaction .');
     }
 
-    /**
-     * @param $order_id
-     * @param Request $request
-     */
-    public function completed($order_id, Request $request)
-    {
-        $order = Order::findOrFail($order_id);
+    public function get_xml_node_value($node, $xml) {
+        if ($xml == false) {
+            return false;
+        }
+        $found = preg_match('#<'.$node.'(?:\s+[^>]+)?>(.*?)'.
+            '</'.$node.'>#s', $xml, $matches);
+        if ($found != false) {
 
-        $gateway = with(new Esewa);
+            return $matches[1];
 
-        $response = $gateway->verifyPayment([
-            'amount' => $gateway->formatAmount($order->amount),
-            'referenceNumber' => $request->get('refId'),
-            'productCode' => $request->get('oid'),
-        ], $request);
-
-        if ($response->isSuccessful()) {
-            $order->update([
-                'notes' => $request->get('refId'),
-                'payment_status' => Order::PAYMENT_COMPLETED,
-            ]);
-
-            return redirect()->route('checkout.payment.esewa')->with([
-                'message' => 'Thank you for your shopping, Your recent payment was successful.',
-            ]);
         }
 
-        return redirect()->route('checkout.payment.esewa')->with([
-            'message' => 'Thank you for your shopping, However, the payment has been declined.',
-        ]);
+        return false;
     }
 
-    /**
-     * @param $order_id
-     * @param Request $request
-     */
-    public function failed($order_id, Request $request)
+    public function payment_response()
     {
-        $order = Order::findOrFail($order_id);
-
-        return view('client.esewa.checkout', compact('order'));
+        return route('my-account');
     }
 }
