@@ -92,6 +92,34 @@ class CheckoutController extends Controller
 //            $order->cart= serialize($cart);
             return view('client.esewa.checkout')->with('order',$order);
         }
+        elseif ($request['payment_method']=="fonepay"){
+            //dd($request);
+            $order = $this->orderRepository->storeOrderDetails($request);
+            session()->forget('cart');
+            $fonepay =[];
+            $fonepay['RU'] = route('fonepay.return');
+            $fonepay['PID'] = 'NBQM';
+            $fonepay['PRN'] = $order->order_number;
+            $fonepay['AMT'] = $order->grand_total;
+            $fonepay['CRN'] = 'NPR';
+            $fonepay['DT'] = date('m/d/Y');
+            $fonepay['R1'] = 'test';
+            $fonepay['R2'] = 'letslearntogether';
+            $fonepay['MD'] = 'P';
+
+            $data = $fonepay['PID'] .','.
+                $fonepay['MD'] .','.
+                $fonepay['PRN'] .','.
+                $fonepay['AMT'] .','.
+                $fonepay['CRN'] .','.
+                $fonepay['DT'] .','.
+                $fonepay['R1'] .','.
+                $fonepay['R2'] .',' .
+                $fonepay['RU'];
+
+            $fonepay['DV'] = hash_hmac('sha512', $data, 'a7e3512f5032480a83137793cb2021dc');
+            return view('client.fonepay.checkout',compact( 'order', 'fonepay'));
+        }
         else{
             return redirect()->back();
         }

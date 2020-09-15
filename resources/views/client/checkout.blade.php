@@ -231,6 +231,15 @@
                                                 </div>
                                             </div>
                                             <div class="card">
+                                                <div class="card-header" id="#payment-2">
+                                                    <h5 class="panel-title">
+                                                        <label><input class="" type="radio" value="fonepay" name="payment_method" required>
+                                                            fonepay
+                                                        </label>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="card">
                                                 <div class="card-header" id="#payment-3">
                                                     <h5 class="panel-title">
                                                         <label><input class="" type="radio" value="Bank Transfer" name="payment_method" required>

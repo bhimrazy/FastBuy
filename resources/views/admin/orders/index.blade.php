@@ -61,14 +61,14 @@
                                             {{$key+1}}
                                         </td>
                                         <td>
-                                            <a href="">{{$order->order_number}}</a><br>
+                                            <small class="text-bold text-black">{{$order->order_number}}</small><br>
                                             <small class="ml-2 badge badge-secondary">{{$order->created_at->diffForHumans()}}</small>
                                         </td>
                                         <td>
                                             <div >{{$order->customer->getFullName()}}</div>{{$order->created_at->format('Y-m-d H:i:s')}}
                                         </td>
                                         <td>{{config('settings.currency_symbol').' '.number_format($order->grand_total)}}</td>
-                                        <td><span class="badge badge-{{$order->payment_status?'info':'warning'}}">{{$order->payment_status?'Completed':'Not Completed'}}</span>{{$order->transaction_id??''}}</td>
+                                        <td><span class="badge badge-{{$order->payment_status?'info':'warning'}}">{{$order->payment_status?'Completed':'Not Completed'}}</span><br><small class="text-sm-left text-black-50 text-bold">{{$order->transaction_id?'TRAN ID : '.$order->transaction_id:''}}</small></td>
                                         <td><span class="badge badge-{{($order->status=='completed')?'info':'warning'}}">{{$order->status}}</span></td>
                                         <td>
                                             @can('order_show')

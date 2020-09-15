@@ -225,3 +225,4 @@ Route::get('/{product}',[
     'uses' => 'ProductController@productShow',
     'as' => 'product.productShow'
 ]);
+Route::any('fonepay/return', 'FonepayController@fonepay_response')->name('fonepay.return');
