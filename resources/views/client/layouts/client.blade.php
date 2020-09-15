@@ -424,7 +424,7 @@
                     <!-- Begin FB's Newsletters Area -->
                     <div class="col-lg-5">
                         <div class="fb-newsletters">
-                            <h2 class="newsletters-heading">Sign Up For Newsletters</h2>
+                            <h2 class="newsletters-heading text-white" style="font-weight: 600">Sign Up For Newsletters</h2>
                             <p class="short-desc">Be The First To Know. Sign Up For Newsletter Today</p>
                         </div>
                     </div>

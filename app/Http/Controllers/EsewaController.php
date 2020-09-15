@@ -58,8 +58,11 @@ class EsewaController extends Controller
     }
 
     public function fail(Request $request)
-    {   $order = Order::where('order_number', $request->oid)->first();
-        $order->delete();
+    {   if($request->oid){
+            $order = Order::where('order_number', $request->oid)->first();
+            $order->delete();
+        }
+
         return redirect()->route('my-account')->with('error', ' You have cancelled your transaction .');
     }
 
