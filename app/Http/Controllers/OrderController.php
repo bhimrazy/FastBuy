@@ -52,11 +52,13 @@ class OrderController extends Controller
     public function update(UpdateOrderRequest $request, Order $order)
     {
         $order->update($request->validated());
-        if($request['status']=='completed'){
-            $order->update(['payment_status'=>1]);
-        }
-        else{
-            $order->update(['payment_status'=>0]);
+        if($order['transaction_id']==null){
+            if($request['status']=='completed'){
+                $order->update(['payment_status'=>1]);
+            }
+            else{
+                $order->update(['payment_status'=>0]);
+            }
         }
 
         return back()->with('success','Order with OrderNumber: '.$order['order_number'].' updated successfully');

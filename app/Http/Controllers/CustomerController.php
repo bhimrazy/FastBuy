@@ -20,7 +20,7 @@ class CustomerController extends Controller
     public function getProfile()
     {
         $user=Auth::user();
-        $orders=$user->customerOrders()->orderBy('status','desc')->orderBy('created_at','desc')->with('items')->get();
+        $orders=$user->customerOrders()->latest()->with('items')->get();
 //        $orders->transform(function ($order,$key){
 //            $order->cart=unserialize($order->cart);
 //            return $order;

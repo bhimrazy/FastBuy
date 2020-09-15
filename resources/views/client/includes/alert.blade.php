@@ -16,6 +16,12 @@
         <h5><i class="icon fa fa-exclamation-triangle"></i> Alert!</h5>
         <strong>Success </strong>{{session()->get('danger')}}.
     </div>
+@elseif(session()->has('error'))
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fa fa-exclamation-triangle"></i> Alert!</h5>
+        <strong>Error </strong>{{session()->get('error')}}.
+    </div>
 @elseif(session()->has('info'))
     <div class="alert alert-info alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

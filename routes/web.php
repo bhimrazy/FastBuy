@@ -225,3 +225,9 @@ Route::get('/{product}',[
     'uses' => 'ProductController@productShow',
     'as' => 'product.productShow'
 ]);
+//FonePay
+Route::any('fonepay/return', 'FonepayController@fonepay_response')->name('fonepay.return')->middleware('auth');
+//Esewa
+Route::any('esewa/success', 'EsewaController@success')->name('esewa.success')->middleware('auth');
+Route::any('esewa/fail', 'EsewaController@fail')->name('esewa.fail')->middleware('auth');
+Route::get('payment/response', 'EsewaController@payment_response')->name('payment.response')->middleware('auth');

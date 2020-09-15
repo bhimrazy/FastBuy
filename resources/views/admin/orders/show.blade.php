@@ -55,6 +55,7 @@
                             <b>Payment Method:</b> {{ $order->payment_method }}<br>
                             <b>Payment Status:</b> {{ $order->payment_status == 1 ? 'Completed' : 'Not Completed' }}<br>
                             <b>Order Status:</b> {{ $order->status }}<br>
+                            <b>{{$order->transaction_id?'TRAN ID : '.$order->transaction_id:''}}<br>
                         </div>
                     </div>
                     <div class="row">
