@@ -25,8 +25,9 @@
                     <div class="col-md-6">
                         <h3>Pay With </h3>
                         <ul class="list-group">
-                            <li class="list-group-item">
+                            <li class="list-group-item bg-dark">
                                 <form action="https://uat.esewa.com.np/epay/main" method="POST">
+                                    <input value="{{$order->grand_total}}" name="tAmt" type="hidden">
                                     <input value="{{$order->grand_total}}" name="amt" type="hidden">
                                     <input value="0" name="txAmt" type="hidden">
                                     <input value="0" name="psc" type="hidden">
