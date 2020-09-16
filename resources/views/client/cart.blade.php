@@ -1,4 +1,7 @@
 @extends('client.layouts.client')
+@section('styles')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
 @section('body')
     <!-- Begin FB's Breadcrumb Area -->
     <div class="breadcrumb-area pt-30">
@@ -87,12 +90,13 @@
 @section('scripts')
     <script>
         function updateCartInc(id) {
-            console.log(id)
+            //console.log(id)
+            var CSRF_TOKEN=$('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 type: "GET",
                 dataType: "json",
                 url: '{{ route('carts.increaseByOne') }}',
-                data: {'id': id},
+                data: {_token:CSRF_TOKEN,'id': id},
                 error: function(xhr, status, error) {
                     var err = eval("(" + xhr.responseText + ")");
                     setTimeout(function(){
@@ -111,12 +115,13 @@
 
         }
         function updateCartDec(id) {
-            console.log(id)
+            //console.log(id)
+            var CSRF_TOKEN=$('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 type: "GET",
                 dataType: "json",
                 url: '{{ route('carts.reduceByOne') }}',
-                data: {'id': id},
+                data: {_token:CSRF_TOKEN,'id': id},
                 error: function(xhr, status, error) {
                     var err = eval("(" + xhr.responseText + ")");
                     setTimeout(function(){
