@@ -41,7 +41,7 @@ class CategoryController extends Controller
         return view('admin.categories.edit', compact('category'));
     }
     public function update(UpdateCategoryRequest $request, Category $category)
-    {   
+    {
         $category->update($request->validated());
         $category->slug=Str::slug($request->title);
         $category->save();
