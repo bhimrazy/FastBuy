@@ -41,7 +41,7 @@ class Product extends Model
         return $this->attributes['featured']?'Featured':'Not Featured';
     }
     public function owner(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Admin::class);
     }
     public function brand(){
         return $this->belongsTo(Brand::class);

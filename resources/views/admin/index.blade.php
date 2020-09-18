@@ -61,7 +61,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Sales</span>
-                                <span class="info-box-number">${{$orders->where('status','approved')->map(function ($order){return $order->total;})->sum()}}</span>
+                                <span class="info-box-number">{{config('settings.currency_symbol').' '.number_format($sales)}}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -70,7 +70,7 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                            <span class="info-box-icon bg-warning elevation-1"><a href="{{route('admin.customers')}}"><i class="fas fa-users"></i></a></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Customers</span>

@@ -33,6 +33,7 @@
     <livewire:styles />
     <!-- Site Meta Property -->
     @include('client.includes.meta')
+    @yield('styles')
 </head>
 <body>
 <!-- Begin Body Wraper Area -->

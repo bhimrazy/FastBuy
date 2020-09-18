@@ -151,19 +151,21 @@
                         <i class="fas fa-newspaper nav-icon"></i>
                         <p>
                             Orders
-                            <span class="right"><span class="badge badge-info px-2">{{count(\App\Order::latest()->where('status','pending')->get())}}</span></span><span class="badge badge-danger">New</span>
+                            <span class="right"><span class="badge badge-info px-2">{{count(\App\Order::latest()->where('status','processing')->get())}}</span></span><span class="badge badge-danger">New</span>
                         </p>
                     </a>
                 </li>
                 @endcan
+                @can('transaction_access')
                 <li class="nav-item ">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('admin.transactions')}}" class="nav-link">
                         <i class="fas fa-money-check-alt nav-icon"></i>
                         <p>
-                            Payments<small class="right"><span class="badge bg-gradient-indigo">Transactions</span></small>
+                            Payments<small class="right"><span class="badge bg-gradient-indigo">Transactions</span><span class="badge badge-info px-2">{{count(\App\Transaction::latest()->where('status',1)->get())}}</span></small>
                         </p>
                     </a>
                 </li>
+                @endcan
                 @can('customer_access')
                 <li class="nav-item ">
                     <a href="{{route('admin.customers')}}" class="nav-link">

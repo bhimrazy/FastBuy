@@ -6,6 +6,7 @@ use App\Brand;
 use App\Http\Requests\AdminRequest;
 use App\Order;
 use App\Product;
+use App\Transaction;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -23,8 +24,9 @@ class AdminController extends Controller
     public function index(){
         $users=User::all()->where('type','customer');
         $products=Product::with('media')->latest()->get();
-        $orders=Order::orderBy('status','desc')->orderBy('created_at','desc')->get();
-        return view('admin.index')->with('users',$users)->with('orders',$orders)->with('products',$products);
+        $orders=Order::orderBy('status','desc')->latest()->get();
+        $sales=Transaction::all()->pluck('transaction_amount')->sum();
+        return view('admin.index',compact(['users','orders','products','sales']));
     }
 //    public function authenticate(AdminRequest $request){
 //        $credentials = $request->only('email', 'password');

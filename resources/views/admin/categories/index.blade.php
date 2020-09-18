@@ -124,13 +124,14 @@
         $(document).ready(function(){
             $('.custom-control-input').change(function () {
                 if(confirm('Are You Sure Want to update the status?')){
+                    var CSRF_TOKEN=$('meta[name="csrf-token"]').attr('content');
                     let status = $(this).prop('checked') === true ? 1 : 0;
                     let categoryId = $(this).data('id');
                     $.ajax({
                         type: "GET",
                         dataType: "json",
                         url: '{{ route('admin.categories.update.status') }}',
-                        data: {'status': status, 'category_id': categoryId},
+                        data: {_token:CSRF_TOKEN,'status': status, 'category_id': categoryId},
                         error: function(xhr, status, error) {
                             var err = eval("(" + xhr.responseText + ")");
                             setTimeout(function(){
@@ -161,4 +162,5 @@
 @endsection
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
 @endsection
