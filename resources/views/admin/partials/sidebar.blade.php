@@ -156,6 +156,7 @@
                     </a>
                 </li>
                 @endcan
+                @can('transaction_access')
                 <li class="nav-item ">
                     <a href="#" class="nav-link">
                         <i class="fas fa-money-check-alt nav-icon"></i>
@@ -164,6 +165,7 @@
                         </p>
                     </a>
                 </li>
+                @endcan
                 @can('customer_access')
                 <li class="nav-item ">
                     <a href="{{route('admin.customers')}}" class="nav-link">
