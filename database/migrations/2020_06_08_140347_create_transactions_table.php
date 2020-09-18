@@ -15,9 +15,11 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('invoice_id');
-            $table->string('status')->default('pending');
+            $table->string('order_number');
+            $table->string('transaction_id');
+            $table->string('customer_name');
+            $table->string('status');
+            $table->string('transaction_amount');
             $table->timestamps();
         });
     }

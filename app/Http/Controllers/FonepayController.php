@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,6 +61,12 @@ class FonepayController extends Controller
                         $order->payment_method='fonepay';
                         $order->save();
                         Auth::user()->customerOrders()->save($order);
+                        Transaction::create([
+                            'order_number'=>$order['order_number'],
+                            'transaction_id'=>$order['transaction_id'],
+                            'customer_name'=>$order['first_name'].' '.$order['last_name'],
+                            'transaction_amount'=>$order['grand_total'],
+                        ]);
                         return redirect()->route('my-account')->with('success', 'Transaction completed.');
 
                     }
