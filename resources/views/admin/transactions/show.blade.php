@@ -44,7 +44,15 @@
                                     Transaction ID
                                 </th>
                                 <td>
-                                    {{ $transaction->transaction_id }}
+                                    {{ucwords($transaction->transaction_id)}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Order Number
+                                </th>
+                                <td>
+                                    {{ucwords($transaction->order_number)}}
                                 </td>
                             </tr>
                             <tr>
@@ -60,7 +68,7 @@
                                     Amount
                                 </th>
                                 <td>
-                                    {{ $transaction->transaction_amount}}
+                                    {{config('settings.currency_symbol').' '.number_format($transaction->transaction_amount)}}
                                 </td>
                             </tr>
                             </tbody>

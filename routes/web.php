@@ -205,7 +205,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
             'uses' => 'TransactionController@index',
             'as' => 'transactions'
         ]);
-        Route::get('/customers/{customer}',[
+        Route::get('/transactions/{transaction}',[
             'uses' => 'TransactionController@show',
             'as' => 'transactions.show'
         ]);

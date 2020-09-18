@@ -161,7 +161,7 @@
                     <a href="{{route('admin.transactions')}}" class="nav-link">
                         <i class="fas fa-money-check-alt nav-icon"></i>
                         <p>
-                            Payments<small class="right"><span class="badge bg-gradient-indigo">Transactions</span></small>
+                            Payments<small class="right"><span class="badge bg-gradient-indigo">Transactions</span><span class="badge badge-info px-2">{{count(\App\Transaction::latest()->where('status',1)->get())}}</span></small>
                         </p>
                     </a>
                 </li>
