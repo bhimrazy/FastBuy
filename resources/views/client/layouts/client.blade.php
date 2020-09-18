@@ -29,11 +29,11 @@
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
     <!-- Modernizer JS -->
     <script src="{{asset('assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
-    <!-- Livewire Styles -->
-    <livewire:styles />
     <!-- Site Meta Property -->
     @include('client.includes.meta')
     @yield('styles')
+<!-- Livewire Styles -->
+    <livewire:styles />
 </head>
 <body>
 <!-- Begin Body Wraper Area -->
@@ -139,7 +139,7 @@
                                         <span class="item-text">My Cart
                                                     <span class="cart-item-count">{{session()->has('cart')?session('cart')->totalQty:0}}</span>
                                                 </span>
-                                        <span class="item-total">${{session()->has('cart')?session('cart')->totalPrice:0}}</span>
+                                        <span class="item-total">{{config('settings.currency_symbol').' '}}{{session()->has('cart')?session('cart')->totalPrice:0}}</span>
                                     </div>
                                     <span></span>
                                     @if(session()->has('cart'))
@@ -148,12 +148,12 @@
                                                 @foreach(session()->get('cart')->items as $cartitem)
                                                     <li>
                                                     <a href="" class="minicart-product-image">
-                                                        <img src="{{asset($cartitem['item']->media[0]->url)}}" alt="FB's Thumbnail">
+                                                        <img src="{{asset($cartitem['item']->media->first()->url)}}" alt="{{$cartitem['item']->name}}">
                                                         <span class="product-quantity">1x</span>
                                                     </a>
                                                     <div class="minicart-product-details">
-                                                        <h7><a href="">{{Str::limit($cartitem['item']->title,16)}}</a></h7>
-                                                        <span>${{$cartitem['item']->price}}</span>
+                                                        <h5><a href="">{{Str::limit($cartitem['item']->name,16)}}</a></h5>
+                                                        <span>{{config('settings.currency_symbol').' '}}{{$cartitem['item']->price}}</span>
                                                     </div>
                                                     <button class="close" title="Remove">
                                                         <i class="fa fa-close"></i>

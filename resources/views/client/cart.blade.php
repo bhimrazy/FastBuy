@@ -1,7 +1,4 @@
 @extends('client.layouts.client')
-@section('styles')
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-@endsection
 @section('body')
     <!-- Begin FB's Breadcrumb Area -->
     <div class="breadcrumb-area pt-30">
@@ -140,4 +137,7 @@
 
         }
     </script>
+@endsection
+@section('styles')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
