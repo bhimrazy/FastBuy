@@ -151,7 +151,7 @@
                         <i class="fas fa-newspaper nav-icon"></i>
                         <p>
                             Orders
-                            <span class="right"><span class="badge badge-info px-2">{{count(\App\Order::latest()->where('status','pending')->get())}}</span></span><span class="badge badge-danger">New</span>
+                            <span class="right"><span class="badge badge-info px-2">{{count(\App\Order::latest()->where('status','processing')->get())}}</span></span><span class="badge badge-danger">New</span>
                         </p>
                     </a>
                 </li>
