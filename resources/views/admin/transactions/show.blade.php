@@ -33,7 +33,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <div class="form-group">
-                            <a class="btn btn-default" href="{{ route('admin.customers') }}">
+                            <a class="btn btn-default" href="{{ route('admin.transactions') }}">
                                 Back to List
                             </a>
                         </div>

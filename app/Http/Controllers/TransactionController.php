@@ -12,7 +12,7 @@ class TransactionController extends Controller
 {
     public function index(){
         abort_if(Gate::denies('transaction_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $transactions=Transaction::latest();
+        $transactions=Transaction::latest()->get();
         return view('admin.transactions.index', compact('transactions'));
     }
     public function show(Transaction $transaction)

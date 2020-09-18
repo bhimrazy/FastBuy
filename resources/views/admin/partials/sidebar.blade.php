@@ -158,7 +158,7 @@
                 @endcan
                 @can('transaction_access')
                 <li class="nav-item ">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('admin.transactions')}}" class="nav-link">
                         <i class="fas fa-money-check-alt nav-icon"></i>
                         <p>
                             Payments<small class="right"><span class="badge bg-gradient-indigo">Transactions</span></small>

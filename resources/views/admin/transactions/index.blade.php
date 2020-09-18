@@ -49,7 +49,7 @@
                             <th style="width: 8%" class="text-center">
                                 Customer Name
                             </th>
-                            <th>Payment Method</th>
+                            <th>Payment</th>
                             <th>Amount</th>
                             <th>Verified</th>
                             <th>
@@ -66,13 +66,13 @@
                                 <td><span class="text-bold text-gray-dark">{{ucwords($transaction->transaction_id)}}</span>
                                 </td>
                                 <td class="text-sm">{{$transaction->order_number}}</td>
-                                <td><small>{{$transaction->customer_name}}</small></td>
+                                <td>{{$transaction->customer_name}}</td>
                                 <td><span class="badge bg-gradient-indigo p-2">{{ucfirst($transaction->payment_method)}} <br><small>created : {{$transaction->created_at->diffForHumans()}}</small></span></td>
-                                <td>{{$transaction->transaction_amount}}</td>
+                                <td>{{config('settings.currency_symbol').' '.number_format($transaction->transaction_amount)}}</td>
                                 <td><span class="badge badge-{{$transaction->status?'info':'warning'}}">{{$transaction->status?'verified':'unverified'}}</span></td>
                                 <td>
                                 @can('transaction_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.customers.show', $transaction->id) }}">
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.transactions.show', $transaction->id) }}">
                                             Show
                                         </a>
                                     @endcan
