@@ -8,7 +8,7 @@ use Illuminate\Validation\Rules\In;
 class Transaction extends Model
 {
     protected $fillable=[
-        'order_number','transaction_id','customer_name','transaction_amount','status',
+        'order_number','transaction_id','customer_name','transaction_amount','status','payment_method',
     ];
 //    public function owner(){
 //        return $this->belongsTo(User::class);

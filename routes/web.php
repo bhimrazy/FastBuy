@@ -200,6 +200,16 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
             'as' => 'customers.show'
         ]);
 
+        //Transactions
+        Route::get('/transactions',[
+            'uses' => 'TransactionController@index',
+            'as' => 'transactions'
+        ]);
+        Route::get('/customers/{customer}',[
+            'uses' => 'TransactionController@show',
+            'as' => 'transactions.show'
+        ]);
+
         //Brands
         Route::resource('brands', 'BrandController');
         Route::get('/brands/status/update', 'BrandController@updateStatus')->name('brands.update.status');

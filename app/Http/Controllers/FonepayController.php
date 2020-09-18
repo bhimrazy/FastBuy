@@ -66,6 +66,7 @@ class FonepayController extends Controller
                             'transaction_id'=>$order['transaction_id'],
                             'customer_name'=>$order['first_name'].' '.$order['last_name'],
                             'transaction_amount'=>$order['grand_total'],
+                            'payment_method'=>$order->payment_method,
                         ]);
                         return redirect()->route('my-account')->with('success', 'Transaction completed.');
 

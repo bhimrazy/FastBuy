@@ -14,7 +14,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Show Customer</li>
+                            <li class="breadcrumb-item active">Show Transaction</li>
                         </ol>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    Show Customer
+                    Show Transaction
                 </div>
 
                 <div class="card-body">
@@ -41,33 +41,27 @@
                             <tbody>
                             <tr>
                                 <th>
-                                    Users ID
+                                    Transaction ID
                                 </th>
                                 <td>
-                                    {{ $user->id }}
+                                    {{ $transaction->transaction_id }}
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    Name
+                                    Customer Verified
                                 </th>
                                 <td>
-                                    {{ $user->getFullName()}}
+                                    {{ $transaction->customer_name}}
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    Email
+                                    Amount
                                 </th>
                                 <td>
-                                    {{ $user->email }}
+                                    {{ $transaction->transaction_amount}}
                                 </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Email Verified at
-                                </th>
-                                <td><span class="badge bg-gradient-{{$user->email_verified_at?'blue':'danger'}} p-2">{{$user->email_verified_at?$user->email_verified_at->format('d-m-Y H:i:s'):'Not Verified'}}</span></td>
                             </tr>
                             </tbody>
                         </table>

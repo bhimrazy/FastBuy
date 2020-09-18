@@ -18,8 +18,9 @@ class CreateTransactionsTable extends Migration
             $table->string('order_number');
             $table->string('transaction_id');
             $table->string('customer_name');
-            $table->string('status');
+            $table->string('status')->default(0);
             $table->string('transaction_amount');
+            $table->string('payment_method');
             $table->timestamps();
         });
     }

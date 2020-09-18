@@ -49,6 +49,7 @@
                             <th style="width: 8%" class="text-center">
                                 Customer Name
                             </th>
+                            <th>Payment Method</th>
                             <th>Amount</th>
                             <th>Verified</th>
                             <th>
@@ -57,25 +58,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $key => $user)
-                            <tr data-entry-id="{{ $user->id }}">
+                        @foreach($transactions as $key => $transaction)
+                            <tr data-entry-id="{{ $transaction->id }}">
                                 <td>
                                     {{$key+1}}
                                 </td>
-                                <td><span class="text-bold text-gray-dark">{{ucwords($user->getFullName())}}</span>
-                                    <br/>
-                                    <small>
-                                        Orders Placed : {{count($user->customerOrders)}}
-                                    </small>
+                                <td><span class="text-bold text-gray-dark">{{ucwords($transaction->transaction_id)}}</span>
                                 </td>
-                                <td class="text-sm">{{$user->email}}</td>
-                                <td><small>{{$user->mobile?$user->mobile:'NA'}}</small></td>
-                                <td><span class="badge bg-gradient-indigo p-2">{{ucfirst($user->type)}} <br><small>created : {{$user->created_at->diffForHumans()}}</small></span></td>
-                                <td class="text-center"><span class="badge bg-gradient-{{$user->email_verified_at?'blue':'danger'}} p-2">{{$user->email_verified_at?'Verified':'Not Verified'}}</span>
-                                </td>
+                                <td class="text-sm">{{$transaction->order_number}}</td>
+                                <td><small>{{$transaction->customer_name}}</small></td>
+                                <td><span class="badge bg-gradient-indigo p-2">{{ucfirst($transaction->payment_method)}} <br><small>created : {{$transaction->created_at->diffForHumans()}}</small></span></td>
+                                <td>{{$transaction->transaction_amount}}</td>
+                                <td><span class="badge badge-{{$transaction->status?'info':'warning'}}">{{$transaction->status?'verified':'unverified'}}</span></td>
                                 <td>
-                                @can('user_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.customers.show', $user->id) }}">
+                                @can('transaction_show')
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.customers.show', $transaction->id) }}">
                                             Show
                                         </a>
                                     @endcan
