@@ -55,7 +55,7 @@
                             <b>Payment Method:</b> {{ $order->payment_method }}<br>
                             <b>Payment Status:</b> {{ $order->payment_status == 1 ? 'Completed' : 'Not Completed' }}<br>
                             <b>Order Status:</b> {{ $order->status }}<br>
-                            <b>{{$order->transaction_id?'TRAN ID : '.$order->transaction_id:''}}<br>
+                            <b>{{$order->transaction_id?'TRAN ID : '.$order->transaction_id:''}}</b><br>
                         </div>
                     </div>
                     <div class="row">
@@ -83,6 +83,10 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header"><h5>{{$order->notes?'Order Notes':''}}</h5></div>
+                        <div class="card-body">{!!$order->notes!!}</div>
                     </div>
                 </div>
             </div>
