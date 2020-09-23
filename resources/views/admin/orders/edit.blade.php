@@ -1,4 +1,7 @@
 @extends('admin.layouts.app')
+@section('css')
+    <link rel="stylesheet" href="{{asset('/plugins/summernote/summernote-bs4.css')}}">
+@endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -110,7 +113,8 @@
                         </div>
                             <div class="form-group">
                                 <label for="inputNotes">Order Notes</label>
-                                
+                                <textarea id="inputNotes" class="textarea" placeholder="Place some text here" name="notes"
+                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{old('notes',$order->notes)}}</textarea>
                                 @error('notes')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -128,4 +132,12 @@
     </div>
     <!-- /.content-wrapper -->
 @endsection
-
+@section('scripts')
+    <script src="{{asset('/plugins/summernote/summernote-bs4.min.js')}}"></script>
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote()
+        })
+    </script>
+@endsection

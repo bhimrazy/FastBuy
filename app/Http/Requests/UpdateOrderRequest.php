@@ -27,7 +27,8 @@ class UpdateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'status'=>'required|string'
+            'status'=>'required|string',
+            'notes'=> 'nullable'
         ];
     }
 
