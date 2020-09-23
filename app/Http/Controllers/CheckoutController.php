@@ -7,6 +7,7 @@ use App\Cart;
 use App\Contracts\OrderContract;
 use App\Http\Requests\CheckoutRequest;
 use App\Order;
+use App\Transaction;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 class CheckoutController extends Controller
@@ -76,9 +77,18 @@ class CheckoutController extends Controller
         if($request['payment_method']=="Cash On Delivery"){
             $order = $this->orderRepository->storeOrderDetails($request);
             session()->forget('cart');
-//            $order=new Order();
-//            $order->total= $cart->totalPrice;
-//            $order->cart= serialize($cart);
+            $order->status = 'processing';
+            $order->transaction_id='COD-'.strtoupper(uniqid());
+            $order->payment_method='cod';
+            $order->save();
+            Auth::user()->customerOrders()->save($order);
+            Transaction::create([
+                'order_number'=>$order['order_number'],
+                'transaction_id'=>$order['transaction_id'],
+                'customer_name'=>$order['first_name'].' '.$order['last_name'],
+                'transaction_amount'=>$order['grand_total'],
+                'payment_method'=>$order->payment_method,
+            ]);
             Auth::user()->customerOrders()->save($order);
             return redirect()->route('my-account')->with('success','Order Placed');
 
