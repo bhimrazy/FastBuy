@@ -108,6 +108,13 @@
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
+                            <div class="form-group">
+                                <label for="inputNotes">Order Notes</label>
+                                
+                                @error('notes')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
+                            </div>
                         </div>
                         <div class="card-footer">
                             <div class="text-center">

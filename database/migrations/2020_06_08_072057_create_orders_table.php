@@ -33,7 +33,7 @@ class CreateOrdersTable extends Migration
             $table->string('country');
             $table->string('post_code');
             $table->string('phone_number');
-           // $table->text('notes')->nullable();
+            $table->text('notes')->nullable();
 
 //            $table->bigIncrements('id');
 //            $table->double('total');
