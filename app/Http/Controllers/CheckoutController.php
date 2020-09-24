@@ -68,6 +68,7 @@ class CheckoutController extends Controller
             ]);
             Address::create([
                 'shipping_address'=>$user['id'],
+                'address'=>$request['shipping_address'],
                 'city'=>$request['shipping_city'],
                 'state'=>$request['shipping_state'],
                 'post_code'=>$request['shipping_post_code'],
