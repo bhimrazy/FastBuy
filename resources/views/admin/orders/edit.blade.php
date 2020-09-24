@@ -113,14 +113,14 @@
                         </div>
                             <div class="form-group">
                                 <label for="inputCategory">Delivery</label>
-                                <select id="inputCategory" name="status" class="form-control custom-select" required>
+                                <select id="inputCategory" name="delivery" class="form-control custom-select" required>
                                     <option selected disabled>Select One</option>
                                     <option class="badge text-success" value="pending" {{ $order->status=="pending" ? 'selected' : '' }}>pending</option>
                                     <option class="badge text-success" value="processing" {{ $order->status=="processing" ? 'selected' : '' }}>processing</option>
                                     <option class="badge text-success" value="completed" {{ $order->status=="completed" ? 'selected' : '' }}>delivered</option>
                                     <option class="badge text-success" value="declined" {{ $order->status=="canceled" ? 'selected' : '' }}>canceled</option>
                                 </select>
-                                @error('status')
+                                @error('delivery')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>

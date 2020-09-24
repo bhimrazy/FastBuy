@@ -33,15 +33,13 @@ class TransactionController extends Controller
         return view('admin.transactions.edit', compact('transaction'));
     }
     public function update(UpdateTransactionRequest $request, Transaction $transaction)
-    {
-        $$transaction->update($request->validated());
-        if($$transaction['transaction_id']==null){
-            if($request['status']=='completed'){
-                $$transaction->update(['payment_status'=>1]);
-            }
-            else{
-                $$transaction->update(['payment_status'=>0]);
-            }
+    {   dd($request->validated());
+        $transaction->update($request->validated());
+        if($request['payment_status']=='completed'){
+            $transaction->update(['payment_status'=>1]);
+        }
+        else{
+            $transaction->update(['payment_status'=>0]);
         }
 
         return back()->with('success','Transaction with Transaction ID : '.$transaction['transaction_id'].' updated successfully');

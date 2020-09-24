@@ -17,7 +17,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Show Transaction</li>
+                            <li class="breadcrumb-item active">Edit Transaction</li>
                         </ol>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    Show Transaction
+                    Edit Transaction
                 </div>
 
                 <div class="card-body">
@@ -91,43 +91,29 @@
             <!-- /.card -->
             <div class="card card-purple card-outline" >
                 <div class="card-header">
-                    <p>Update Order Info : {{$order->order_number}}</p>
+                    <p>Update Transaction Info : {{$transaction->transaction_id}}</p>
                 </div>
 
-                <form method="POST" action="{{ route("admin.orders.update", [$order->id]) }}" onsubmit="return confirm('Are You Sure Want to change Status ?');">
+                <form method="POST" action="{{ route("admin.transactions.update", [$transaction->id]) }}" onsubmit="return confirm('Are You Sure Want to change Status ?');">
                     @method('PUT')
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputCategory">Order Status</label>
-                            <select id="inputCategory" name="status" class="form-control custom-select" required>
+                            <label for="inputCategory">Payment Status</label>
+                            <select id="inputCategory" name="payment_status" class="form-control custom-select" required>
                                 <option selected disabled>Select One</option>
-                                <option class="badge text-success" value="pending" {{ $order->status=="pending" ? 'selected' : '' }}>pending</option>
-                                <option class="badge text-success" value="processing" {{ $order->status=="processing" ? 'selected' : '' }}>processing</option>
-                                <option class="badge text-success" value="completed" {{ $order->status=="completed" ? 'selected' : '' }}>completed</option>
-                                <option class="badge text-success" value="declined" {{ $order->status=="canceled" ? 'selected' : '' }}>canceled</option>
+                                <option class="badge text-success" value="pending" {{ $transaction->payment_status==false? 'selected' : '' }}>pending</option>
+                                <option class="badge text-success" value="completed" {{ $transaction->payment_status==true? 'selected' : '' }}>completed</option>
                             </select>
-                            @error('status')
+                            @error('payment_status')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
+
                         <div class="form-group">
-                            <label for="inputCategory">Delivery</label>
-                            <select id="inputCategory" name="status" class="form-control custom-select" required>
-                                <option selected disabled>Select One</option>
-                                <option class="badge text-success" value="pending" {{ $order->status=="pending" ? 'selected' : '' }}>pending</option>
-                                <option class="badge text-success" value="processing" {{ $order->status=="processing" ? 'selected' : '' }}>processing</option>
-                                <option class="badge text-success" value="completed" {{ $order->status=="completed" ? 'selected' : '' }}>delivered</option>
-                                <option class="badge text-success" value="declined" {{ $order->status=="canceled" ? 'selected' : '' }}>canceled</option>
-                            </select>
-                            @error('status')
-                            <small class="text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="inputNotes">Order Notes</label>
+                            <label for="inputNotes">Transaction Notes</label>
                             <textarea id="inputNotes" class="textarea" placeholder="Place some text here" name="notes"
-                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{old('notes',$order->notes)}}</textarea>
+                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{old('notes',$transaction->notes)}}</textarea>
                             @error('notes')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
