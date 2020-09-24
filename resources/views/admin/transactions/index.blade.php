@@ -72,7 +72,7 @@
                                     <br><span class="badge badge-{{$transaction->payment_status?'info':'warning'}}">{{$transaction->payment_status?'Completed':'Pending'}}</span>
                                 </td>
                                 <td>{{config('settings.currency_symbol').' '.number_format($transaction->transaction_amount)}}</td>
-                                <td><span class="badge badge-{{$transaction->updated_at!=null?'info':'warning'}}">{{$transaction->updated_at!=null?'checked':'unchecked'}}<br>{{$transaction->updated_at!=null?$transaction->updated_at->diffForHumans():'unchecked'}}</span></td>
+                                <td><span class="badge badge-{{$transaction->checked_at!=null?'info':'warning'}}">{{$transaction->checked_at!=null?'checked':'unchecked'}}<br>{{$transaction->checked_at!=null?$transaction->checked_at->diffForHumans():'unchecked'}}</span></td>
                                 <td>
                                 @can('transaction_show')
                                         <a class="btn btn-xs btn-primary" href="{{ route('admin.transactions.show', $transaction->id) }}">

@@ -22,6 +22,7 @@ class CreateTransactionsTable extends Migration
             $table->string('transaction_amount');
             $table->string('payment_method');
             $table->text('notes')->nullable();
+            $table->timestamp('checked_at')->nullable();
             $table->timestamps();
         });
     }

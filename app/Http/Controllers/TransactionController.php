@@ -21,7 +21,7 @@ class TransactionController extends Controller
     public function show(Transaction $transaction)
     {
         abort_if(Gate::denies('transaction_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $transaction->updated_at=now();
+        $transaction->checked_at = now();
         $transaction->save();
         $this->setPageTitle($transaction['transaction_id'].'| Show Transaction','This Page shows the order with Transaction Number:'.$transaction['transaction_id']);
         return view('admin.transactions.show', compact('transaction'));
