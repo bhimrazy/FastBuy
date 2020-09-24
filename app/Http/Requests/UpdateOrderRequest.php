@@ -28,6 +28,7 @@ class UpdateOrderRequest extends FormRequest
     {
         return [
             'status'=>'required|string',
+            'payment_status'=>'required|string',
             'delivery'=>'required|string',
             'notes'=> 'nullable'
         ];

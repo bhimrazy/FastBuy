@@ -109,7 +109,6 @@
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
-
                         <div class="form-group">
                             <label for="inputNotes">Transaction Notes</label>
                             <textarea id="inputNotes" class="textarea" placeholder="Place some text here" name="notes"

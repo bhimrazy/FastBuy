@@ -47,13 +47,13 @@
                             <address><strong>{{ $order->customer->getFullname() }}</strong><br>Email: {{ $order->user->email }}</address>
                         </div>
                         <div class="col-4">Ship To
-                            <address><strong>{{ $order->first_name }} {{ $order->last_name }}</strong><br>{{ $order->address }}<br>{{ $order->city }}, {{ $order->country }} {{ $order->post_code }}<br>{{ $order->phone_number }}<br></address>
+                            <address><strong>{{ $order->first_name }} {{ $order->last_name }}</strong><br>{{ $order->address }}<br>{{ $order->city }}, {{ $order->country }} {{ $order->post_code }}<br>{{ $order->phone_number }}<br>{{'Delivery : '.ucfirst($order->delivery) }}</address>
                         </div>
                         <div class="col-4">
                             <b>Order ID:</b> {{ $order->order_number }}<br>
                             <b>Amount: </b> {{ config('settings.currency_symbol') }}{{' '. number_format($order->grand_total) }}<br>
                             <b>Payment Method:</b> {{ $order->payment_method }}<br>
-                            <b>Payment Status:</b> {{ $order->payment_status == 1 ? 'Completed' : 'Not Completed' }}<br>
+                            <b>Payment Status:</b> {{ $order->payment_status == 1 ? 'Completed' : 'Pending' }}<br>
                             <b>Order Status:</b> {{ $order->status }}<br>
                             <b>{{$order->transaction_id?'TRAN ID : '.$order->transaction_id:''}}</b><br>
                         </div>
@@ -84,10 +84,12 @@
                             </table>
                         </div>
                     </div>
+                    @if($order->notes)
                     <div class="card">
                         <div class="card-header"><h5>{{$order->notes?'Order Notes':''}}</h5></div>
                         <div class="card-body">{!!$order->notes!!}</div>
                     </div>
+                    @endif
                 </div>
             </div>
             <!-- /.card -->

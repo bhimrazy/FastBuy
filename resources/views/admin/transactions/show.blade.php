@@ -85,7 +85,10 @@
                 </div>
             </div>
             <!-- /.card -->
-
+            <div class="card">
+                <div class="card-header"><h5>{{$transaction->notes?'Order Notes':''}}</h5></div>
+                <div class="card-body">{!!$transaction->notes!!}</div>
+            </div>
         </section>
         <!-- /.content -->
     </div>

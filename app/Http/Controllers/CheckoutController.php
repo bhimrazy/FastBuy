@@ -81,7 +81,6 @@ class CheckoutController extends Controller
             $order = $this->orderRepository->storeOrderDetails($request);
             session()->forget('cart');
             $order->status = 'processing';
-            $order->delivery = 'pending';
             $order->transaction_id='COD-'.strtoupper(Str::random(8));
             $order->payment_method='COD';
             $order->save();
