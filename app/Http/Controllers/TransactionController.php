@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Http\Requests\UpdateTransactionRequest;
 use App\Traits\pageMetaContent;
 use App\Transaction;
 use Illuminate\Http\Request;
@@ -30,5 +31,27 @@ class TransactionController extends Controller
         abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $this->setPageTitle($transaction['transaction_id'].'| Edit Transaction','This Page edits the order with Transaction Number:'.$transaction['transaction_id']);
         return view('admin.transactions.edit', compact('transaction'));
+    }
+    public function update(UpdateTransactionRequest $request, Transaction $transaction)
+    {
+        $$transaction->update($request->validated());
+        if($$transaction['transaction_id']==null){
+            if($request['status']=='completed'){
+                $$transaction->update(['payment_status'=>1]);
+            }
+            else{
+                $$transaction->update(['payment_status'=>0]);
+            }
+        }
+
+        return back()->with('success','Transaction with Transaction ID : '.$transaction['transaction_id'].' updated successfully');
+    }
+
+    public function destroy(Transaction $transaction)
+    {
+        abort_if(Gate::denies('transaction_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $transaction->delete();
+        return redirect()->back()->with('success','Transaction with Transaction ID: '.$transaction['transaction_id'].' deleted successfully');
     }
 }

@@ -1,4 +1,7 @@
 @extends('admin.layouts.app')
+@section('css')
+    <link rel="stylesheet" href="{{asset('/plugins/summernote/summernote-bs4.css')}}">
+@endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -85,10 +88,69 @@
                 </div>
             </div>
             <!-- /.card -->
+            <!-- /.card -->
+            <div class="card card-purple card-outline" >
+                <div class="card-header">
+                    <p>Update Order Info : {{$order->order_number}}</p>
+                </div>
 
+                <form method="POST" action="{{ route("admin.orders.update", [$order->id]) }}" onsubmit="return confirm('Are You Sure Want to change Status ?');">
+                    @method('PUT')
+                    @csrf
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="inputCategory">Order Status</label>
+                            <select id="inputCategory" name="status" class="form-control custom-select" required>
+                                <option selected disabled>Select One</option>
+                                <option class="badge text-success" value="pending" {{ $order->status=="pending" ? 'selected' : '' }}>pending</option>
+                                <option class="badge text-success" value="processing" {{ $order->status=="processing" ? 'selected' : '' }}>processing</option>
+                                <option class="badge text-success" value="completed" {{ $order->status=="completed" ? 'selected' : '' }}>completed</option>
+                                <option class="badge text-success" value="declined" {{ $order->status=="canceled" ? 'selected' : '' }}>canceled</option>
+                            </select>
+                            @error('status')
+                            <small class="text-danger">{{$message}}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCategory">Delivery</label>
+                            <select id="inputCategory" name="status" class="form-control custom-select" required>
+                                <option selected disabled>Select One</option>
+                                <option class="badge text-success" value="pending" {{ $order->status=="pending" ? 'selected' : '' }}>pending</option>
+                                <option class="badge text-success" value="processing" {{ $order->status=="processing" ? 'selected' : '' }}>processing</option>
+                                <option class="badge text-success" value="completed" {{ $order->status=="completed" ? 'selected' : '' }}>delivered</option>
+                                <option class="badge text-success" value="declined" {{ $order->status=="canceled" ? 'selected' : '' }}>canceled</option>
+                            </select>
+                            @error('status')
+                            <small class="text-danger">{{$message}}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNotes">Order Notes</label>
+                            <textarea id="inputNotes" class="textarea" placeholder="Place some text here" name="notes"
+                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{old('notes',$order->notes)}}</textarea>
+                            @error('notes')
+                            <small class="text-danger">{{$message}}</small>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 @endsection
-
+@section('scripts')
+    <script src="{{asset('/plugins/summernote/summernote-bs4.min.js')}}"></script>
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote()
+        })
+    </script>
+@endsection
