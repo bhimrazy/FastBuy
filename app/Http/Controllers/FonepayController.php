@@ -56,6 +56,7 @@ class FonepayController extends Controller
                     if( $response->response_code == 'successful' && $response->statusCode == 0)
                     {
                         $order->status = 'processing';
+                        $order->delivery = 'pending';
                         $order->payment_status = 1;
                         $order->transaction_id=$UID;
                         $order->payment_method='fonepay';
@@ -67,6 +68,7 @@ class FonepayController extends Controller
                             'customer_name'=>$order['first_name'].' '.$order['last_name'],
                             'transaction_amount'=>$order['grand_total'],
                             'payment_method'=>$order->payment_method,
+                            'payment_status'=>1
                         ]);
                         return redirect()->route('my-account')->with('success', 'Transaction completed.');
 
