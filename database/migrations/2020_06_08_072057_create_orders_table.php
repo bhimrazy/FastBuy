@@ -25,7 +25,7 @@ class CreateOrdersTable extends Migration
 
             $table->boolean('payment_status')->default(0);
             $table->string('payment_method')->nullable();
-            $table->enum('delivery', ['pending', 'processing', 'delivered','shipped','canceled'])->default('pending');
+            $table->enum('delivery', ['pending', 'processing', 'delivered','canceled'])->default('pending');
             $table->string('first_name');
             $table->string('last_name');
             $table->text('address');

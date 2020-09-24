@@ -105,12 +105,25 @@
                                 <option class="badge text-success" value="pending" {{ $order->status=="pending" ? 'selected' : '' }}>pending</option>
                                 <option class="badge text-success" value="processing" {{ $order->status=="processing" ? 'selected' : '' }}>processing</option>
                                 <option class="badge text-success" value="completed" {{ $order->status=="completed" ? 'selected' : '' }}>completed</option>
-                                <option class="badge text-success" value="declined" {{ $order->status=="declined" ? 'selected' : '' }}>declined</option>
+                                <option class="badge text-success" value="declined" {{ $order->status=="canceled" ? 'selected' : '' }}>canceled</option>
                             </select>
                             @error('status')
                             <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div>
+                            <div class="form-group">
+                                <label for="inputCategory">Delivery</label>
+                                <select id="inputCategory" name="status" class="form-control custom-select" required>
+                                    <option selected disabled>Select One</option>
+                                    <option class="badge text-success" value="pending" {{ $order->status=="pending" ? 'selected' : '' }}>pending</option>
+                                    <option class="badge text-success" value="processing" {{ $order->status=="processing" ? 'selected' : '' }}>processing</option>
+                                    <option class="badge text-success" value="completed" {{ $order->status=="completed" ? 'selected' : '' }}>delivered</option>
+                                    <option class="badge text-success" value="declined" {{ $order->status=="canceled" ? 'selected' : '' }}>canceled</option>
+                                </select>
+                                @error('status')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
+                            </div>
                             <div class="form-group">
                                 <label for="inputNotes">Order Notes</label>
                                 <textarea id="inputNotes" class="textarea" placeholder="Place some text here" name="notes"

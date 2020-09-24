@@ -45,8 +45,8 @@
                                 S.N.
                             </th>
                             <th>Transaction ID</th>
-                            <th>Order Number</th>
-                            <th style="width: 8%" class="text-center">
+                            <th>Order Num</th>
+                            <th>
                                 Customer Name
                             </th>
                             <th>Payment</th>
@@ -66,13 +66,13 @@
                                 <td><span class="text-bold text-gray-dark">{{ucwords($transaction->transaction_id)}}</span><br>
                                     <small>{{$transaction->created_at->format('Y-m-d H:i:s')}}</small>
                                 </td>
-                                <td class="text-sm">{{$transaction->order_number}}</td>
+                                <td class="text-sm"><small>{{$transaction->order_number}}</small> <br><small>{{$transaction->created_at->diffForHumans()}}</small></td>
                                 <td>{{$transaction->customer_name}}</td>
-                                <td class="text-center"><span class="badge bg-gradient-indigo p-1">Method : {{ucfirst($transaction->payment_method)}} <br><small>created : {{$transaction->created_at->diffForHumans()}}</small></span>
+                                <td class="text-center"><span class="badge bg-gradient-indigo">Method : {{ucfirst($transaction->payment_method)}}</span>
                                     <br><span class="badge badge-{{$transaction->payment_status?'info':'warning'}}">{{$transaction->payment_status?'Completed':'Pending'}}</span>
                                 </td>
                                 <td>{{config('settings.currency_symbol').' '.number_format($transaction->transaction_amount)}}</td>
-                                <td><span class="badge badge-{{$transaction->updated_at!=null?'info':'warning'}} p-2">{{$transaction->updated_at!=null?'checked':'unchecked'}}<br><br>{{$transaction->updated_at!=null?$transaction->updated_at->diffForHumans():'unchecked'}}</span></td>
+                                <td><span class="badge badge-{{$transaction->updated_at!=null?'info':'warning'}}">{{$transaction->updated_at!=null?'checked':'unchecked'}}<br>{{$transaction->updated_at!=null?$transaction->updated_at->diffForHumans():'unchecked'}}</span></td>
                                 <td>
                                 @can('transaction_show')
                                         <a class="btn btn-xs btn-primary" href="{{ route('admin.transactions.show', $transaction->id) }}">

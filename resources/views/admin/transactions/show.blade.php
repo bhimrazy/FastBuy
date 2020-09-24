@@ -57,10 +57,18 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Customer Verified
+                                    Customer Name
                                 </th>
                                 <td>
                                     {{ $transaction->customer_name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Payment Status
+                                </th>
+                                <td>
+                                    {{$transaction->payment_status?'Completed':'Pending'}}
                                 </td>
                             </tr>
                             <tr>
