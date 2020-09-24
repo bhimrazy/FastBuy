@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateOrderRequest extends FormRequest
+class UpdateTransactionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class UpdateOrderRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('order_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('transaction_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return true;
     }
 
@@ -27,11 +27,8 @@ class UpdateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'status'=>'required|string',
             'payment_status'=>'required|string',
-            'delivery'=>'required|string',
             'notes'=> 'nullable'
         ];
     }
-
 }

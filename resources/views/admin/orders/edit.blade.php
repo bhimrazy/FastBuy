@@ -1,4 +1,7 @@
 @extends('admin.layouts.app')
+@section('css')
+    <link rel="stylesheet" href="{{asset('/plugins/summernote/summernote-bs4.css')}}">
+@endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -47,14 +50,15 @@
                             <address><strong>{{ $order->customer->getFullname() }}</strong><br>Email: {{ $order->user->email }}</address>
                         </div>
                         <div class="col-4">Ship To
-                            <address><strong>{{ $order->first_name }} {{ $order->last_name }}</strong><br>{{ $order->address }}<br>{{ $order->city }}, {{ $order->country }} {{ $order->post_code }}<br>{{ $order->phone_number }}<br></address>
+                            <address><strong>{{ $order->first_name }} {{ $order->last_name }}</strong><br>{{ $order->address }}<br>{{ $order->city }}, {{ $order->country }} {{ $order->post_code }}<br>{{ $order->phone_number }}<br>{{'Delivery : '.ucfirst($order->delivery) }}</address>
                         </div>
                         <div class="col-4">
                             <b>Order ID:</b> {{ $order->order_number }}<br>
                             <b>Amount: </b> {{ config('settings.currency_symbol') }}{{' '. number_format($order->grand_total) }}<br>
                             <b>Payment Method:</b> {{ $order->payment_method }}<br>
-                            <b>Payment Status:</b> {{ $order->payment_status == 1 ? 'Completed' : 'Not Completed' }}<br>
+                            <b>Payment Status:</b> {{ $order->payment_status == 1 ? 'Completed' : 'Pending' }}<br>
                             <b>Order Status:</b> {{ $order->status }}<br>
+                            <b>{{$order->transaction_id?'TRAN ID : '.$order->transaction_id:''}}</b><br>
                         </div>
                     </div>
                     <div class="row">
@@ -95,19 +99,51 @@
                         @method('PUT')
                         @csrf
                         <div class="card-body">
-                        <div class="form-group">
-                            <label for="inputCategory">Order Status</label>
-                            <select id="inputCategory" name="status" class="form-control custom-select" required>
-                                <option selected disabled>Select One</option>
-                                <option class="badge text-success" value="pending" {{ $order->status=="pending" ? 'selected' : '' }}>pending</option>
-                                <option class="badge text-success" value="processing" {{ $order->status=="processing" ? 'selected' : '' }}>processing</option>
-                                <option class="badge text-success" value="completed" {{ $order->status=="completed" ? 'selected' : '' }}>completed</option>
-                                <option class="badge text-success" value="declined" {{ $order->status=="declined" ? 'selected' : '' }}>declined</option>
-                            </select>
-                            @error('status')
-                            <small class="text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
+                            <div class="form-group">
+                                <label for="inputOrderStatus">Order Status</label>
+                                <select id="inputOrderStatus" name="status" class="form-control custom-select" required>
+                                    <option selected disabled>Select One</option>
+                                    <option class="badge text-success" value="pending" {{ $order->status=="pending" ? 'selected' : '' }}>pending</option>
+                                    <option class="badge text-success" value="processing" {{ $order->status=="processing" ? 'selected' : '' }}>processing</option>
+                                    <option class="badge text-success" value="completed" {{ $order->status=="completed" ? 'selected' : '' }}>completed</option>
+                                    <option class="badge text-success" value="canceled" {{ $order->status=="canceled" ? 'selected' : '' }}>canceled</option>
+                                </select>
+                                @error('status')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="inputCategory">Payment Status</label>
+                                <select id="inputCategory" name="payment_status" class="form-control custom-select" required>
+                                    <option selected disabled>Select One</option>
+                                    <option class="badge text-success" value="pending" {{ $order->payment_status==false? 'selected' : '' }}>pending</option>
+                                    <option class="badge text-success" value="completed" {{ $order->payment_status==true? 'selected' : '' }}>completed</option>
+                                </select>
+                                @error('payment_status')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="inputOrderDelivery">Delivery</label>
+                                <select id="inputOrderDelivery" name="delivery" class="form-control custom-select" required>
+                                    <option selected disabled>Select One</option>
+                                    <option class="badge text-success" value="pending" {{ $order->delivery=="pending" ? 'selected' : '' }}>pending</option>
+                                    <option class="badge text-success" value="processing" {{ $order->delivery=="processing" ? 'selected' : '' }}>processing</option>
+                                    <option class="badge text-success" value="delivered" {{ $order->delivery=="delivered" ? 'selected' : '' }}>delivered</option>
+                                    <option class="badge text-success" value="declined" {{ $order->delivery=="canceled" ? 'selected' : '' }}>canceled</option>
+                                </select>
+                                @error('delivery')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="inputNotes">Order Notes</label>
+                                <textarea id="inputNotes" class="textarea" placeholder="Place some text here" name="notes"
+                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{old('notes',$order->notes)}}</textarea>
+                                @error('notes')
+                                <small class="text-danger">{{$message}}</small>
+                                @enderror
+                            </div>
                         </div>
                         <div class="card-footer">
                             <div class="text-center">
@@ -121,4 +157,12 @@
     </div>
     <!-- /.content-wrapper -->
 @endsection
-
+@section('scripts')
+    <script src="{{asset('/plugins/summernote/summernote-bs4.min.js')}}"></script>
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote()
+        })
+    </script>
+@endsection

@@ -45,22 +45,17 @@ class OrderController extends Controller
     {
         abort_if(Gate::denies('order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $order->load('items');
-        $this->setPageTitle($order['order_number'].'| Edit Order','This Page shows the order with Order Number:'.$order['order_number']);
+        $this->setPageTitle($order['order_number'].'| Edit Order','This Page edits the order with Order Number:'.$order['order_number']);
         return view('admin.orders.edit', compact('order'));
     }
 
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        $order->update($request->validated());
-        if($order['transaction_id']==null){
-            if($request['status']=='completed'){
-                $order->update(['payment_status'=>1]);
-            }
-            else{
-                $order->update(['payment_status'=>0]);
-            }
-        }
-
+        $order['notes']=$request['notes'];
+        $order['delivery']=$request['delivery'];
+        $order['status']=$request['status'];
+        $order['payment_status']=$request['payment_status']=="completed"?1:0;
+        $order->save();
         return back()->with('success','Order with OrderNumber: '.$order['order_number'].' updated successfully');
     }
 

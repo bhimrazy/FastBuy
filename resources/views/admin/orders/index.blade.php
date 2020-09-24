@@ -68,8 +68,9 @@
                                             <div >{{$order->customer->getFullName()}}</div>{{$order->created_at->format('Y-m-d H:i:s')}}
                                         </td>
                                         <td>{{config('settings.currency_symbol').' '.number_format($order->grand_total)}}</td>
-                                        <td><span class="badge badge-{{$order->payment_status?'info':'warning'}}">{{$order->payment_status?'Completed':'Not Completed'}}</span><br><small class="text-sm-left text-black-50 text-bold">{{$order->transaction_id?'TRAN ID : '.$order->transaction_id:''}}</small></td>
-                                        <td><span class="badge badge-{{($order->status=='completed')?'info':'warning'}}">{{$order->status}}</span></td>
+                                        <td><span class="badge badge-{{$order->payment_status?'info':'warning'}}">{{$order->payment_status?'Completed':'Pending'}}</span><br><small class="text-sm-left text-black-50 text-bold">{{$order->transaction_id?'TRAN ID : '.$order->transaction_id:''}}</small></td>
+                                        <td><span class="badge badge-{{($order->status=='completed')?'info':'warning'}}">{{$order->status}}</span><br>
+                                            <span class="badge badge-{{($order->delivery=='delivered')?'info':'warning'}}">{{$order->delivery}}</span></td>
                                         <td>
                                             @can('order_show')
                                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.orders.show', $order->id) }}">
