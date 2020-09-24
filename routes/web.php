@@ -201,14 +201,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         ]);
 
         //Transactions
-        Route::get('/transactions',[
-            'uses' => 'TransactionController@index',
-            'as' => 'transactions'
-        ]);
-        Route::get('/transactions/{transaction}',[
-            'uses' => 'TransactionController@show',
-            'as' => 'transactions.show'
-        ]);
+        Route::resource('transactions', 'TransactionController');
 
         //Brands
         Route::resource('brands', 'BrandController');

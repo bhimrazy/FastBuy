@@ -72,12 +72,25 @@
                                     <br><span class="badge badge-{{$transaction->payment_status?'info':'warning'}}">{{$transaction->payment_status?'Completed':'Pending'}}</span>
                                 </td>
                                 <td>{{config('settings.currency_symbol').' '.number_format($transaction->transaction_amount)}}</td>
-                                <td><span class="badge badge-{{$transaction->updated_at!=null?'info':'warning'}}">{{$transaction->updated_at!=null?'checked':'unchecked'}}<br>{{$transaction->updated_at!=null?$transaction->updated_at->diffForHumans():'unchecked'}}</span></td>
+                                <td><span class="badge badge-{{$transaction->updated_at!=null?'info':'warning'}} p-2">{{$transaction->updated_at!=null?'checked':'unchecked'}}<br><br>{{$transaction->updated_at!=null?$transaction->updated_at->diffForHumans():'unchecked'}}</span></td>
                                 <td>
                                 @can('transaction_show')
                                         <a class="btn btn-xs btn-primary" href="{{ route('admin.transactions.show', $transaction->id) }}">
                                             Show
                                         </a>
+                                @endcan
+                                    @can('transaction_edit')
+                                        <a class="btn btn-xs btn-info" href="{{ route('admin.transactions.edit', $transaction->id) }}">
+                                            Edit
+                                        </a>
+                                    @endcan
+
+                                    @can('transaction_delete')
+                                        <form action="{{ route('admin.transactions.destroy', $transaction->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete Order : {{$transaction->transaction_id}}?');" style="display: inline-block;">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                                        </form>
                                     @endcan
                                 </td>
                             </tr>
