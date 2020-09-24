@@ -18,7 +18,8 @@ class TransactionController extends Controller
     public function show(Transaction $transaction)
     {
         abort_if(Gate::denies('transaction_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $transaction->update(['status'=>true]);
+        $transaction->checked_at=now();
+        $transaction->save();
         return view('admin.transactions.show', compact('transaction'));
     }
 }

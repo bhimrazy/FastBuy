@@ -63,13 +63,16 @@
                                 <td>
                                     {{$key+1}}
                                 </td>
-                                <td><span class="text-bold text-gray-dark">{{ucwords($transaction->transaction_id)}}</span>
+                                <td><span class="text-bold text-gray-dark">{{ucwords($transaction->transaction_id)}}</span><br>
+                                    <small>{{$transaction->created_at->format('Y-m-d H:i:s')}}</small>
                                 </td>
                                 <td class="text-sm">{{$transaction->order_number}}</td>
                                 <td>{{$transaction->customer_name}}</td>
-                                <td class="text-center"><span class="badge bg-gradient-indigo p-2">{{ucfirst($transaction->payment_method)}} <br><small>created : {{$transaction->created_at->diffForHumans()}}</small></span></td>
+                                <td class="text-center"><span class="badge bg-gradient-indigo p-1">Method : {{ucfirst($transaction->payment_method)}} <br><small>created : {{$transaction->created_at->diffForHumans()}}</small></span>
+                                    <br><span class="badge badge-{{$transaction->payment_status?'info':'warning'}}">{{$transaction->payment_status?'Completed':'Pending'}}</span>
+                                </td>
                                 <td>{{config('settings.currency_symbol').' '.number_format($transaction->transaction_amount)}}</td>
-                                <td><span class="badge badge-{{$transaction->status?'info':'warning'}}">{{$transaction->status?'checked':'unchecked'}}</span></td>
+                                <td><span class="badge badge-{{$transaction->checked_at!=null?'info':'warning'}}">{{$transaction->checked_at!=null?'checked':'unchecked'}}</span></td>
                                 <td>
                                 @can('transaction_show')
                                         <a class="btn btn-xs btn-primary" href="{{ route('admin.transactions.show', $transaction->id) }}">
