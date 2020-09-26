@@ -40,14 +40,11 @@ class FonepayController extends Controller
                 $queryString = "PRN=$PRN&PID=$PID&BID=$BID&AMT=$AMT&RU=$RU&UID=$UID&DV=$DV";
                 $url   = 'https://dev-clientapi.fonepay.com/api/merchantRequest/verificationMerchant?' . $queryString;
 
-
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $content  = curl_exec($ch);
-
-                //dd($content );
 
                 $response = simplexml_load_string($content);
                 //dd($response);
