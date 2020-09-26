@@ -49,7 +49,6 @@ class BrandController extends Controller
         $this->setPageTitle('Edit Brand : '.$brand->title,'This Page allows to edit Brand.');
         return view('admin.brands.edit', compact('brand'));
     }
-
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
         $title=$request['title'];
