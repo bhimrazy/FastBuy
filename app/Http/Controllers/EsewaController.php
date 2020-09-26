@@ -14,10 +14,8 @@ class EsewaController extends Controller
         if( isset($request->oid) && isset($request->amt) && isset($request->refId))
         {
             $order = Order::where('order_number', $request->oid)->first();
-            //dd($order);
             if( $order)
-            {
-                $url = "https://uat.esewa.com.np/epay/transrec";
+            {   $url = "https://uat.esewa.com.np/epay/transrec";
                 $data =[
                     'amt'=> $order->grand_total,
                     'rid'=> $request->refId,
@@ -34,7 +32,6 @@ class EsewaController extends Controller
                 curl_close($curl);
 
                 $response_code = $this->get_xml_node_value('response_code',$response );
-                //dd($response_code);
                 if( trim($response_code) == 'Success')
                 {
                     $order->status = 'processing';
