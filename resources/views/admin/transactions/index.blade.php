@@ -45,13 +45,13 @@
                                 S.N.
                             </th>
                             <th>Transaction ID</th>
-                            <th>Order Num</th>
+                            <th>Order Num.</th>
                             <th>
-                                Customer Name
+                                CUST NAME
                             </th>
-                            <th>Payment</th>
+                            <th>PYMT</th>
                             <th>Amount</th>
-                            <th>Checked</th>
+                            <th>Status</th>
                             <th>
                                 Actions
                             </th>
@@ -63,7 +63,7 @@
                                 <td>
                                     {{$key+1}}
                                 </td>
-                                <td><span class="text-bold text-gray-dark">{{ucwords($transaction->transaction_id)}}</span><br>
+                                <td><span class="text-bold text-gray-dark text-sm">{{ucwords($transaction->transaction_id)}}</span><br>
                                     <small>{{$transaction->created_at->format('Y-m-d H:i:s')}}</small>
                                 </td>
                                 <td class="text-sm"><small>{{$transaction->order_number}}</small> <br><small>{{$transaction->created_at->diffForHumans()}}</small></td>

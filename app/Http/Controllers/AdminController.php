@@ -23,10 +23,12 @@ class AdminController extends Controller
     }
     public function index(){
         $users=User::all()->where('type','customer');
+        $latestUsers=User::where('type','customer')->latest()->take(8)->get();
         $products=Product::with('media')->latest()->get();
         $orders=Order::orderBy('status','desc')->latest()->get();
         $sales=Transaction::all()->pluck('transaction_amount')->sum();
-        return view('admin.index',compact(['users','orders','products','sales']));
+
+        return view('admin.index',compact(['latestUsers','users','orders','products','sales']));
     }
 //    public function authenticate(AdminRequest $request){
 //        $credentials = $request->only('email', 'password');

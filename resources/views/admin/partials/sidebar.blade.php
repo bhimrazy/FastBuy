@@ -75,6 +75,29 @@
                         </ul>
                     </li>
                 @endcan
+                @can(['vendor_access'])
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link bg-gradient-gray-dark">
+                            <i class="fas fa-users-cog nav-icon"></i>
+                            <p>
+                                Vendor Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-3" style="display: none;">
+                            @can('vendor_access')
+                                <li class="nav-item has-treeview">
+                                    <a href="{{route('admin.vendors.index')}}" class="nav-link">
+                                        <i class="nav-icon fas fa-users"></i>
+                                        <p>
+                                            Vendors
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcan
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link bg-gradient-gray-dark">
                         <i class="fas fa-shopping-cart nav-icon"></i>

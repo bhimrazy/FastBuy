@@ -13,7 +13,6 @@ class HomePageController extends Controller
         $products=Product::with('media')->latest()->get();
         $newProducts=$products->take(5);
         $featuredProducts=Product::with('media')->where('featured','1')->get()->sortByDesc('likes');
-        //dd($featuredProducts);
         return view('client.index',compact(['products','newProducts','featuredProducts']));
     }
 

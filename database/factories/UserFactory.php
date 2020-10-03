@@ -18,14 +18,15 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Admin::class, function (Faker $faker) {
-    return [
-        'first_name' => 'Bhimraj',
-        'last_name'=>'Yadav',
-        'email' => 'superadmin@fastbuy.com',
-        'email_verified_at' => now(),
-        'password'=>Hash::make('password'),
-        'is_super'=>true,
-        'remember_token' => Str::random(10),
-    ];
-});
+//$factory->define(Admin::class, function (Faker $faker) {
+//    return [
+//        'first_name' => 'Bhimraj',
+//        'last_name'=>'Yadav',
+//        'email' => 'superadmin@fastbuy.com',
+//        'email_verified_at' => now(),
+//        'password'=>Hash::make('password'),
+//        'is_super'=>true,
+//        'type'=>'admin',
+//        'remember_token' => Str::random(10),
+//    ];
+//});
