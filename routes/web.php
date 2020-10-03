@@ -173,6 +173,10 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
         Route::resource('users', 'UsersController');
 
+        // Vendors
+        Route::delete('vendors/destroy', 'VendorController@massDestroy')->name('vendors.massDestroy');
+        Route::resource('vendors', 'VendorController');
+
         //Category
         Route::resource('categories', 'CategoryController');
         Route::get('/categories/status/update', 'CategoryController@updateStatus')->name('categories.update.status');
