@@ -13,7 +13,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Create User</li>
+                            <li class="breadcrumb-item active">Create Vendor</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -31,7 +31,7 @@
                         <!-- jquery validation -->
                         <div class="card card-secondary">
                             <div class="card-header">
-                                <h3 class="card-title">Add a new User</h3>
+                                <h3 class="card-title">Add a new Vendor</h3>
                             </div>
                             <!-- /.card-header -->
                                 <div class="card-body">

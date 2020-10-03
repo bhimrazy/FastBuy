@@ -13,7 +13,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Edit User</li>
+                            <li class="breadcrumb-item active">Edit Vendor</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -31,37 +31,37 @@
                         <!-- jquery validation -->
                         <div class="card card-secondary">
                             <div class="card-header">
-                                <h3 class="card-title">Edit User: <span class="badge bg-gradient-indigo">{{$user->getFullName()}}</span></h3>
+                                <h3 class="card-title">Edit Vendor: <span class="badge bg-gradient-indigo">{{$vendor->getFullName()}}</span></h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form method="POST" action="{{ route("admin.users.update", [$user->id]) }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route("admin.vendors.update", [$vendor->id]) }}" enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
                                     <div class="form-group">
                                         <label class="required" for="first_name">First Name</label>
-                                        <input class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}" type="text" name="first_name" id="first_name" value="{{ old('first_name',$user->first_name) }}" required {{auth()->user()['id'] == $user->id?'':'readonly'}}>
+                                        <input class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}" type="text" name="first_name" id="first_name" value="{{ old('first_name',$vendor->first_name) }}" required {{auth()->user()['id'] == $vendor->id?'':'readonly'}}>
                                         @if($errors->has('first_name'))
                                             <span class="text-danger">{{ $errors->first('first_name') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label class="required" for="last_name">Last Name</label>
-                                        <input class="form-control {{ $errors->has('last_name') ? 'is-invalid' : '' }}" type="text" name="last_name" id="last_name" value="{{ old('last_name',$user->last_name) }}" required {{auth()->user()['id'] == $user->id?'':'readonly'}}>
+                                        <input class="form-control {{ $errors->has('last_name') ? 'is-invalid' : '' }}" type="text" name="last_name" id="last_name" value="{{ old('last_name',$vendor->last_name) }}" required {{auth()->user()['id'] == $vendor->id?'':'readonly'}}>
                                         @if($errors->has('last_name'))
                                             <span class="text-danger">{{ $errors->first('last_name') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label class="required" for="email">Email</label>
-                                        <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email',$user->email) }}" required {{auth()->user()['id'] == $user->id?'':'readonly'}}>
+                                        <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email',$vendor->email) }}" required {{auth()->user()['id'] == $vendor->id?'':'readonly'}}>
                                         @if($errors->has('email'))
                                             <span class="text-danger">{{ $errors->first('email') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group">
                                         <label class="required" for="password">Password</label>
-                                        <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password" required {{auth()->user()['id'] == $user->id?'':'readonly'}}>
+                                        <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password" required {{auth()->user()['id'] == $vendor->id?'':'readonly'}}>
                                         @if($errors->has('password'))
                                             <span class="text-danger">{{ $errors->first('password') }}</span>
                                         @endif
@@ -75,7 +75,7 @@
                                         <div class="row">
                                             @foreach($roles as $id => $roles)
                                                 <div class="form-check form-check-inline col-xl-3 col-md-2 col-sm-12 p-1">
-                                                    <input class="form-check-input checkbox-jquery {{ $errors->has('roles') ? 'is-invalid' : '' }}" type="checkbox" name="roles[]" id="roles{{ $id }}" value="{{ $id }}" {{ (in_array($id, old('roles', [])) || $user->roles->contains($id)) ? 'checked' : '' }}>
+                                                    <input class="form-check-input checkbox-jquery {{ $errors->has('roles') ? 'is-invalid' : '' }}" type="checkbox" name="roles[]" id="roles{{ $id }}" value="{{ $id }}" {{ (in_array($id, old('roles', [])) || $vendor->roles->contains($id)) ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="roles{{ $id }}">{{ $roles }}</label>
                                                 </div>
                                             @endforeach

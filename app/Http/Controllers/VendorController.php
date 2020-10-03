@@ -27,7 +27,7 @@ class VendorController extends Controller
     public function create()
     {
         abort_if(Gate::denies('vendor_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        $this->setPageTitle('Add Vendor','This Page allows to add  the vendor user.');
         $roles = Role::all()->pluck('title', 'id');
 
         return view('admin.vendors.create', compact('roles'));
@@ -38,15 +38,16 @@ class VendorController extends Controller
         $vendor = Admin::create($request->validated());
         $vendor->password=Hash::make($request->validated()['password']);
         $vendor->email_verified_at=now();
+        $vendor->type="vendor";
         $vendor->roles()->sync($request->input('roles', []));
         $vendor->save();
-        return redirect()->route('admin.vendors.index')->with('success',$vendor->firstname.' : User Created Successfully');
+        return redirect()->route('admin.vendors.index')->with('success',$vendor->first_name.' : User Created Successfully');
     }
 
     public function edit(Admin $vendor)
     {
         abort_if(Gate::denies('vendor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        $this->setPageTitle('Edit'.$vendor['first_name'],'Show Vendor');
         $roles = Role::all()->pluck('title', 'id');
 
         $vendor->load('roles');
@@ -60,13 +61,13 @@ class VendorController extends Controller
         $vendor->password=Hash::make($request->password);
         $vendor->roles()->sync($request->input('roles', []));
         $vendor->save();
-        return redirect()->route('admin.vendors.index')->with('success',$vendor->firstname.' : User Updated Successfully');
+        return redirect()->route('admin.vendors.index')->with('success',$vendor->first_name.' : Vendor Updated Successfully');
     }
 
     public function show(Admin $vendor)
     {
         abort_if(Gate::denies('vendor_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        $this->setPageTitle($vendor['first_name'],'Show Vendor');
         $vendor->load('roles');
 
         return view('admin.vendors.show', compact('vendor'));
@@ -78,7 +79,7 @@ class VendorController extends Controller
 
         $vendor->delete();
 
-        return back()->with('success',$vendor->firstname.' : Vendor Deleted Successfully');
+        return back()->with('success',$vendor->first_name.' : Vendor Deleted Successfully');
     }
 
     public function massDestroy(MassDestroyUserRequest $request)

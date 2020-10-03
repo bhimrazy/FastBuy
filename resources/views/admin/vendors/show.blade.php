@@ -14,7 +14,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item">Dashboard</li>
-                            <li class="breadcrumb-item active">Show User</li>
+                            <li class="breadcrumb-item active">Show Vendor</li>
                         </ol>
                     </div>
                 </div>
@@ -27,13 +27,13 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    Show User
+                    Show Vendor
                 </div>
 
                 <div class="card-body">
                     <div class="form-group">
                         <div class="form-group">
-                            <a class="btn btn-default" href="{{ route('admin.users.index') }}">
+                            <a class="btn btn-default" href="{{ route('admin.vendors.index') }}">
                                 Back to List
                             </a>
                         </div>
@@ -41,10 +41,10 @@
                             <tbody>
                             <tr>
                                 <th>
-                                    Users ID
+                                    Vendors ID
                                 </th>
                                 <td>
-                                    {{ $user->id }}
+                                    {{ $vendor->id }}
                                 </td>
                             </tr>
                             <tr>
@@ -52,7 +52,7 @@
                                     Name
                                 </th>
                                 <td>
-                                    {{ $user->getFullName()}}
+                                    {{ $vendor->getFullName()}}
                                 </td>
                             </tr>
                             <tr>
@@ -60,21 +60,21 @@
                                     Email
                                 </th>
                                 <td>
-                                    {{ $user->email }}
+                                    {{ $vendor->email }}
                                 </td>
                             </tr>
                             <tr>
                                 <th>
                                     Email Verified at
                                 </th>
-                                <td><span class="badge bg-gradient-{{$user->email_verified_at?'blue':'danger'}} p-2">{{$user->email_verified_at?$user->email_verified_at->format('d-m-Y H:i:s'):'Not Verified'}}</span></td>
+                                <td><span class="badge bg-gradient-{{$vendor->email_verified_at?'blue':'danger'}} p-2">{{$vendor->email_verified_at?$vendor->email_verified_at->format('d-m-Y H:i:s'):'Not Verified'}}</span></td>
                             </tr>
                             <tr>
                                 <th>
                                     Roles
                                 </th>
                                 <td>
-                                    @foreach($user->roles as $key => $roles)
+                                    @foreach($vendor->roles as $key => $roles)
                                         <span class="badge bg-gradient-lightblue">{{ $roles->title }}</span>
                                     @endforeach
                                 </td>
