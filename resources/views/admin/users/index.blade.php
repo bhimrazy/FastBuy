@@ -78,7 +78,7 @@
                                         <td class="text-center"><span class="badge bg-gradient-{{$user->email_verified_at?'blue':'danger'}} p-2">{{$user->email_verified_at?$user->email_verified_at->format('d-m-Y H:i:s'):'Not Verified'}}</span></td>
                                         <td>
                                             @foreach($user->roles as $key => $item)
-                                                <span class="badge badge-info">{{ $item->title }}</span>
+                                                <span class="badge badge-info">{{ $item->title }}</span><br>
                                             @endforeach
                                         </td>
                                         <td>

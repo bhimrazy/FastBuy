@@ -14,7 +14,7 @@ $factory->define(Permission::class, function (Faker $faker) {
         'brand_delete','brand_edit','brand_show','user_access','user_create','user_delete','user_edit','user_management_access'
         ,'user_show','order_access','order_delete','order_edit','order_show','customer_access',
         'transaction_access','transaction_show','transaction_edit','transaction_delete',
-        'vendor_access','vendor_show','vendor_edit','vendor_delete',
+        'vendor_access','vendor_create','vendor_show','vendor_edit','vendor_delete',
     ]);
 
     return [

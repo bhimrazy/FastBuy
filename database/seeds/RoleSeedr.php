@@ -11,7 +11,7 @@ class RoleSeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\Role::class,1)
+        factory(\App\Role::class,4)
             ->create()
             ->each(function ($role) {
                 $role->permissions()->sync(\App\Permission::all());

@@ -6,7 +6,8 @@ use App\Role;
 use Faker\Generator as Faker;
 
 $factory->define(Role::class, function (Faker $faker) {
+    $title = $faker->unique()->randomElement(['SuperAdmin','SubAdmin','Vendor','Editor']);
     return [
-        'title'=>'SuperAdmin',
+        'title'=>$title,
     ];
 });

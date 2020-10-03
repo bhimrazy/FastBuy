@@ -19,7 +19,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $this->setPageTitle('List Users','This Page Lists all the users.');
-        $users = Admin::all();
+        $users = Admin::where('type','!=','vendor')->get();
 
         return view('admin.users.index', compact('users'));
     }
