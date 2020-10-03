@@ -78,7 +78,7 @@ class VendorController extends Controller
 
         $vendor->delete();
 
-        return back()->with('success',$vendor->firstname.' : User Deleted Successfully');;
+        return back()->with('success',$vendor->firstname.' : Vendor Deleted Successfully');
     }
 
     public function massDestroy(MassDestroyUserRequest $request)

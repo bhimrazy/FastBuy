@@ -67,7 +67,7 @@
 
                                         </td>
                                         <td>
-                                            {{ $user->id ?? '' }}
+                                            {{ $key+1??'' }}
                                         </td>
                                         <td>
                                             {{ $user->getFullName() ?? '' }}
@@ -95,7 +95,7 @@
                                             @endcan
 
                                             @can('user_delete')
-                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$user->firstname}}?');" style="display: inline-block;">
+                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$user->first_name}}?');" style="display: inline-block;">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="submit" class="btn btn-xs btn-danger" value="Delete">

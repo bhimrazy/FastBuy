@@ -67,7 +67,7 @@
 
                                         </td>
                                         <td>
-                                            {{ $vendor->id ?? '' }}
+                                            {{ $key+1??''  }}
                                         </td>
                                         <td>
                                             {{ $vendor->getFullName() ?? '' }}
@@ -95,7 +95,7 @@
                                             @endcan
 
                                             @can('vendor_delete')
-                                                <form action="{{ route('admin.vendors.destroy', $vendor->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$vendor->firstname}}?');" style="display: inline-block;">
+                                                <form action="{{ route('admin.vendors.destroy', $vendor->id) }}" method="POST" onsubmit="return confirm('Are You Sure Want To Delete : {{$vendor->first_name}}?');" style="display: inline-block;">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="submit" class="btn btn-xs btn-danger" value="Delete">

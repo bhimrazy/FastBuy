@@ -78,7 +78,7 @@ class UsersController extends Controller
 
         $user->delete();
 
-        return back()->with('success',$user->firstname.' : User Deleted Successfully');;
+        return back()->with('success',$user->firstname.' : User Deleted Successfully');
     }
 
     public function massDestroy(MassDestroyUserRequest $request)
