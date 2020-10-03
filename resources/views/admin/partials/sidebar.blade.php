@@ -87,7 +87,7 @@
                         <ul class="nav nav-treeview ml-3" style="display: none;">
                             @can('vendor_access')
                                 <li class="nav-item has-treeview">
-                                    <a href="" class="nav-link">
+                                    <a href="{{route('admin.vendors.index')}}" class="nav-link">
                                         <i class="nav-icon fas fa-users"></i>
                                         <p>
                                             Vendors

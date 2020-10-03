@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class VendorController extends Controller
-{use pageMetaContent;
+{   use pageMetaContent;
     public function index()
     {
         abort_if(Gate::denies('vendor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $this->setPageTitle('List Vendors','This Page Lists all the vendors.');
-        $vendors = Admin::all();
+        $vendors = Admin::where('type','vendor')->latest()->get();
 
         return view('admin.vendors.index', compact('vendors'));
     }

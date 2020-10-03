@@ -7,17 +7,18 @@ use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Role;
+use App\Traits\pageMetaContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class UsersController extends Controller
-{
+{   use pageMetaContent;
     public function index()
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        $this->setPageTitle('List Users','This Page Lists all the users.');
         $users = Admin::all();
 
         return view('admin.users.index', compact('users'));
