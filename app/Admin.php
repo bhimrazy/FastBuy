@@ -42,6 +42,9 @@ class Admin extends Authenticable
     public function isAdmin(){
         return $this->attributes['is_super']?true:false;
     }
+    public function isVendor(){
+        return $this->attributes['type']==''?true:false;
+    }
     public function getFullName()
     {
         return $this->attributes['first_name'] .' '. $this->attributes['last_name'];
