@@ -69,6 +69,7 @@ class VendorController extends Controller
         abort_if(Gate::denies('vendor_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $this->setPageTitle($vendor['first_name'],'Show Vendor');
         $vendor->load('roles');
+        $vendor->loadCount('products');
 
         return view('admin.vendors.show', compact('vendor'));
     }
