@@ -19,7 +19,7 @@ class VendorController extends Controller
     {
         abort_if(Gate::denies('vendor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $this->setPageTitle('List Vendors','This Page Lists all the vendors.');
-        $vendors = Admin::where('type','vendor')->latest()->get();
+        $vendors = Admin::where('type','vendor')->latest()->withCount('products')->get();
 
         return view('admin.vendors.index', compact('vendors'));
     }
@@ -70,8 +70,10 @@ class VendorController extends Controller
         $this->setPageTitle($vendor['first_name'],'Show Vendor');
         $vendor->load('roles');
         $vendor->loadCount('products');
-
-        return view('admin.vendors.show', compact('vendor'));
+        $products=$vendor->products()->latest()->get();
+        $products->load('media');
+        //dd($products);
+        return view('admin.vendors.show', compact('vendor','products'));
     }
 
     public function destroy(Admin $vendor)

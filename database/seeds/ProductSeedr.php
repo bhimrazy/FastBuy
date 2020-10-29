@@ -21,6 +21,6 @@ class ProductSeedr extends Seeder
                 $product->media()->createMany(
                     factory(\App\Media::class,3)->make()->toArray()
                 );
-            });;
+            });
     }
 }

@@ -37,9 +37,6 @@
                             <table id="vendors" class="table table-bordered table-striped text-nowrap">
                                 <thead>
                                 <tr>
-                                    <th width="10">
-
-                                    </th>
                                     <th>
                                         ID
                                     </th>
@@ -53,6 +50,9 @@
                                         Email verified at
                                     </th>
                                     <th>
+                                        Products
+                                    </th>
+                                    <th>
                                         Roles
                                     </th>
                                     <th>
@@ -63,9 +63,7 @@
                                 <tbody>
                                 @foreach($vendors as $key => $vendor)
                                     <tr data-entry-id="{{ $vendor->id }}">
-                                        <td>
 
-                                        </td>
                                         <td>
                                             {{ $key+1??''  }}
                                         </td>
@@ -76,6 +74,9 @@
                                             {{ $vendor->email ?? '' }}
                                         </td>
                                         <td class="text-center"><span class="badge bg-gradient-{{$vendor->email_verified_at?'blue':'danger'}} p-2">{{$vendor->email_verified_at?$vendor->email_verified_at->format('d-m-Y H:i:s'):'Not Verified'}}</span></td>
+                                        <td class="text-center text-bold text-indigo">
+                                            {{ $vendor->products_count }}
+                                        </td>
                                         <td>
                                             @foreach($vendor->roles as $key => $item)
                                                 <span class="badge badge-info">{{ $item->title }}</span>

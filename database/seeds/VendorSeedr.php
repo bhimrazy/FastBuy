@@ -14,9 +14,7 @@ class VendorSeedr extends Seeder
             ->create()
             ->each(function ($user) {
                 $user->roles()->sync(\App\Role::where('title','Vendor')->pluck('id')->toArray());
-                $user->products()->createMany(
-                    factory(\App\Product::class,rand(2,5))->make()->toArray()
-                );
+                $user->products()->saveMany(\App\Product::all()->random(rand(2,5)));
             });
     }
 }
