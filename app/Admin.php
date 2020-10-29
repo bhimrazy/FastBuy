@@ -50,7 +50,7 @@ class Admin extends Authenticable
         return $this->attributes['first_name'] .' '. $this->attributes['last_name'];
     }
     public function products(){
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class,'owner_id','id');
     }
     public function roles()
     {

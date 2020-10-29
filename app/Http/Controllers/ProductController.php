@@ -38,6 +38,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
          $newProduct=Product::create($request->validated());
+         $newProduct->owner_id=auth()->guard('admin')->user()->isVendor()?auth()->guard('admin')->id():null;
          $newProduct->tags()->sync($request->input('tags', []));
          $newProduct->save();
         if($request->hasfile('image'))
