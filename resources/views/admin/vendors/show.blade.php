@@ -65,6 +65,14 @@
                             </tr>
                             <tr>
                                 <th>
+                                    Type
+                                </th>
+                                <td>
+                                    {{ $vendor->type }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
                                     Email Verified at
                                 </th>
                                 <td><span class="badge bg-gradient-{{$vendor->email_verified_at?'blue':'danger'}} p-2">{{$vendor->email_verified_at?$vendor->email_verified_at->format('d-m-Y H:i:s'):'Not Verified'}}</span></td>
