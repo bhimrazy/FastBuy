@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class Product extends Model
 {
     protected $fillable=[
-        'name','description','price','discount','likes','user_id','subcategory_id','product_type','stock',
+        'name','description','price','discount','likes','owner_id','subcategory_id','product_type','stock',
         'slug','rating','brand_id','attributes','status','featured','quantity','sku',
     ];
     public function setNameAttribute($value)

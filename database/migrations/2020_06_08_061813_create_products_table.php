@@ -31,7 +31,7 @@ class CreateProductsTable extends Migration
             $table->boolean('featured')->default(0);
             $table->unsignedBigInteger('subcategory_id');
             $table->unsignedBigInteger('brand_id')->index();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('owner_id')->nullable();
             $table->timestamps();
 
             //$table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');

@@ -66,6 +66,13 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
+                                            <label class="required" for="type">Type</label>
+                                            <input class="form-control {{ $errors->has('type') ? 'is-invalid' : '' }}" type="text" name="type" id="type" required>
+                                            @if($errors->has('type'))
+                                                <span class="text-danger">{{ $errors->first('type') }}</span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
                                             <label class="required" for="roles">Roles</label>
                                             <div style="padding-bottom: 4px">
                                                 <span class="btn btn-info btn-xs select-all" style="border-radius: 0">Select all</span>

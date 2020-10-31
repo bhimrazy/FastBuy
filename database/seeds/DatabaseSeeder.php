@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
             PermissionSeedr::class,
             RoleSeedr::class,
             SuperAdminSeedr::class,
-            VendorSeedr::class,
             CustomerSeedr::class,
             CategorySeedr::class,
             SubcategorySeedr::class,
@@ -23,6 +22,7 @@ class DatabaseSeeder extends Seeder
             BrandSeedr::class,
             SettingsSeedr::class,
             ProductSeedr::class,
+            VendorSeedr::class,
         ]);
 
     }

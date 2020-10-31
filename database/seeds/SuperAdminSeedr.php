@@ -18,7 +18,7 @@ class SuperAdminSeedr extends Seeder
             'email_verified_at' => now(),
             'password'=>Hash::make('password'),
             'is_super'=>true,
-            'type'=>'admin',
+            'type'=>'superAdmin',
             'remember_token' => Str::random(10),
         ]);
         $superAdmin->roles()->sync(\App\Role::all());

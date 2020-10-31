@@ -44,14 +44,7 @@ class User extends Authenticable implements MustVerifyEmail
     {
         return $this->attributes['first_name'] .' '. $this->attributes['last_name'];
     }
-    public function isAdmin()
-    {   if($this->type == 'admin'){
-            return true;
-        }
-         else{
-             return false;
-         }
-    }
+
     public function customerOrders(){
         return $this->hasMany(Order::class);
     }

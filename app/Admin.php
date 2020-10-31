@@ -42,12 +42,15 @@ class Admin extends Authenticable
     public function isAdmin(){
         return $this->attributes['is_super']?true:false;
     }
+    public function isVendor(){
+        return $this->attributes['type']=='vendor'?true:false;
+    }
     public function getFullName()
     {
         return $this->attributes['first_name'] .' '. $this->attributes['last_name'];
     }
     public function products(){
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class,'owner_id','id');
     }
     public function roles()
     {
