@@ -50,6 +50,9 @@
                                         Email
                                     </th>
                                     <th>
+                                        Type
+                                    </th>
+                                    <th>
                                         Email verified at
                                     </th>
                                     <th>
@@ -74,6 +77,9 @@
                                         </td>
                                         <td>
                                             {{ $user->email ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ ucfirst($user->isAdmin()?'Super Admin':$user->type) ?? '' }}
                                         </td>
                                         <td class="text-center"><span class="badge bg-gradient-{{$user->email_verified_at?'blue':'danger'}} p-2">{{$user->email_verified_at?$user->email_verified_at->format('d-m-Y H:i:s'):'Not Verified'}}</span></td>
                                         <td>
