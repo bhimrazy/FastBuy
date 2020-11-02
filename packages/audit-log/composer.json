@@ -9,6 +9,22 @@
             "email": "bhimrajyadav977@gmail.com"
         }
     ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "FastBuy\\AuditLog": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "FastBuy\\AuditLog\\ServiceProvider"
+            ],
+            "aliases": {
+                "AuditLog": "FastBuy\\AuditLog\\Facade"
+            }
+        }
+    },
     "minimum-stability": "dev",
-    "require": {}
+    "prefer-stable": true
 }
