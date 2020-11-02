@@ -1,6 +1,6 @@
 {
     "name": "fastbuy/audit-log",
-    "description": "This package allows to record and audit activites & logs.",
+    "description": "This package allows to record and audit activities & logs.",
     "type": "laravel-package",
     "license": "MIT",
     "authors": [
