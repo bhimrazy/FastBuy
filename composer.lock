@@ -626,13 +626,13 @@
             "dist": {
                 "type": "path",
                 "url": "packages/audit-log",
-                "reference": "89c58b38a54fcddd1a4db5f421fc49af5319acb2"
+                "reference": "a988eac4e4c3484058a986d86a48f80cf29b2488"
             },
             "type": "laravel-package",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "FastBuy\\AuditLog\\ServiceProvider"
+                        "FastBuy\\AuditLog\\Providers\\AuditLogServiceProvider"
                     ],
                     "aliases": {
                         "AuditLog": "FastBuy\\AuditLog\\Facade"
