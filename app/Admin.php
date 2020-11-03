@@ -4,12 +4,13 @@ namespace App;
 
 use App\Notifications\AdminResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticable
 {
-    use Notifiable;
+    use Notifiable;use HasFactory;
 
     protected $guard = 'admin';
 
