@@ -18,8 +18,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "livewire/livewire": "^2.2",
-        "stripe/stripe-php": "^7.38",
-        "fzaninotto/faker": "^1.9.1"
+        "stripe/stripe-php": "^7.38"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

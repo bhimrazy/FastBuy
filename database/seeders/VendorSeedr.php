@@ -11,7 +11,7 @@ class VendorSeedr extends Seeder
      */
     public function run()
     {
-        \App\Admin::factory()->times(10)
+        \Database\Factories\VendorFactory::times(10)
             ->create()
             ->each(function ($user) {
                 $user->roles()->sync(\App\Role::where('title','Vendor')->pluck('id')->toArray());

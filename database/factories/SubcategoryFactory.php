@@ -30,7 +30,7 @@ class SubcategoryFactory extends Factory
 
         return [
             'title'=>ucwords(strtolower($title)),
-            'category_id'=>$faker->numberBetween(1,3),
+            'category_id'=>$this->faker->numberBetween(1,3),
             'slug'=>slugify($title),
         ];
     }
