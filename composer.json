@@ -6,6 +6,15 @@
         "framework",
         "laravel"
     ],
+    "repositories": {
+        "fastbuy/audit-log": {
+            "type": "path",
+            "url": "packages/audit-log/",
+            "options": {
+                "symlink": true
+            }
+        }
+    },
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
@@ -19,7 +28,8 @@
         "laravel/ui": "^2.0",
         "livewire/livewire": "^2.2",
         "stripe/stripe-php": "^7.38",
-        "fzaninotto/faker": "^1.9.1"
+        "fzaninotto/faker": "^1.9.1",
+        "fastbuy/audit-log":"@dev"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
