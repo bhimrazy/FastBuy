@@ -12,6 +12,6 @@ class CategorySeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\Category::class,7)->create();
+        \App\Category::factory()->times(7)->create();
     }
 }

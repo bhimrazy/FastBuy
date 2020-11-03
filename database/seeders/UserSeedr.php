@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -11,7 +12,7 @@ class UserSeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\Admin::class,1)
+        \App\Admin::factory()->times(1)
             ->create()
             ->each(function ($user) {
                 $user->roles()->sync(\App\Role::all());

@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +14,7 @@ class CustomerSeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\User::class,100)->create();
+        \App\User::factory()->times(100)->create();
         $customer=\App\User::create([
             'first_name' => 'Tony',
             'last_name'=>'Stark',
