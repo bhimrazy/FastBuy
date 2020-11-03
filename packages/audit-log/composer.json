@@ -18,7 +18,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "FastBuy\\AuditLog\\ServiceProvider"
+                "FastBuy\\AuditLog\\AuditLogServiceProvider"
             ],
             "aliases": {
                 "AuditLog": "FastBuy\\AuditLog\\Facade"

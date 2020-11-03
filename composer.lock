@@ -626,7 +626,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/audit-log",
-                "reference": "a8a6590451a5865088d43d10df706b82600ec5da"
+                "reference": "89c58b38a54fcddd1a4db5f421fc49af5319acb2"
             },
             "type": "laravel-package",
             "extra": {
@@ -641,7 +641,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "FastBuy\\AuditLog": "src"
+                    "FastBuy\\AuditLog\\": "src/"
                 }
             },
             "license": [
