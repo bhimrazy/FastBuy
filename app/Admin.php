@@ -50,6 +50,9 @@ class Admin extends Authenticable
     {
         return $this->attributes['first_name'] .' '. $this->attributes['last_name'];
     }
+    public function logs(){
+        return $this->hasMany(LogHistory::class,'admin_id','id');
+    }
     public function products(){
         return $this->hasMany(Product::class,'owner_id','id');
     }

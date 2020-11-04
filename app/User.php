@@ -45,7 +45,9 @@ class User extends Authenticable implements MustVerifyEmail
     {
         return $this->attributes['first_name'] .' '. $this->attributes['last_name'];
     }
-
+    public function logs(){
+        return $this->hasMany(LogHistory::class,'user_id','id');
+    }
     public function customerOrders(){
         return $this->hasMany(Order::class);
     }

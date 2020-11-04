@@ -15,8 +15,8 @@ class CreateLogHistoriesTable extends Migration
     {
         Schema::create('log_histories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned()->references('id')->on('users')->index();
-            $table->bigInteger('admin_id')->unsigned()->references('id')->on('admins')->index();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->string('module', 60)->index();
             $table->text('request')->nullable();
             $table->string('action', 120);
@@ -27,6 +27,9 @@ class CreateLogHistoriesTable extends Migration
             $table->string('reference_name', 255);
             $table->string('type', 20);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('admin_id')->references('id')->on('admins');
         });
     }
 
