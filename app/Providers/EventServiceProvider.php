@@ -22,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\WelcomeNewCustomerListner::class,
             \App\Listeners\RegisterCustomerToNewsletter::class,
         ],
+        \App\Events\LogHandlerEvent::class => [
+            \App\Listeners\LogHandlerListener::class,
+            \App\Listeners\CreatedContentListener::class,
+        ],
     ];
 
     /**
