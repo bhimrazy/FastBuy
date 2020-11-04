@@ -548,7 +548,7 @@
                                     <table class="table m-0">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>User</th>
                                             <th>Activity</th>
                                             <th>IP</th>
                                             <th>User Agent</th>
