@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 class VendorSeedr extends Seeder
@@ -10,7 +11,7 @@ class VendorSeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\Admin::class,10)
+        \Database\Factories\VendorFactory::times(10)
             ->create()
             ->each(function ($user) {
                 $user->roles()->sync(\App\Role::where('title','Vendor')->pluck('id')->toArray());

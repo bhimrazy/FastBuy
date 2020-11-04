@@ -1,19 +1,37 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Admin;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
-$factory->define(Admin::class, function (Faker $faker) {
-    return [
-        'first_name' => $faker->firstName(),
-        'last_name'=>$faker->lastName(),
-        'email' => $faker->email,
-        'email_verified_at' => now(),
-        'password'=>Hash::make('password'),
-        'is_super'=>false,
-        'type'=>'vendor',
-        'remember_token' => Str::random(10),
-    ];
-});
+class VendorFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Admin::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'first_name' => $this->faker->firstName(),
+            'last_name'=>$this->faker->lastName(),
+            'email' => $this->faker->unique()->safeEmail,
+            'email_verified_at' => now(),
+            'password'=>Hash::make('password'),
+            'is_super'=>false,
+            'type'=>'vendor',
+            'remember_token' => Str::random(10),
+        ];
+    }
+}
