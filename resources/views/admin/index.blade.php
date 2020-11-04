@@ -559,7 +559,7 @@
                                         @foreach($logs->take(10) as $log)
                                             <tr>
                                                 <td>{{$log->reference_name}}</td>
-                                                <td>{{$log->action}}</td>
+                                                <td>{{$log->activity}}</td>
                                                 <td>{{$log->ip_address}}</td>
                                                 <td><small>{{$log->user_agent}}</small></td>
                                                 <td>{{$log->created_at->diffForHumans()}}</td>
