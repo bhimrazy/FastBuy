@@ -55,16 +55,17 @@ class LogHandlerEvent
      * @param $data
      * @param int $referenceUser
      */
-    public function __construct($module, $action,$type, $data,$referenceUser = 0)
+    public function __construct($module, $action,$type, $data=null,$referenceUser = 0)
     {
         if ($referenceUser === 0 && Auth::check()) {
             $referenceUser = auth()->guard('admin')->user()!=null?auth()->guard('admin')->id():auth()->id();
         }
+
         $this->module = $module;
         $this->action = $action;
         $this->referenceUser = $referenceUser;
         $this->referenceId = $data->id;
-        $this->referenceName = auth()->user()->getFullName();
+        $this->referenceName = auth()->guard('admin')->user()!=null?auth()->guard('admin')->user()->getFullName():auth()->user()->getFullName();
         $this->type = $type;
     }
 

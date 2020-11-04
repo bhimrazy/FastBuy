@@ -38,7 +38,7 @@ class LogHandlerListener
             'ip_address'     => $this->request->ip(),
             'module'         => $event->module,
             'action'         => $event->action,
-            'user_id'        => $this->request->user() ? $this->request->user()->getKey() : 0,
+            'user_id'        => auth()->guard('admin')->user()==null?$this->request->user()->getKey() : null,
             'admin_id'        =>auth()->guard('admin')->user()!=null?auth()->guard('admin')->id():null,
             'reference_user' => $event->referenceUser,
             'reference_id'   => $event->referenceId,
