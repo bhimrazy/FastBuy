@@ -8,6 +8,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,17 +45,17 @@ class LogHandlerEvent
      */
     public $type;
 
+
     /**
      * Create a new event instance.
      *
      * @param $module
      * @param $action
-     * @param $referenceId
-     * @param $referenceName
      * @param $type
+     * @param $data
      * @param int $referenceUser
      */
-    public function __construct($module, $action, $referenceId, $referenceName, $type, $referenceUser = 0)
+    public function __construct($module, $action,$type, $data,$referenceUser = 0)
     {
         if ($referenceUser === 0 && Auth::check()) {
             $referenceUser = Auth::user()->getKey();
@@ -62,8 +63,8 @@ class LogHandlerEvent
         $this->module = $module;
         $this->action = $action;
         $this->referenceUser = $referenceUser;
-        $this->referenceId = $referenceId;
-        $this->referenceName = $referenceName;
+        $this->referenceId = $data->id;
+        $this->referenceName = auth()->user()->getFullName();
         $this->type = $type;
     }
 

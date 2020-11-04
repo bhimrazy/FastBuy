@@ -45,8 +45,10 @@ class LogHandlerListener
             'reference_name' => $event->referenceName,
             'type'           => $event->type,
         ];
+        if (!in_array($event->action, ['loggedIn', 'password'])) {
+            $data['request'] = json_encode($this->request->input());
+        }
 
-
-        LogHistory::createOrUpdate($data);
+        LogHistory::create($data);
     }
 }

@@ -24,7 +24,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\LogHandlerEvent::class => [
             \App\Listeners\LogHandlerListener::class,
-            \App\Listeners\CreatedContentListener::class,
         ],
     ];
 
