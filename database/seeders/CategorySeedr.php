@@ -1,8 +1,9 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class BrandSeedr extends Seeder
+class CategorySeedr extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class BrandSeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\Brand::class,12)->create();
+        \App\Category::factory()->times(7)->create();
     }
 }

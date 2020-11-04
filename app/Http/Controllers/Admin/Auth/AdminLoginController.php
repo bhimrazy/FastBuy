@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
+use App\Events\LogHandlerEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LoginRequest;
 use Illuminate\Http\Request;
@@ -25,7 +26,9 @@ class AdminLoginController extends Controller
         // Attempt to login as admin
         if (Auth::guard('admin')->attempt($credentials)) {
             // If successful then redirect to intended route or admin dashboard
-         //dd(auth()->guard('admin')->user()->isAdmin());
+         //dd(auth()->guard('admin')->user()->getFirstName());
+
+            event(new LogHandlerEvent('admin','loggedIn', 'info',auth()->guard('admin')->user()));
             return redirect()->intended(route('admin.dashboard'));
         }
         // If unsuccessful then redirect back to login page with email and remember fields
@@ -34,6 +37,7 @@ class AdminLoginController extends Controller
 
     public function logout(Request $request)
     {
+        event(new LogHandlerEvent('admin','loggedOut', 'info',auth()->guard('admin')->user()));
         Auth::guard('admin')->logout();
         return redirect('/');
     }

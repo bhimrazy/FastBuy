@@ -2,11 +2,12 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Product extends Model
-{
+{use HasFactory;
     protected $fillable=[
         'name','description','price','discount','likes','owner_id','subcategory_id','product_type','stock',
         'slug','rating','brand_id','attributes','status','featured','quantity','sku',

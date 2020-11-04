@@ -1,8 +1,9 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class TagsSeedr extends Seeder
+class SubcategorySeedr extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class TagsSeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\Tag::class,5)->create();
+        \App\Subcategory::factory()->times(22)->create();
     }
 }

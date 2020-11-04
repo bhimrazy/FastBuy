@@ -4,12 +4,13 @@ namespace App;
 
 use App\Notifications\AdminResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticable
 {
-    use Notifiable;
+    use Notifiable;use HasFactory;
 
     protected $guard = 'admin';
 
@@ -48,6 +49,9 @@ class Admin extends Authenticable
     public function getFullName()
     {
         return $this->attributes['first_name'] .' '. $this->attributes['last_name'];
+    }
+    public function logs(){
+        return $this->hasMany(LogHistory::class,'admin_id','id');
     }
     public function products(){
         return $this->hasMany(Product::class,'owner_id','id');

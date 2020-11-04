@@ -1,5 +1,5 @@
 <?php
-
+namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 class PermissionSeedr extends Seeder
@@ -11,6 +11,6 @@ class PermissionSeedr extends Seeder
      */
     public function run()
     {
-        factory(\App\Permission::class,52)->create();
+        \App\Permission::factory()->times(52)->create();
     }
 }

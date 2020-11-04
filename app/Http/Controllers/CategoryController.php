@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Events\LogHandlerEvent;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\Request;
@@ -32,6 +33,7 @@ class CategoryController extends Controller
             'title'=>$request->title,
             'slug'=>$slug
         ]);
+        event(new LogHandlerEvent('category','created', 'info',$category));
         return redirect()->route('admin.categories.index')->with('success',$category->title.' : Category Successfully Created');
     }
     public function edit(Category $category)
