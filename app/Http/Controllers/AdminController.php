@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use App\Http\Requests\AdminRequest;
+use App\LogHistory;
 use App\Order;
 use App\Product;
 use App\Transaction;
@@ -27,8 +28,10 @@ class AdminController extends Controller
         $products=Product::with('media')->latest()->get();
         $orders=Order::orderBy('status','desc')->latest()->get();
         $sales=Transaction::all()->pluck('transaction_amount')->sum();
+        $logs=LogHistory::latest()->get();
 
-        return view('admin.index',compact(['latestUsers','users','orders','products','sales']));
+
+        return view('admin.index',compact(['latestUsers','users','orders','products','sales','logs']));
     }
 //    public function authenticate(AdminRequest $request){
 //        $credentials = $request->only('email', 'password');

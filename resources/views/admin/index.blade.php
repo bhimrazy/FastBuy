@@ -525,6 +525,63 @@
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
+                <div class="row">
+                    <!-- Left col -->
+                    <div class="col-md-12">
+                        <!-- TABLE: Activities Logs -->
+                        <div class="card">
+                            <div class="card-header border-transparent">
+                                <h3 class="card-title">Activities Logs</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table m-0">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Activity</th>
+                                            <th>IP</th>
+                                            <th>User Agent</th>
+                                            <th>Time</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($logs->take(10) as $log)
+                                            <tr>
+                                                <td>{{$log->reference_name}}</td>
+                                                <td>{{$log->action}}</td>
+                                                <td>{{$log->ip_address}}</td>
+                                                <td><small>{{$log->user_agent}}</small></td>
+                                                <td>{{$log->created_at->diffForHumans()}}</td>
+                                            </tr>
+
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer clearfix">
+                                <a href="{{route('admin.orders.index')}}" class="btn btn-sm btn-secondary float-right">View All Logs</a>
+                            </div>
+                            <!-- /.card-footer -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
             </div><!--/. container-fluid -->
         </section>
         <!-- /.content -->

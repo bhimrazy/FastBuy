@@ -13,6 +13,7 @@ class LogHistory extends Model
         'ip_address',
         'module',
         'action',
+        'activity',
         'user_id',
         'admin_id',
         'reference_user',
