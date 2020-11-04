@@ -58,7 +58,7 @@ class LogHandlerEvent
     public function __construct($module, $action,$type, $data,$referenceUser = 0)
     {
         if ($referenceUser === 0 && Auth::check()) {
-            $referenceUser = Auth::user()->getKey();
+            $referenceUser = auth()->guard('admin')->user()!=null?auth()->guard('admin')->id():auth()->id();
         }
         $this->module = $module;
         $this->action = $action;

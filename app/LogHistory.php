@@ -19,6 +19,7 @@ class LogHistory extends Model
         'reference_id',
         'reference_name',
         'type',
+        'url',
         'request',
     ];
 

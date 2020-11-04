@@ -44,6 +44,7 @@ class LogHandlerListener
             'reference_id'   => $event->referenceId,
             'reference_name' => $event->referenceName,
             'type'           => $event->type,
+            'url'           =>$this->request->fullUrl(),
         ];
         if (!in_array($event->action, ['loggedIn', 'password'])) {
             $data['request'] = json_encode($this->request->input());

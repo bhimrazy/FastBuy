@@ -26,6 +26,7 @@ class CreateLogHistoriesTable extends Migration
             $table->integer('reference_id')->unsigned();
             $table->string('reference_name', 255);
             $table->string('type', 20);
+            $table->string('url', 150);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
