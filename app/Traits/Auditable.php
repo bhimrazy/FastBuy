@@ -30,7 +30,7 @@ trait Auditable
             'ip_address'     => request()->ip(),
             'module'         => get_class($model) ?? null,
             'action'         => $action,
-            'activity'         =>$action.''.$model->title??$model->name.' under '.get_class($model),
+            'activity'         =>$action.' '.($model->title??$model->name).' '.substr(get_class($model), 4).' under Module '.get_class($model),
             'user_id'        => auth()->guard('admin')->user()==null?request()->user()->getKey() : null,
             'admin_id'        =>auth()->guard('admin')->user()!=null?auth()->guard('admin')->id():null,
             'reference_user' => auth()->guard('admin')->user()!=null?auth()->guard('admin')->id():auth()->id(),
