@@ -32,7 +32,7 @@ trait Auditable
             'module'         => get_class($model) ?? null,
             'action'         => $action,
             'activity'         =>$action.$model,
-            'user_id'        => auth()->guard('admin')->user()==null?auth()->id() : null,
+            'user_id'        => auth()->guard('admin')->user()==null?Auditable::$request->user()->getKey() : null,
             'admin_id'        =>auth()->guard('admin')->user()!=null?auth()->guard('admin')->id():null,
             'reference_user' => auth()->guard('admin')->user()!=null?auth()->guard('admin')->id():auth()->id(),
             'reference_id'   => $model->id ?? null,
@@ -43,13 +43,6 @@ trait Auditable
         if (!in_array($action, ['loggedIn', 'password'])) {
             $data['request'] = json_encode(Auditable::$request->input());
         }
-        \App\LogHistory::create([
-            'description'  => $description,
-            'subject_id'   => $model->id ?? null,
-            'subject_type' => get_class($model) ?? null,
-            'user_id'      => auth()->id() ?? null,
-            'properties'   => $model ?? null,
-            'host'         => request()->ip() ?? null,
-        ]);
+        \App\LogHistory::create($data);
     }
 }
