@@ -33,7 +33,7 @@ class CategoryController extends Controller
             'title'=>$request->title,
             'slug'=>$slug
         ]);
-        event(new LogHandlerEvent('category','created', 'info',$category));
+        event(new LogHandlerEvent('category','created', $category->title.' : Category Successfully Created','info',$category));
         return redirect()->route('admin.categories.index')->with('success',$category->title.' : Category Successfully Created');
     }
     public function edit(Category $category)
@@ -47,7 +47,8 @@ class CategoryController extends Controller
         $category->update($request->validated());
         $category->slug=Str::slug($request->title);
         $category->save();
-        return redirect()->route('admin.categories.index')->with('success',$category->title.' : Category Updated Successfully Created');
+        event(new LogHandlerEvent('category','updated', $category->title.' : Category Updated Successfully','info',$category));
+        return redirect()->route('admin.categories.index')->with('success',$category->title.' : Category Updated Successfully');
     }
 
     public function show(Category $category)
@@ -61,7 +62,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($request->category_id);
         $category->status = $request->status;
         $category->save();
-
+        event(new LogHandlerEvent('category','updated', $category['title'].' Category status updated successfully.','info',$category));
         return response()->json(['success' => $category->title.' : Category status updated successfully.']);
     }
     public function destroy(Category $category)
@@ -69,6 +70,7 @@ class CategoryController extends Controller
         abort_if(Gate::denies('product_category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $category->delete();
-        return redirect()->back()->with('success',$category['name'].' deleted successfully.');
+        event(new LogHandlerEvent('category','updated', $category['title'].' deleted successfully.','info',$category));
+        return redirect()->back()->with('success',$category['title'].' deleted successfully.');
     }
 }

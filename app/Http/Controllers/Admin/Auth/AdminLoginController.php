@@ -28,7 +28,7 @@ class AdminLoginController extends Controller
             // If successful then redirect to intended route or admin dashboard
          //dd(auth()->guard('admin')->user()->getFirstName());
 
-            event(new LogHandlerEvent('admin','loggedIn', 'info',auth()->guard('admin')->user()));
+            event(new LogHandlerEvent('admin','loggedIn', 'logged in to the system','info',auth()->guard('admin')->user()));
             return redirect()->intended(route('admin.dashboard'));
         }
         // If unsuccessful then redirect back to login page with email and remember fields
@@ -37,7 +37,7 @@ class AdminLoginController extends Controller
 
     public function logout(Request $request)
     {
-        event(new LogHandlerEvent('admin','loggedOut', 'info',auth()->guard('admin')->user()));
+        event(new LogHandlerEvent('admin','loggedOut', 'logged out from the system','info',auth()->guard('admin')->user()));
         Auth::guard('admin')->logout();
         return redirect('/');
     }

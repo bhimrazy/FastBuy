@@ -20,6 +20,7 @@ class CreateLogHistoriesTable extends Migration
             $table->string('module', 60)->index();
             $table->text('request')->nullable();
             $table->string('action', 120);
+            $table->string('activity', 120);
             $table->text('user_agent')->nullable();
             $table->string('ip_address', 25)->nullable();
             $table->integer('reference_user')->unsigned();
