@@ -34,9 +34,9 @@ class ClearOldLogs extends Command
     public function handle()
     {
         $this->info('Processing...');
-        $logs=\App\LogHistory::where( 'created_at', '<=', \Carbon\Carbon::now()->subSeconds(2))->get();
-        $count=$logs->count;
-        $logs->delete();
+        $logs=\App\LogHistory::where( 'created_at', '<=', \Carbon\Carbon::now()->subWeeks(2))->get();
+        $count=count($logs);
+        \App\LogHistory::where( 'created_at', '<=', \Carbon\Carbon::now()->subWeeks(2))->delete();
         $this->info('Done. Deleted ' . $count . ' log records!');
 
     }
