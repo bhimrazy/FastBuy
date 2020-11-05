@@ -30,7 +30,7 @@ class TagController extends Controller
 
     public function store(StoreTagRequest $request)
     {
-        Tag::create([
+        $tag=Tag::create([
             'title'=>$request->title,
             'slug'=>Str::slug($request->title)
         ]);
