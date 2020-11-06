@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Category extends Model
-{use HasFactory,Auditable;
+{use HasFactory;
     protected $fillable=[
         'title','slug',
     ];
