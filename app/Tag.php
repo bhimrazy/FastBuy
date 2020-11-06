@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
-{use HasFactory;
+{use HasFactory,Auditable;
     protected $fillable=[
         'title','slug','status',
     ];
