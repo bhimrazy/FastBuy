@@ -12,14 +12,15 @@
         "aws/aws-sdk-php-laravel": "^3.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
+        "fzaninotto/faker": "^1.9",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "livewire/livewire": "^2.2",
-        "stripe/stripe-php": "^7.38",
-         "fzaninotto/faker": "^1.9"
+        "spatie/laravel-analytics": "^3.10",
+        "stripe/stripe-php": "^7.38"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
