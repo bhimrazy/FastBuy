@@ -29,10 +29,6 @@ class LoginController extends Controller
              $url=session()->get('oldUrl');
              return redirect($url);
          }
-         elseif($user->isAdmin()){
-             auth()->logout();
-             return redirect()->route('admin-login');
-         }
          else{
              return redirect()->route('my-account');
          }
