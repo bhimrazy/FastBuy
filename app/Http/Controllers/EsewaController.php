@@ -40,6 +40,14 @@ class EsewaController extends Controller
                     $order->payment_method='eSewa';
                     $order->save();
                     Auth::user()->customerOrders()->save($order);
+                    Transaction::create([
+                        'order_number'=>$order['order_number'],
+                        'transaction_id'=>$order['transaction_id'],
+                        'customer_name'=>$order['first_name'].' '.$order['last_name'],
+                        'transaction_amount'=>$order['grand_total'],
+                        'payment_method'=>$order->payment_method,
+                        'payment_status'=>$order->payment_status,
+                    ]);
                     return redirect()->route('my-account')->with('success', 'Transaction completed.');
                 }else{
                 $order->delete();

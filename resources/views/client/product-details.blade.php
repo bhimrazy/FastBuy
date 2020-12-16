@@ -75,7 +75,7 @@
                                                 <div class="quantity">
                                                     <label>Quantity</label>
                                                     <div class="cart-plus-minus">
-                                                        <input class="cart-plus-minus-box" name="quantity" value="1" type="text">
+                                                        <input class="cart-plus-minus-box" name="quantity" value="1" type="number" min="1" readonly>
                                                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                     </div>
