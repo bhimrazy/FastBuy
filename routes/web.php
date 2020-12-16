@@ -149,7 +149,7 @@ Route::group(['prefix'=>'admin','as' => 'admin.','namespace' => 'Admin\Auth'],fu
     Route::get('/password/reset/{token}', 'AdminResetPasswordController@showResetForm')->name('password.reset');
     Route::post('/password/reset', 'AdminResetPasswordController@reset')->name('password.update');
     // Password confirmation process
-    Route::get('/password/confirm', 'AdminConfirmPasswordController@showConfirmForm')->name('password.confirm');
+    Route::get('/password/confirm', 'AdminConfirmPasswordController@showConfirmForm');
     Route::post('/password/confirm', 'AdminConfirmPasswordController@confirm')->name('password.confirm');
 
 });
