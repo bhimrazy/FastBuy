@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use League\Flysystem\Adapter\Local;
+use App\Jobs\CreateBackupJob;
 use Storage;
+
 class BackupController extends Controller
 {
     /**
@@ -31,10 +34,10 @@ class BackupController extends Controller
                     $this->data['backups'][] = [
                         'id'            => $k,
                         'file_path'     => $f,
-                        'file_name'     => str_replace('backups/', '', $f),
+                        'file_name'     => "Backup_".basename($f).PHP_EOL,
                         'file_size'     => $disk->size($f),
                         'last_modified' => $disk->lastModified($f),
-                        'disk'          => $disk_name,
+                        'disk'          => ucfirst($disk_name),
                         'download'      => ($adapter instanceof Local) ? true : false,
                     ];
                 }
@@ -44,7 +47,6 @@ class BackupController extends Controller
         // reverse the backups, so the newest one would be on top
         $this->data['backups'] = array_reverse($this->data['backups']);
         $this->data['title'] = 'Backups';
-    
         return view('admin.backups.index', $this->data);
     }
 
@@ -55,7 +57,9 @@ class BackupController extends Controller
      */
     public function create()
     {
-        //
+        
+        CreateBackupJob::dispatch();
+        return redirect()->back()->with('info'," Backpack\BackupManager -- backup process has started");
     }
 
     /**
@@ -109,8 +113,17 @@ class BackupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($file_name)
+    {    
+        $file_path=request('file_path');
+        $disk = Storage::disk(strtolower(request('disk')));
+       
+        if ($disk->exists($file_path)) {
+            $disk->delete($file_path);
+
+            return redirect()->back()->with('success',$file_name." Deleted Successfully");
+        } else {
+            abort(404, trans('backpack::backup.backup_doesnt_exist'));
+        }
     }
 }

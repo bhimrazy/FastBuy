@@ -211,10 +211,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/brands/status/update', 'BrandController@updateStatus')->name('brands.update.status');
 
         //Backups
-        Route::get('/backups', [
-            'uses' => 'BackupController@index',
-            'as' => 'backups.index'
-        ]);
+     
+        Route::resource('backups', 'BackupController')->scoped([
+            'file_name'
+
+        ]);;
 
         //Setting
         Route::get('/settings', [

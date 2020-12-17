@@ -28,6 +28,9 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Backups</h3>
+                   
+                    <a href="{{route('admin.backups.create')}}" class="btn-sm btn-success float-right">Create Backup</a>
+             
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -61,29 +64,32 @@
                                     {{$key+1}}
                                 </td>
                                 <td class="text-wrap">
-                                    {{$backup['file_path'] }}
+                                    <i class="fas fa-file-archive p-1"></i> {{$backup['file_name'] }}
                                 </td>
                                 <td class="text-center">
-                                    {{ $backup['disk'] }}
+                                    <i class="fas fa-archive p-1"></i>{{ $backup['disk'] }}
 
                                 </td>
                                 <td class="text-left"><span class="badge bg-gradient-teal p-2">{{ \Carbon\Carbon::createFromTimeStamp($backup['last_modified'])->formatLocalized('%d %B %Y, %H:%M') }}</span></td>
                                 <td>
                                     {{ round((int)$backup['file_size']/1048576, 2).' MB' }}
                                 </td>
-                                <td class="brand-actions text-left">
+                                <td class="brand-actions text-center">
                                     @can('brand_show')
-                                        <a class="btn btn-xs btn-primary" href="">
-                                            Download
+                                        <a class="btn btn-xs btn-primary p-1 m-1" href="">
+                                            <i class="fas fa-download"></i>
                                         </a>
                                     @endcan
-
-
-
                                     @can('brand_delete')
-                                    <a class="btn btn-xs btn-danger" href="">
-                                        Delete
-                                    </a>
+                                    <form action="{{ route('admin.backups.destroy', $backup['file_name']) }}" method="POST" onsubmit="return confirm('Are You Sure Want to Delete : {{$backup['file_name']}}?');" style="display: inline-block;">
+                                        @csrf
+                                        @method('delete')
+                                        <input hidden name="file_path" value="{{$backup['file_path']}}">
+                                        <input hidden name="disk" value="{{$backup['disk']}}">
+                                        <button class="btn btn-xs btn-danger p-1 m-1 text-white" type="submit">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                     @endcan
                                 </td>
                             </tr>
