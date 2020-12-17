@@ -76,9 +76,14 @@
                                 </td>
                                 <td class="brand-actions text-center">
                                     @can('brand_show')
-                                        <a class="btn btn-xs btn-primary p-1 m-1" href="">
+                                    <form action="{{ route('admin.backups.show', $backup['file_name']) }}" method="GET" onsubmit="return confirm('Are You Sure Want to Delete : {{$backup['file_name']}}?');" style="display: inline-block;">
+                                        @csrf
+                                        <input hidden name="file_path" value="{{$backup['file_path']}}">
+                                        <input hidden name="disk" value="{{$backup['disk']}}">
+                                        <button class="btn btn-xs btn-danger p-1 m-1 text-white" type="submit">
                                             <i class="fas fa-download"></i>
-                                        </a>
+                                        </button>
+                                    </form>
                                     @endcan
                                     @can('brand_delete')
                                     <form action="{{ route('admin.backups.destroy', $backup['file_name']) }}" method="POST" onsubmit="return confirm('Are You Sure Want to Delete : {{$backup['file_name']}}?');" style="display: inline-block;">

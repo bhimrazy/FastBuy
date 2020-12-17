@@ -215,7 +215,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::resource('backups', 'BackupController')->scoped([
             'file_name'
 
-        ]);;
+        ])->only(['index','create','show','destroy']);
 
         //Setting
         Route::get('/settings', [
