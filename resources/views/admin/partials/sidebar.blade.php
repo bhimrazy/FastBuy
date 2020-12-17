@@ -227,6 +227,7 @@
                         </p>
                     </a>
                 </li>
+                @can('backup_access')
                 <li class="nav-item">
                     <a href="{{route('admin.backups.index')}}" class="nav-link">
                         <i class="fas fa-hdd nav-icon"></i>
@@ -235,6 +236,7 @@
                         </p>
                     </a>
                 </li>
+                @endcan
                 <li class="nav-item">
                     <a href="{{route('admin.settings.index')}}" class="nav-link">
                         <i class="fas fa-cogs nav-icon"></i>

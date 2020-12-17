@@ -28,9 +28,9 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Backups</h3>
-                   
+                    @can('backup_create')
                     <a href="{{route('admin.backups.create')}}" class="btn-sm btn-success float-right">Create Backup</a>
-             
+                    @endcan
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -67,7 +67,7 @@
                                     <i class="fas fa-file-archive p-1"></i> {{$backup['file_name'] }}
                                 </td>
                                 <td class="text-center">
-                                    <i class="fas fa-archive p-1"></i>{{ $backup['disk'] }}
+                                    <i class="fas fa-database p-1"></i>{{ $backup['disk'] }}
 
                                 </td>
                                 <td class="text-left"><span class="badge bg-gradient-teal p-2">{{ \Carbon\Carbon::createFromTimeStamp($backup['last_modified'])->formatLocalized('%d %B %Y, %H:%M') }}</span></td>
@@ -75,7 +75,7 @@
                                     {{ round((int)$backup['file_size']/1048576, 2).' MB' }}
                                 </td>
                                 <td class="brand-actions text-center">
-                                    @can('brand_show')
+                                    @can('backup_download')
                                     <form action="{{ route('admin.backups.show', $backup['file_name']) }}" method="GET" onsubmit="return confirm('Are You Sure Want to Delete : {{$backup['file_name']}}?');" style="display: inline-block;">
                                         @csrf
                                         <input hidden name="file_path" value="{{$backup['file_path']}}">
@@ -85,7 +85,7 @@
                                         </button>
                                     </form>
                                     @endcan
-                                    @can('brand_delete')
+                                    @can('backup_delete')
                                     <form action="{{ route('admin.backups.destroy', $backup['file_name']) }}" method="POST" onsubmit="return confirm('Are You Sure Want to Delete : {{$backup['file_name']}}?');" style="display: inline-block;">
                                         @csrf
                                         @method('delete')
