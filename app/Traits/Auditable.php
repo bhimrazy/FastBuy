@@ -11,15 +11,16 @@ trait Auditable
     public static function bootAuditable()
     {
         static::created(function (Model $model) {
-            self::audit('created', $model);
+           // self::audit('created', $model);
+
         });
 
         static::updated(function (Model $model) {
-            self::audit('updated', $model);
+           // self::audit('updated', $model);
         });
 
         static::deleted(function (Model $model) {
-            self::audit('deleted', $model);
+            //self::audit('deleted', $model);
         });
     }
 
