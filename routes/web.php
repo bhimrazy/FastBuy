@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes(['verify'=>true]);
+Auth::routes(['verify' => true]);
 Route::get('/', [
     'uses' => 'HomePageController@index',
     'as' => 'home'
@@ -67,33 +67,33 @@ Route::get('/wishlist', function () {
 Route::get('/product-details', function () {
     return view('client.product-details');
 })->name('product-details');
-Route::post('/products/search',[
-    'uses'=>'ProductController@search',
-    'as'=>'products.search'
+Route::post('/products/search', [
+    'uses' => 'ProductController@search',
+    'as' => 'products.search'
 ]);
 Route::resource('shop', 'ShopController');
 Route::resource('carts', 'CartController')->only([
-    'index','store',
+    'index', 'store',
 ]);
-Route::get('/carts/reduceByOne/',[
-    'uses'=>'CartController@reduceByOne',
-    'as'=>'carts.reduceByOne'
+Route::get('/carts/reduceByOne/', [
+    'uses' => 'CartController@reduceByOne',
+    'as' => 'carts.reduceByOne'
 ]);
-Route::get('/carts/increaseByOne/',[
-    'uses'=>'CartController@increaseByOne',
-    'as'=>'carts.increaseByOne'
+Route::get('/carts/increaseByOne/', [
+    'uses' => 'CartController@increaseByOne',
+    'as' => 'carts.increaseByOne'
 ]);
-Route::get('/carts/delete/{id}',[
-    'uses'=>'CartController@delete',
-    'as'=>'carts.delete'
+Route::get('/carts/delete/{id}', [
+    'uses' => 'CartController@delete',
+    'as' => 'carts.delete'
 ]);
 Route::get('/checkout', [
     'uses' => 'CheckoutController@getCheckout',
-    'as'=>'checkout'
+    'as' => 'checkout'
 ]);
 Route::post('/checkout', [
     'uses' => 'CheckoutController@postCheckout',
-    'as'=>'checkout.process'
+    'as' => 'checkout.process'
 ]);
 //Route::get('/admin-login', function () {
 //    return view('admin.admin-login');
@@ -104,11 +104,11 @@ Route::post('/checkout', [
 //]);
 Route::get('/my-account', [
     'uses' => 'CustomerController@getProfile',
-    'as'=>'my-account'
+    'as' => 'my-account'
 ]);
 Route::put('/my-account/update/{user}', [
     'uses' => 'CustomerController@updateProfile',
-    'as'=>'my-account.profile.update'
+    'as' => 'my-account.profile.update'
 ]);
 
 Route::get('/checkout/payment/esewa', [
@@ -136,7 +136,7 @@ Route::get('/checkout/payment/{order}/failed', [
 ]);
 
 //Admin AuthRoutes
-Route::group(['prefix'=>'admin','as' => 'admin.','namespace' => 'Admin\Auth'],function (){
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin\Auth'], function () {
     // Login routes
     Route::get('/login', 'AdminLoginController@login')->name('login');
     Route::post('/login', 'AdminLoginController@authenticate')->name('login.submit');
@@ -151,16 +151,15 @@ Route::group(['prefix'=>'admin','as' => 'admin.','namespace' => 'Admin\Auth'],fu
     // Password confirmation process
     Route::get('/password/confirm', 'AdminConfirmPasswordController@showConfirmForm');
     Route::post('/password/confirm', 'AdminConfirmPasswordController@confirm')->name('password.confirm');
-
 });
-Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
-    Route::get('/dashboard',[
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
+    Route::get('/dashboard', [
         'uses' => 'AdminController@index',
         'as' => 'admin.dashboard'
     ]);
 
 
-    Route::group(['as' => 'admin.'],function (){
+    Route::group(['as' => 'admin.'], function () {
         // Permissions
         Route::delete('permissions/destroy', 'PermissionController@massDestroy')->name('permissions.massDestroy');
         Route::resource('permissions', 'PermissionController');
@@ -195,11 +194,11 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::resource('orders', 'OrderController');
 
         //Customers
-        Route::get('/customers',[
+        Route::get('/customers', [
             'uses' => 'AdminController@customers',
             'as' => 'customers'
         ]);
-        Route::get('/customers/{customer}',[
+        Route::get('/customers/{customer}', [
             'uses' => 'AdminController@showCustomers',
             'as' => 'customers.show'
         ]);
@@ -211,8 +210,14 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::resource('brands', 'BrandController');
         Route::get('/brands/status/update', 'BrandController@updateStatus')->name('brands.update.status');
 
+        //Backups
+        Route::get('/backups', [
+            'uses' => 'BackupController@index',
+            'as' => 'backups.index'
+        ]);
+
         //Setting
-        Route::get('/settings',[
+        Route::get('/settings', [
             'uses' => 'SettingController@index',
             'as' => 'settings.index'
         ]);
@@ -220,15 +225,9 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
             'uses' => 'SettingController@update',
             'as' => 'settings.update'
         ]);
-
-
     });
-
-
-
-
 });
-Route::get('/{product}',[
+Route::get('/{product}', [
     'uses' => 'ProductController@productShow',
     'as' => 'product.productShow'
 ]);

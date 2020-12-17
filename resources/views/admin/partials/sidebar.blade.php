@@ -214,7 +214,7 @@
                         <i class="fas fa-envelope nav-icon"></i>
                         <p>
                             Email
-                            <span class="right"><span class="badge badge-info px-2">4</span><span class="badge badge-danger">New</span>
+                            <span class="right"><span class="badge badge-info px-2">4</span><span class="badge badge-danger">New</span></span>
                         </p>
                     </a>
                 </li>
@@ -223,7 +223,15 @@
                         <i class="fas fa-bell nav-icon"></i>
                         <p>
                             Notifications
-                            <span class="right"><span class="badge badge-info px-2">3</span><span class="badge badge-danger">New</span>
+                            <span class="right"><span class="badge badge-info px-2">3</span><span class="badge badge-danger">New</span></span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.backups.index')}}" class="nav-link">
+                        <i class="fas fa-hdd nav-icon"></i>
+                        <p>
+                            Backups
                         </p>
                     </a>
                 </li>
