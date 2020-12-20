@@ -20,9 +20,25 @@
                     <!-- shop-item-filter-list end -->
                 </div>
                 <div class="toolbar-amount">
-                    <span>There are {{ count($products) }} products.</span>
+                    <span>There are {{ $totalProducts }} products.</span>
                 </div>
             </div>
+            <!-- product-select-box start -->
+            <div class="product-select-box">
+                <div class="product-short">
+                    <p>Sort By:</p>
+                    <select class="nice-select">
+                        <option value="trending">Relevance</option>
+                        <option value="sales">Name (A - Z)</option>
+                        <option value="sales">Name (Z - A)</option>
+                        <option value="rating">Price (Low &gt; High)</option>
+                        <option value="date">Rating (Lowest)</option>
+                        <option value="price-asc">Model (A - Z)</option>
+                        <option value="price-asc">Model (Z - A)</option>
+                    </select>
+                </div>
+            </div>
+            <!-- product-select-box end -->
         </div>
         <!-- shop-top-bar end -->
         <!-- shop-products-wrapper start -->
@@ -55,7 +71,7 @@
                                                     href="{{ route('product.productShow', ['product' => $product->slug]) }}">{{ $product->name }}</a>
                                             </h2>
                                             <div class="rating-box">
-                                                <ul class="rating">{{ $product->name }}
+                                                <ul class="rating">
                                                     <li><i class="fa fa-star"></i></li>
                                                     <li><i class="fa fa-star"></i></li>
                                                     <li><i class="fa fa-star"></i></li>
@@ -96,7 +112,7 @@
                 <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
                     <div class="fb-product_wrap shop-product-area">
                         <div class="row">
-                            @foreach ($products as $product)
+                            @foreach ($products->take(5) as $product)
                                 <div class="col-lg-4 col-md-4 col-sm-6">
                                     <!-- Begin Sigle Product Area -->
                                     <div class="single-product">
@@ -160,9 +176,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="paginatoin-area">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
+                <div class="pagination-area">
+                    <div class="text-center">
+                        {{ $products->links() }}
+                        {{-- <div class="col-lg-6 col-md-6">
                             <p>Showing 1-12 of 13 item(s)</p>
                         </div>
                         <div class="col-lg-6 col-md-6">
@@ -176,7 +193,7 @@
                                     <a href="#" class="Next"> Next <i class="ion-chevron-right"></i></a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -221,7 +238,7 @@
                         <input class="form-check-input" type="checkbox" value="{{ $category }}"
                             id={{ $category . $key }}>
                         <label class="form-check-label" for={{ $category . $key }}>
-                            {{ $category->title }}({{ count($category->products) }})
+                            {{ $category->title }}({{ $category->products_count }})
                         </label>
                     </div>
                 @endforeach
@@ -240,7 +257,7 @@
 
                             <input class="form-check-input" type="checkbox" value="{{ $brand }}" id={{ $brand . $key }}>
                             <label class="form-check-label" for={{ $brand . $key }}>
-                                {{ $brand->title }}({{ count($brand->products) }})
+                                {{ $brand->title }}({{ $brand->products_count }})
                             </label>
 
                         </div>
@@ -249,7 +266,43 @@
             </div>
         </div>
         <!--Sidebar Categores Box Area End Here -->
-
+        <!--Begin Sidebar Categores Box Area -->
+        <div class="sidebar-title-2">
+            <h2>Price</h2>
+        </div>
+        <div class="sidebar-categores-box sidebar-categores_list mt-sm-25 mt-xs-25">
+            <div class="sidebar-categores-checkbox">
+                <form action="#">
+                    <ul>
+                        <li><input type="radio" name="product-categori"><a href="#">$15.00 - $17.00 (2)</a></li>
+                        <li><input type="radio" name="product-categori"><a href="#">$20.00 - $21.00 (1)</a></li>
+                        <li><input type="radio" name="product-categori"><a href="#">$22.00 - $24.00 (2)</a></li>
+                        <li><input type="radio" name="product-categori"><a href="#">$25.00 - $28.00 (2)</a></li>
+                        <li><input type="radio" name="product-categori"><a href="#">$30.00 - $32.00 (4)</a></li>
+                        <li><input type="radio" name="product-categori"><a href="#">$46.00 - $49.00 (1)</a></li>
+                        <li><input type="radio" name="product-categori"><a href="#">$50.00 - $53.00 (1)</a></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <!--Sidebar Categores Box Area End Here -->
+        <!--Begin Sidebar Categores Box Area -->
+        <div class="sidebar-title-2">
+            <h2>Properties</h2>
+        </div>
+        <div class="sidebar-categores-box sidebar-categores_list mt-sm-25 mt-xs-25">
+            <div class="sidebar-categores-checkbox">
+                <form action="#">
+                    <ul>
+                        <li><input type="checkbox" name="product-categori"><a href="#">Colorful Dress (3)</a></li>
+                        <li><input type="checkbox" name="product-categori"><a href="#">Maxi Dress (2)</a></li>
+                        <li><input type="checkbox" name="product-categori"><a href="#">Short Dress (4)</a></li>
+                        <li><input type="checkbox" name="product-categori"><a href="#">Short Sleeve (2) </a></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <!--Sidebar Categores Box Area End Here -->
 
         <!--Begin Sidebar Categores Box Area -->
         <div class="sidebar-categores-img fb-img-hover-effect pt-5 mt-sm-25 mt-xs-25">

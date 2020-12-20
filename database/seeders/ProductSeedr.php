@@ -13,7 +13,7 @@ class ProductSeedr extends Seeder
      */
     public function run()
     {
-        \App\Product::factory()->times(12)
+        \App\Product::factory()->times(100)
             ->create()
             ->each(function ($product) {
                 $product->tags()->sync(
