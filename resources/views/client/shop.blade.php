@@ -18,12 +18,16 @@
     <!-- Li's Breadcrumb Area End Here -->
     <!-- Begin Li's Content Wraper Area -->
     <div class="content-wraper">
-        <div id="app" class="container">
+        {{-- <div id="app" class="container">
             <shop-component :categories="{{$categories}}" :brands="{{$brands}}" :products="{{$products}}" base_url="{{$baseUrl}}"></shop-component>
+        </div> --}}
+        <div class="container">
+            @livewire('shop-page')
         </div>
+
     </div>
     <!-- Content Wraper Area End Here -->
 @endsection
-@section('scripts')
+{{-- @section('scripts')
     <script src="{{asset('js/app.js')}}"></script>
-@endsection
+@endsection --}}

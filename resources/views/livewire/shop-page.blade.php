@@ -1,0 +1,262 @@
+<div class="row">
+    <div class="col-lg-9 order-1 order-lg-2">
+        <!-- Begin FB's Banner Area -->
+        <div class="shoptopbar-heading">
+            <h2>Filter Products</h2>
+        </div>
+        <!-- Li's Banner Area End Here -->
+        <!-- shop-top-bar start -->
+        <div class="shop-top-bar mt-25">
+            <div class="shop-bar-inner">
+                <div class="product-view-mode">
+                    <!-- shop-item-filter-list start -->
+                    <ul class="nav shop-item-filter-list" role="tablist">
+                        <li class="active" role="presentation"><a aria-selected="true" class="active show"
+                                data-toggle="tab" role="tab" aria-controls="grid-view" href="#grid-view"><i
+                                    class="fa fa-th"></i></a></li>
+                        <li role="presentation"><a data-toggle="tab" role="tab" aria-controls="list-view"
+                                href="#list-view"><i class="fa fa-th-list"></i></a></li>
+                    </ul>
+                    <!-- shop-item-filter-list end -->
+                </div>
+                <div class="toolbar-amount">
+                    <span>There are {{ count($products) }} products.</span>
+                </div>
+            </div>
+        </div>
+        <!-- shop-top-bar end -->
+        <!-- shop-products-wrapper start -->
+        <div class="shop-products-wrapper bg-white mt-30 pb-60 pb-sm-30">
+            <div class="tab-content">
+                <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
+                    <div class="fb-product_wrap shop-product-area">
+                        <div class="row">
+                            @foreach ($products as $product)
+                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <!-- Begin Sigle Product Area -->
+                                    <div class="single-product">
+                                        <!-- Begin Product Image Area -->
+                                        <div class="product-img">
+                                            <a href="{{ route('product.productShow', ['product' => $product->slug]) }}">
+                                                <img class="primary-img"
+                                                    src="{{ asset($product->media->first()->url) }}" loading="lazy"
+                                                    alt="{{ $product->name }}">
+                                                <img class="secondary-img" src="{{ asset($product->media[1]->url) }}"
+                                                    loading="lazy" alt="{{ $product->name }}">
+                                            </a>
+                                            <div class="sticker"><span>New</span></div>
+                                            <div class="sticker-2"><span>-{{ $product->discount }}%</span></div>
+                                        </div>
+                                        <!-- Product Image Area End Here -->
+                                        <!-- Begin Product Content Area -->
+                                        <div class="product-content">
+                                            <h2 class="product-name">
+                                                <a
+                                                    href="{{ route('product.productShow', ['product' => $product->slug]) }}">{{ $product->name }}</a>
+                                            </h2>
+                                            <div class="rating-box">
+                                                <ul class="rating">{{ $product->name }}
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li class="no-star"><i class="fa fa-star"></i></li>
+                                                    <li class="no-star"><i class="fa fa-star"></i></li>
+                                                </ul>
+                                            </div>
+                                            <div class="price-box">
+                                                <span
+                                                    class="new-price">${{ $product->price - $product->discount * 0.01 * $product->price }}</span>
+                                                <span class="old-price">${{ $product->price }}</span>
+                                            </div>
+                                            <div class="product-action">
+                                                <ul class="product-action-link">
+                                                    <li class="shopping-cart_link"><a
+                                                            href="{{ route('product.productShow', ['product' => $product->slug]) }}"
+                                                            title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                    <li class="quick-view-btn"><a
+                                                            href="{{ route('product.productShow', ['product' => $product->slug]) }}"
+                                                            title="Quick View" data-toggle="modal"
+                                                            data-target="#exampleModalCenter"><i
+                                                                class="ion-eye"></i></a></li>
+                                                    <li class="single-product_link"><a
+                                                            href="{{ route('product.productShow', ['product' => $product->slug]) }}"
+                                                            title="Single Product"><i class="ion-link"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- Product Content Area End Here -->
+                                    </div>
+
+                                    <!-- Sigle Product Area End Here -->
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
+                    <div class="fb-product_wrap shop-product-area">
+                        <div class="row">
+                            @foreach ($products as $product)
+                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <!-- Begin Sigle Product Area -->
+                                    <div class="single-product">
+                                        <!-- Begin Product Image Area -->
+                                        <div class="product-img">
+                                            <a href="{{ route('product.productShow', ['product' => $product->slug]) }}">
+                                                <img class="primary-img"
+                                                    src="{{ asset($product->media->first()->url) }}" loading="lazy"
+                                                    alt="{{ $product->name }}">
+                                                <img class="secondary-img" src="{{ asset($product->media[1]->url) }}"
+                                                    loading="lazy" alt="{{ $product->name }}">
+                                            </a>
+                                            <div class="sticker"><span>New</span></div>
+                                            <div class="sticker-2"><span>-{{ $product->discount }}%</span></div>
+                                        </div>
+                                        <!-- Product Image Area End Here -->
+                                    </div>
+                                    <!-- Sigle Product Area End Here -->
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <!-- Begin Product Content Area -->
+                                    <div class="product-content product-content-list_view">
+                                        <h2 class="product-name">
+                                            <a
+                                                href="{{ route('product.productShow', ['product' => $product->slug]) }}">{{ $product->name }}</a>
+                                        </h2>
+                                        <div class="rating-box">
+                                            <ul class="rating">
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box">
+                                            <span
+                                                class="new-price">${{ $product->price - $product->discount * 0.01 * $product->price }}</span>
+                                            <span class="old-price">${{ $product->price }}</span>
+                                        </div>
+                                        <p>{{ $product->description }}</p>
+                                        <div class="product-action">
+                                            <ul class="product-action-link">
+                                                <li class="shopping-cart_link"><a
+                                                        href="{{ route('product.productShow', ['product' => $product->slug]) }}"
+                                                        title="Shopping Cart"><i class="ion-bag"></i></a></li>
+                                                <li class="quick-view-btn"><a
+                                                        href="{{ route('product.productShow', ['product' => $product->slug]) }}"
+                                                        title="Quick View" data-toggle="modal"
+                                                        data-target="#exampleModalCenter"><i class="ion-eye"></i></a>
+                                                </li>
+                                                <li class="single-product_link"><a
+                                                        href="{{ route('product.productShow', ['product' => $product->slug]) }}"
+                                                        title="Single Product"><i class="ion-link"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Product Content Area End Here -->
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="paginatoin-area">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <p>Showing 1-12 of 13 item(s)</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <ul class="pagination-box pt-xs-20 pb-xs-15">
+                                <li><a href="#" class="Previous"><i class="ion-chevron-left"></i> Previous</a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li>
+                                    <a href="#" class="Next"> Next <i class="ion-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- shop-products-wrapper end -->
+    </div>
+    <div class="col-lg-3 order-2 order-lg-1">
+        <div class="sidebar-title">
+            <h2>Home and Kitchen Appliances</h2>
+        </div>
+        <!--Begin Sidebar Categores Box Area -->
+        <div class="sidebar-categores-box mt-sm-30 mt-xs-30">
+            <!-- Begin Category Sub Menu Area -->
+            <div class="category-sub-menu">
+                <ul>
+                    @foreach ($categories->take(5) as $category)
+                        <li>{{ $category->title }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <!-- Category Sub Menu Area End Here -->
+        </div>
+        <!--Sidebar Categores Box Area End Here -->
+        <!--Begin Sidebar Categores Box Area -->
+        <div class="sidebar-categores-box search-filter mt-sm-25 mt-xs-30">
+            <div class="sidebar-title">
+                <h2>Filter By</h2>
+            </div>
+            <!-- btn-clear-all start -->
+            <button class="btn-clear-all">Clear all</button>
+            <!-- btn-clear-all end -->
+        </div>
+        <!--Sidebar Categores Box Area End Here -->
+        <!--Begin Sidebar Categores Box Area -->
+        <div class="sidebar-title-2">
+            <h2>Categories</h2>
+        </div>
+        <div class="sidebar-categores-box sidebar-categores_list mt-sm-25 mt-xs-25">
+            <div class="sidebar-categores-checkbox">
+                @foreach ($categories->take(5) as $key => $category)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{ $category }}"
+                            id={{ $category . $key }}>
+                        <label class="form-check-label" for={{ $category . $key }}>
+                            {{ $category->title }}({{ count($category->products) }})
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <!--Sidebar Categores Box Area End Here -->
+        <!--Begin Sidebar Categores Box Area -->
+        <div class="sidebar-title-2">
+            <h2>Brands</h2>
+        </div>
+        <div class="sidebar-categores-box sidebar-categores_list mt-sm-25 mt-xs-25">
+            <div class="sidebar-categores-checkbox">
+                <div class="form-check">
+                    @foreach ($brands->take(5) as $key => $brand)
+                        <div class="form-check">
+
+                            <input class="form-check-input" type="checkbox" value="{{ $brand }}" id={{ $brand . $key }}>
+                            <label class="form-check-label" for={{ $brand . $key }}>
+                                {{ $brand->title }}({{ count($brand->products) }})
+                            </label>
+
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <!--Sidebar Categores Box Area End Here -->
+
+
+        <!--Begin Sidebar Categores Box Area -->
+        <div class="sidebar-categores-img fb-img-hover-effect pt-5 mt-sm-25 mt-xs-25">
+            <a href="#">
+                <img src="assets/images/banner/1_6.jpg" alt="FB'S Banner">
+            </a>
+        </div>
+        <!--Sidebar Categores Box Area End Here -->
+    </div>
+</div>
