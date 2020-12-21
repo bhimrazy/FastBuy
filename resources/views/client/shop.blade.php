@@ -7,7 +7,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb-content">
                         <ul>
-                            <li><a href="{{route('home')}}">Home</a></li>
+                            <li><a href="{{ route('home') }}">Home</a></li>
                             <li class="active">Shop</li>
                         </ul>
                     </div>
@@ -19,7 +19,8 @@
     <!-- Begin Li's Content Wraper Area -->
     <div class="content-wraper">
         {{-- <div id="app" class="container">
-            <shop-component :categories="{{$categories}}" :brands="{{$brands}}" :products="{{$products}}" base_url="{{$baseUrl}}"></shop-component>
+            <shop-component :categories="{{ $categories }}" :brands="{{ $brands }}" :products="{{ $products }}"
+                base_url="{{ $baseUrl }}"></shop-component>
         </div> --}}
         <div class="container">
             @livewire('shop-page')
@@ -29,5 +30,13 @@
     <!-- Content Wraper Area End Here -->
 @endsection
 {{-- @section('scripts')
-    <script src="{{asset('js/app.js')}}"></script>
+<script type="text/javascript">
+    window.onscroll = function(ev) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            window.livewire.emit('load-more');
+        }
+    };
+
+</script>
+<script src="{{ asset('js/app.js') }}"></script>
 @endsection --}}

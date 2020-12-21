@@ -644,10 +644,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Main JS -->
 <script src="{{asset('assets/js/main.js')}}"></script>
 <!-- App JS -->
+<livewire:scripts />
 {{--<script src="{{asset('js/app.js')}}"></script>--}}
 @yield('scripts')
 
-<livewire:scripts />
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5F6XM22"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

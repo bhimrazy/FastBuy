@@ -47,7 +47,7 @@
                 <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
                     <div class="fb-product_wrap shop-product-area">
                         <div class="row">
-                            @foreach ($products as $product)
+                            @foreach ($products as $key => $product)
                                 <div class="col-lg-4 col-md-4 col-sm-6">
                                     <!-- Begin Sigle Product Area -->
                                     <div class="single-product">
@@ -70,6 +70,7 @@
                                                 <a
                                                     href="{{ route('product.productShow', ['product' => $product->slug]) }}">{{ $product->name }}</a>
                                             </h2>
+                                            <small>{{ excerpt($product->description, 6) }}</small>
                                             <div class="rating-box">
                                                 <ul class="rating">
                                                     <li><i class="fa fa-star"></i></li>
@@ -89,10 +90,8 @@
                                                     <li class="shopping-cart_link"><a
                                                             href="{{ route('product.productShow', ['product' => $product->slug]) }}"
                                                             title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                    <li class="quick-view-btn"><a
-                                                            href="{{ route('product.productShow', ['product' => $product->slug]) }}"
-                                                            title="Quick View" data-toggle="modal"
-                                                            data-target="#exampleModalCenter"><i
+                                                    <li class="quick-view-btn"><a href="#" title="Quick View"
+                                                            data-toggle="modal" data-target="#ModalCenter-{{ $key }}"><i
                                                                 class="ion-eye"></i></a></li>
                                                     <li class="single-product_link"><a
                                                             href="{{ route('product.productShow', ['product' => $product->slug]) }}"
@@ -112,7 +111,7 @@
                 <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
                     <div class="fb-product_wrap shop-product-area">
                         <div class="row">
-                            @foreach ($products->take(5) as $product)
+                            @foreach ($products->take(5) as $key => $product)
                                 <div class="col-lg-4 col-md-4 col-sm-6">
                                     <!-- Begin Sigle Product Area -->
                                     <div class="single-product">
@@ -159,10 +158,9 @@
                                                 <li class="shopping-cart_link"><a
                                                         href="{{ route('product.productShow', ['product' => $product->slug]) }}"
                                                         title="Shopping Cart"><i class="ion-bag"></i></a></li>
-                                                <li class="quick-view-btn"><a
-                                                        href="{{ route('product.productShow', ['product' => $product->slug]) }}"
-                                                        title="Quick View" data-toggle="modal"
-                                                        data-target="#exampleModalCenter"><i class="ion-eye"></i></a>
+                                                <li class="quick-view-btn"><a href="#" title="Quick View"
+                                                        data-toggle="modal" data-target="#ModalCenter-{{ $key }}"><i
+                                                            class="ion-eye"></i></a>
                                                 </li>
                                                 <li class="single-product_link"><a
                                                         href="{{ route('product.productShow', ['product' => $product->slug]) }}"
@@ -311,5 +309,123 @@
             </a>
         </div>
         <!--Sidebar Categores Box Area End Here -->
+        @foreach ($products as $key => $product)
+            <!-- Begin Fb's Quick View | Modal Area -->
+            <div class="modal fade modal-wrapper" id="ModalCenter-{{ $key }}">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body pt-15 pb-30 pt-sm-10 pb-sm-30 pb-xs-50">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="modal-inner-area row">
+                                <div class="col-lg-5 col-md-5 col-sm-5">
+                                    <!-- Product Details Left -->
+                                    <div class="product-details-left">
+                                        <div class="product-details-images slider-navigation-1">
+                                            @foreach ($product->media as $media)
+                                                <div class="lg-image">
+                                                    <img src="{{ asset($media->url) }}" loading="lazy"
+                                                        alt="{{ $product->name }}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="product-details-thumbs">
+                                            @foreach ($product->media as $media)
+                                                <div class="sm-image">
+                                                    <img src="{{ asset($media->url) }}" loading="lazy"
+                                                        alt="{{ $product->name }}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <!--// Product Details Left -->
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-7">
+                                    <div class="product-details-view-content pt-40 pt-sm-25">
+                                        <div class="product-info">
+                                            <h2>{{ $product->name }}</h2>
+                                            <div class="price-box pb-20">
+                                                <span
+                                                    class="new-price new-price-2">${{ $product->price - $product->discount * 0.01 * $product->price }}</span>
+                                                <span class="old-price">${{ $product->price }}</span>
+                                            </div>
+                                            <div class="sticker-2">Save 8%</div>
+                                            <div class="product-desc">
+                                                <p>
+                                                    <span>{{ excerpt($product->description) }}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="product-variants">
+                                                <div class="produt-variants-size">
+                                                    <label>Dimension</label>
+                                                    <select class="nice-select">
+                                                        <option value="1" title="S" selected="selected">S</option>
+                                                        <option value="2" title="M">M</option>
+                                                        <option value="3" title="L">L</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="single-add-to-cart">
+                                                <form action="#" class="cart-quantity">
+                                                    <div class="quantity">
+                                                        <label>Quantity</label>
+                                                        <div class="cart-plus-minus">
+                                                            <input class="cart-plus-minus-box" value="1" type="text">
+                                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i>
+                                                            </div>
+                                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button class="fb-btn" type="submit">Add to cart</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="footer-widget-social-link modal-social-link">
+                                            <span>Share: </span>
+                                            <ul class="social-link">
+                                                <li class="facebook">
+                                                    <a href="https://www.facebook.com/" data-toggle="tooltip"
+                                                        target="_blank" title="Facebook">
+                                                        <i class="fa fa-facebook"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="twitter">
+                                                    <a href="https://twitter.com/" data-toggle="tooltip" target="_blank"
+                                                        title="Twitter">
+                                                        <i class="fa fa-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="youtube">
+                                                    <a href="https://www.youtube.com/" data-toggle="tooltip"
+                                                        target="_blank" title="Youtube">
+                                                        <i class="fa fa-youtube"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="google-plus">
+                                                    <a href="https://www.plus.google.com/discover" data-toggle="tooltip"
+                                                        target="_blank" title="Google Plus">
+                                                        <i class="fa fa-google-plus"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="instagram">
+                                                    <a href="https://www.instagram.com/" data-toggle="tooltip"
+                                                        target="_blank" title="Instagram">
+                                                        <i class="fa fa-instagram"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fb's Quick View | Modal Area End Here -->
+        @endforeach
     </div>
 </div>

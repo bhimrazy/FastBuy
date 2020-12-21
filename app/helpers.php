@@ -11,3 +11,7 @@ function initials($str) {
         $ret .= strtoupper($word[0]);
     return $ret;
 }
+
+function excerpt($sentence,$word=25){
+    return \Str::words($sentence, $word,'....');
+}

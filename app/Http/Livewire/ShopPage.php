@@ -10,6 +10,15 @@ use Livewire\WithPagination;
 
 class ShopPage extends Component
 {  use WithPagination;
+    // public $perPage=12;
+    // protected $listeners = [
+    //     'load-more' => 'loadMore'
+    // ];
+
+    // public function loadMore()
+    // {
+    //     $this->perPage = $this->perPage + 9;
+    // }
     public function render()
     {
         $categories=Subcategory::withCount('products')->get();
