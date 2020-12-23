@@ -27,14 +27,12 @@
             <div class="product-select-box">
                 <div class="product-short">
                     <p>Sort By:</p>
-                    <select class="nice-select">
-                        <option value="trending">Relevance</option>
-                        <option value="sales">Name (A - Z)</option>
-                        <option value="sales">Name (Z - A)</option>
-                        <option value="rating">Price (Low &gt; High)</option>
-                        <option value="date">Rating (Lowest)</option>
-                        <option value="price-asc">Model (A - Z)</option>
-                        <option value="price-asc">Model (Z - A)</option>
+                    <select class="nice-select" wire:model="filter.order_field" wire:change="loadProducts">
+                        <option selected disabled>Select</option>
+                        <option value="order_by_name_asc">Name (A - Z)</option>
+                        <option value="order_by_name_desc">Name (Z - A)</option>
+                        <option value="order_by_price_low">Price: Low to High</option>
+                        <option value="order_by_price_high">Price: High to Low</option>
                     </select>
                 </div>
             </div>
@@ -233,8 +231,8 @@
             <div class="sidebar-categores-checkbox">
                 @foreach ($categories->take(5) as $key => $category)
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{ $category }}"
-                            id={{ $category . $key }}>
+                        <input wire:model="filter.category" wire:change="loadProducts" class="form-check-input"
+                            type="checkbox" value="{{ $category }}" id={{ $category . $key }}>
                         <label class="form-check-label" for={{ $category . $key }}>
                             {{ $category->title }}({{ $category->products_count }})
                         </label>
@@ -253,7 +251,8 @@
                     @foreach ($brands->take(5) as $key => $brand)
                         <div class="form-check">
 
-                            <input class="form-check-input" type="checkbox" value="{{ $brand }}" id={{ $brand . $key }}>
+                            <input wire:model="filter.brand" wire:change="loadProducts" class="form-check-input"
+                                type="checkbox" value="{{ $brand }}" id={{ $brand . $key }}>
                             <label class="form-check-label" for={{ $brand . $key }}>
                                 {{ $brand->title }}({{ $brand->products_count }})
                             </label>
@@ -270,7 +269,21 @@
         </div>
         <div class="sidebar-categores-box sidebar-categores_list mt-sm-25 mt-xs-25">
             <div class="sidebar-categores-checkbox">
-                <form action="#">
+                <label for="range">Range</label>
+                <div id="range" class="row">
+                    <div class="col">
+                        <label for="">From</label>
+                        <input type="number" wire:model="filter.range-from" wire:change="loadProducts"
+                            placeholder={{ $minPrice }} class="form-control">
+                    </div>
+
+                    <div class="col">
+                        <label for="">To</label>
+                        <input type="number" wire:model="filter.range-to" wire:change="loadProducts"
+                            placeholder={{ $maxPrice }} class="form-control">
+                    </div>
+                </div>
+                {{-- <form action="#">
                     <ul>
                         <li><input type="radio" name="product-categori"><a href="#">$15.00 - $17.00 (2)</a></li>
                         <li><input type="radio" name="product-categori"><a href="#">$20.00 - $21.00 (1)</a></li>
@@ -280,7 +293,7 @@
                         <li><input type="radio" name="product-categori"><a href="#">$46.00 - $49.00 (1)</a></li>
                         <li><input type="radio" name="product-categori"><a href="#">$50.00 - $53.00 (1)</a></li>
                     </ul>
-                </form>
+                </form> --}}
             </div>
         </div>
         <!--Sidebar Categores Box Area End Here -->
