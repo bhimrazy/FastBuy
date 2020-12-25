@@ -27,15 +27,15 @@
             <div class="product-select-box">
                 <div class="product-short">
                     <p>Sort By:</p>
-                    <select class="nice-select" wire:model="filter.sortBy">
+                    <select class="nice-select" wire:model="sortBy">
                         <option selected disabled>Select</option>
-                        <option {{ $filter['sortBy'] == 'sortByAZ' ? 'selected' : '' }}value="sortByAZ">Name (A - Z)
+                        <option value="sortByAZ">Name (A - Z)
                         </option>
-                        <option {{ $filter['sortBy'] == 'sortByZA' ? 'selected' : '' }} value="sortByZA">Name (Z - A)
+                        <option value="sortByZA">Name (Z - A)
                         </option>
-                        <option {{ $filter['sortBy'] == 'sortByLH' ? 'selected' : '' }} value="sortByLH">Price: Low to
+                        <option value="sortByLH">Price: Low to
                             High</option>
-                        <option {{ $filter['sortBy'] == 'sortByHL' ? 'selected' : '' }} value="sortByHL">Price: High to
+                        <option value="sortByHL">Price: High to
                             Low</option>
                     </select>
                 </div>
@@ -113,7 +113,7 @@
                 <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
                     <div class="fb-product_wrap shop-product-area">
                         <div class="row">
-                            @foreach ($products->take(5) as $key => $product)
+                            @foreach ($products->take(4) as $key => $product)
                                 <div class="col-lg-4 col-md-4 col-sm-6">
                                     <!-- Begin Sigle Product Area -->
                                     <div class="single-product">
@@ -204,6 +204,7 @@
         <div class="sidebar-title">
             <h2>Home and Kitchen Appliances</h2>
         </div>
+
         <!--Begin Sidebar Categores Box Area -->
         <div class="sidebar-categores-box mt-sm-30 mt-xs-30">
             <!-- Begin Category Sub Menu Area -->
@@ -234,9 +235,9 @@
         <div class="sidebar-categores-box sidebar-categores_list mt-sm-25 mt-xs-25">
             <div class="sidebar-categores-checkbox">
                 @foreach ($categories->take(5) as $category)
-                    <div wire:key="category-{{ $category->id }}" class="form-check">
-                        <input wire:model="filter.category" class="form-check-input" type="checkbox"
-                            value="{{ $category->title }}" id=category-{{ $category->id }}>
+                    <div class="form-check">
+                        <input class="form-check-input" wire:model="selectedCategories" type="checkbox"
+                            value="{{ $category->id }}" id=category-{{ $category->id }}>
                         <label class="form-check-label" for=category-{{ $category->id }}>
                             {{ $category->title }}({{ $category->products_count }})
                         </label>
@@ -252,10 +253,9 @@
         <div class="sidebar-categores-box sidebar-categores_list mt-sm-25 mt-xs-25">
             <div class="sidebar-categores-checkbox">
                 @foreach ($brands->take(5) as $brand)
-                    <div wire:key="brand-{{ $brand->id }}" class="form-check">
-                        <input wire:model="filter.brand.{{ $brand->id }}" wire.click="loadProducts"
-                            class="form-check-input" type="checkbox" value="{{ $brand->title }}"
-                            id="brand-{{ $brand->id }}">
+                    <div class="form-check">
+                        <input class="form-check-input" wire:model="selectedBrands" type="checkbox"
+                            value="{{ $brand->id }}" id="brand-{{ $brand->id }}">
                         <label class="form-check-label" for="brand-{{ $brand->id }}">
                             {{ $brand->title }}({{ $brand->products_count }})
                         </label>
@@ -275,13 +275,13 @@
                 <div id="range" class="row">
                     <div class="col">
                         <label for="">Min</label>
-                        <input type="number" wire:model="filter.min" placeholder={{ $minPrice }} class="form-control"
+                        <input type="number" wire:model="min" placeholder={{ $minPrice }} class="form-control"
                             min={{ $minPrice }} max={{ $maxPrice }}>
                     </div>
 
                     <div class="col">
                         <label for="">Max</label>
-                        <input type="number" wire:model="filter.max" placeholder={{ $maxPrice }} class="form-control"
+                        <input type="number" wire:model="max" placeholder={{ $maxPrice }} class="form-control"
                             min={{ $minPrice }} max={{ $maxPrice }}>
                     </div>
                 </div>
@@ -298,9 +298,10 @@
                 </form> --}}
             </div>
         </div>
+
         <!--Sidebar Categores Box Area End Here -->
         <!--Begin Sidebar Categores Box Area -->
-        <div class="sidebar-title-2">
+        {{-- <div class="sidebar-title-2">
             <h2>Properties</h2>
         </div>
         <div class="sidebar-categores-box sidebar-categores_list mt-sm-25 mt-xs-25">
@@ -314,7 +315,7 @@
                     </ul>
                 </form>
             </div>
-        </div>
+        </div> --}}
         <!--Sidebar Categores Box Area End Here -->
 
         <!--Begin Sidebar Categores Box Area -->
