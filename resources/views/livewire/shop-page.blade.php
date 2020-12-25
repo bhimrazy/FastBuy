@@ -93,7 +93,7 @@
                                                             href="{{ route('product.productShow', ['product' => $product->slug]) }}"
                                                             title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                     <li class="quick-view-btn"><a href="#" title="Quick View"
-                                                            data-toggle="modal" data-target="#ModalCenter-{{ $key }}"><i
+                                                            data-toggle="modal" data-target="#{{ $product->slug }}"><i
                                                                 class="ion-eye"></i></a></li>
                                                     <li class="single-product_link"><a
                                                             href="{{ route('product.productShow', ['product' => $product->slug]) }}"
@@ -161,8 +161,8 @@
                                                         href="{{ route('product.productShow', ['product' => $product->slug]) }}"
                                                         title="Shopping Cart"><i class="ion-bag"></i></a></li>
                                                 <li class="quick-view-btn"><a href="#" title="Quick View"
-                                                        data-toggle="modal" data-target="#ModalCenter-{{ $key }}"><i
-                                                            class="ion-eye"></i></a>
+                                                        value="{{ $product->slug }}" data-toggle="modal"
+                                                        data-target="#{{ $product->slug }}"><i class="ion-eye"></i></a>
                                                 </li>
                                                 <li class="single-product_link"><a
                                                         href="{{ route('product.productShow', ['product' => $product->slug]) }}"
@@ -327,7 +327,7 @@
         <!--Sidebar Categores Box Area End Here -->
         @foreach ($products as $key => $product)
             <!-- Begin Fb's Quick View | Modal Area -->
-            <div class="modal fade modal-wrapper" id="ModalCenter-{{ $key }}">
+            <div wire:ignore.self class="modal fade modal-wrapper" id="{{ $product->slug }}">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-body pt-15 pb-30 pt-sm-10 pb-sm-30 pb-xs-50">
@@ -339,7 +339,7 @@
                                     <!-- Product Details Left -->
                                     <div class="product-details-left">
                                         <div class="product-details-images slider-navigation-1">
-                                            @foreach ($product->media as $media)
+                                            @foreach ($product->media->take(3) as $media)
                                                 <div class="lg-image">
                                                     <img src="{{ asset($media->url) }}" loading="lazy"
                                                         alt="{{ $product->name }}">
@@ -347,7 +347,7 @@
                                             @endforeach
                                         </div>
                                         <div class="product-details-thumbs">
-                                            @foreach ($product->media as $media)
+                                            @foreach ($product->media->take(3) as $media)
                                                 <div class="sm-image">
                                                     <img src="{{ asset($media->url) }}" loading="lazy"
                                                         alt="{{ $product->name }}">

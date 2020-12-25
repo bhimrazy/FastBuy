@@ -7,16 +7,20 @@ use App\Product;
 use App\Subcategory;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Database\Eloquent\Builder;
 
 class ShopPage extends Component
-{  use WithPagination;
+{ 
+    use WithPagination;
+
     public $min="";
     public $max="";
     public $sortBy="";
     public $selectedCategories = [];
     public $selectedBrands = [];
     
+    public function resetFilters(){
+        $this->reset(['min','max','sortBy','selectedCategories','selectedBrands']);
+    }
     public function getMethod(){
         if($this->sortBy !== null){
                 switch ($this->sortBy) {
@@ -66,11 +70,10 @@ class ShopPage extends Component
                 });
             })
             ->paginate(9);
-            
+        
         $minPrice=Product::min('price');
         $maxPrice=Product::max('price');
         $categories=Subcategory::withCount('products')->get();
-        // dd($products);
         $totalProducts=Product::all()->count();
         $brands=Brand::withCount('products')->get();
         return view('livewire.shop-page',compact(['categories','products','brands','totalProducts','minPrice','maxPrice']));
