@@ -29,14 +29,6 @@
     </div>
     <!-- Content Wraper Area End Here -->
 @endsection
-@section('scripts')
-    {{-- <script type="text/javascript">
-        window.onscroll = function(ev) {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                window.livewire.emit('load-more');
-            }
-        };
+{{-- @section('scripts')
 
-    </script>
-    <script src="{{ asset('js/app.js') }}"></script> --}}
-@endsection
+@endsection --}}
